@@ -92,16 +92,14 @@ img {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(234, 228, 200, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: transparent;
     border-bottom: 1px solid transparent;
-    transition: border-color var(--transition-medium), background var(--transition-medium);
+    transition: background var(--transition-medium), border-color var(--transition-medium);
 }
 
 .navbar.scrolled {
-    border-bottom-color: var(--color-border);
-    background: rgba(234, 228, 200, 0.95);
+    background: var(--color-bg-dark);
+    border-bottom-color: #222222;
 }
 
 .nav-container {
@@ -120,9 +118,19 @@ img {
     font-weight: 400;
     letter-spacing: -0.03em;
     color: var(--color-bg-dark);
+    transition: color var(--transition-medium);
 }
 
 .nav-logo span {
+    color: var(--color-bg-dark);
+    transition: color var(--transition-medium);
+}
+
+.navbar.scrolled .nav-logo {
+    color: var(--color-text-on-dark);
+}
+
+.navbar.scrolled .nav-logo span {
     color: var(--color-accent);
 }
 
@@ -135,13 +143,21 @@ img {
 .nav-menu li a {
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--color-text-secondary);
-    transition: color var(--transition-fast);
+    color: rgba(1, 1, 1, 0.6);
+    transition: color var(--transition-medium);
     letter-spacing: 0.01em;
 }
 
 .nav-menu li a:hover {
-    color: var(--color-text-primary);
+    color: var(--color-bg-dark);
+}
+
+.navbar.scrolled .nav-menu li a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar.scrolled .nav-menu li a:hover {
+    color: var(--color-text-on-dark);
 }
 
 .nav-cta {
@@ -150,12 +166,21 @@ img {
     padding: 10px 24px;
     border-radius: var(--radius-sm);
     font-weight: 600 !important;
-    transition: background var(--transition-fast), transform var(--transition-fast) !important;
+    transition: background var(--transition-medium), transform var(--transition-fast) !important;
 }
 
 .nav-cta:hover {
     background: #333333;
     transform: translateY(-1px);
+}
+
+.navbar.scrolled .nav-cta {
+    background: var(--color-accent);
+    color: var(--color-text-on-dark) !important;
+}
+
+.navbar.scrolled .nav-cta:hover {
+    background: var(--color-accent-hover);
 }
 
 .nav-toggle {
@@ -171,8 +196,12 @@ img {
 .nav-toggle span {
     width: 24px;
     height: 2px;
-    background: var(--color-text-primary);
-    transition: var(--transition-fast);
+    background: var(--color-bg-dark);
+    transition: background var(--transition-medium);
+}
+
+.navbar.scrolled .nav-toggle span {
+    background: var(--color-text-on-dark);
 }
 
 /* --- Buttons --- */
