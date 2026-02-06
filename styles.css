@@ -119,11 +119,24 @@ img {
     letter-spacing: -0.03em;
     color: var(--color-bg-dark);
     transition: color var(--transition-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-logo strong {
+    font-weight: 700;
 }
 
 .nav-logo span {
     color: var(--color-bg-dark);
     transition: color var(--transition-medium);
+}
+
+.cc-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
 }
 
 .navbar.scrolled .nav-logo {
@@ -977,9 +990,15 @@ img {
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: -0.03em;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 16px;
     color: var(--color-text-on-dark);
+}
+
+.footer-logo strong {
+    font-weight: 700;
 }
 
 .footer-logo span {
