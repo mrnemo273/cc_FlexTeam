@@ -11,23 +11,29 @@
 }
 
 :root {
-    --color-bg-primary: #F4EFE7;
-    --color-bg-cream: #EBE6DE;
-    --color-bg-dark: #1A1A1A;
-    --color-bg-card: #FFFFFF;
-    --color-bg-card-hover: #FAF7F3;
-    --color-accent: #E8764A;
-    --color-accent-hover: #D4663E;
-    --color-accent-muted: rgba(232, 118, 74, 0.12);
-    --color-accent-secondary: #9ECDB8;
-    --color-accent-secondary-muted: rgba(158, 205, 184, 0.2);
-    --color-text-primary: #1A1A1A;
+    --color-parchment: #EAE4C8;
+    --color-black: #010101;
+    --color-burnt-sienna: #EB633F;
+    --color-straw: #E8EB74;
+    --color-electric-blue: #88E8F0;
+    --color-white: #FFFFFF;
+    --color-bg-primary: var(--color-parchment);
+    --color-bg-dark: var(--color-black);
+    --color-bg-card: var(--color-white);
+    --color-bg-card-hover: #F5F3EC;
+    --color-accent: var(--color-burnt-sienna);
+    --color-accent-hover: #D9552F;
+    --color-accent-muted: rgba(235, 99, 63, 0.12);
+    --color-accent-secondary: var(--color-electric-blue);
+    --color-accent-secondary-muted: rgba(136, 232, 240, 0.2);
+    --color-straw-muted: rgba(232, 235, 116, 0.2);
+    --color-text-primary: var(--color-black);
     --color-text-secondary: #555555;
     --color-text-muted: #999999;
-    --color-text-on-dark: #FFFFFF;
+    --color-text-on-dark: var(--color-white);
     --color-text-on-dark-secondary: #BBBBBB;
-    --color-border: #DDD8D0;
-    --color-border-light: #C8C3BB;
+    --color-border: #D5D0C0;
+    --color-border-light: #C0BBA9;
     --font-heading: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --transition-fast: 0.2s ease;
@@ -85,7 +91,7 @@ img {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(244, 239, 231, 0.85);
+    background: rgba(234, 228, 200, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid transparent;
@@ -94,7 +100,7 @@ img {
 
 .navbar.scrolled {
     border-bottom-color: var(--color-border);
-    background: rgba(244, 239, 231, 0.95);
+    background: rgba(234, 228, 200, 0.95);
 }
 
 .nav-container {
@@ -429,13 +435,13 @@ img {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-text-on-dark);
-    box-shadow: 0 0 80px rgba(232, 118, 74, 0.2);
+    box-shadow: 0 0 80px rgba(235, 99, 63, 0.2);
     animation: pulse-glow 3s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 60px rgba(232, 118, 74, 0.15); }
-    50% { box-shadow: 0 0 100px rgba(232, 118, 74, 0.3); }
+    0%, 100% { box-shadow: 0 0 60px rgba(235, 99, 63, 0.15); }
+    50% { box-shadow: 0 0 100px rgba(235, 99, 63, 0.3); }
 }
 
 .solution-spokes {
@@ -581,20 +587,20 @@ img {
 }
 
 .tier-executive {
-    background: linear-gradient(135deg, rgba(232, 118, 74, 0.25), rgba(232, 118, 74, 0.08));
-    border: 1px solid rgba(232, 118, 74, 0.4);
+    background: linear-gradient(135deg, rgba(235, 99, 63, 0.25), rgba(235, 99, 63, 0.08));
+    border: 1px solid rgba(235, 99, 63, 0.4);
     color: var(--color-accent);
 }
 
 .tier-manager {
     background: var(--color-accent-muted);
-    border: 1px solid rgba(232, 118, 74, 0.2);
+    border: 1px solid rgba(235, 99, 63, 0.2);
     color: var(--color-accent);
 }
 
 .tier-specialist {
     background: var(--color-accent-secondary-muted);
-    border: 1px solid rgba(158, 205, 184, 0.3);
+    border: 1px solid rgba(136, 232, 240, 0.3);
     color: var(--color-accent-secondary);
 }
 
@@ -827,17 +833,17 @@ img {
 }
 
 .highlight-col {
-    background: rgba(232, 118, 74, 0.06);
+    background: rgba(235, 99, 63, 0.06);
     color: var(--color-accent) !important;
     font-weight: 600 !important;
 }
 
 .featured-row td {
-    background: rgba(232, 118, 74, 0.08);
+    background: rgba(235, 99, 63, 0.08);
 }
 
 .featured-row .highlight-col {
-    background: rgba(232, 118, 74, 0.14);
+    background: rgba(235, 99, 63, 0.14);
 }
 
 /* --- Advantage Cards --- */
