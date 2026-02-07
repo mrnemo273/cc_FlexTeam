@@ -971,23 +971,13 @@ img {
 }
 
 .footer-logo {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: -0.03em;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px 6px;
+    display: inline-block;
     margin-bottom: 16px;
-    color: var(--color-text-on-dark);
 }
 
-.footer-logo strong {
-    font-weight: 700;
-}
-
-.footer-logo span {
-    color: var(--color-accent);
+.footer-logo-img {
+    height: 40px;
+    width: auto;
 }
 
 .footer-brand p {
