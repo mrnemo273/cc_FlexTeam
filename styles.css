@@ -137,6 +137,19 @@ img {
     width: 28px;
     height: 28px;
     flex-shrink: 0;
+    object-fit: contain;
+}
+
+.cc-icon-white {
+    display: none;
+}
+
+.navbar.scrolled .cc-icon-black {
+    display: none;
+}
+
+.navbar.scrolled .cc-icon-white {
+    display: block;
 }
 
 .navbar.scrolled .nav-logo {
