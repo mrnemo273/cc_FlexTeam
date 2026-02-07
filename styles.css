@@ -121,7 +121,7 @@ img {
     transition: color var(--transition-medium);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px 6px;
 }
 
 .nav-logo strong {
@@ -134,8 +134,8 @@ img {
 }
 
 .cc-icon {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
     object-fit: contain;
 }
@@ -1005,7 +1005,7 @@ img {
     letter-spacing: -0.03em;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px 6px;
     margin-bottom: 16px;
     color: var(--color-text-on-dark);
 }
