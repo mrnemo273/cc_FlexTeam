@@ -330,6 +330,14 @@ img {
     line-height: 1.7;
     color: rgba(26, 26, 26, 0.75);
     max-width: 680px;
+    margin-bottom: 20px;
+}
+
+.hero-body {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(26, 26, 26, 0.6);
+    max-width: 680px;
     margin-bottom: 40px;
 }
 
