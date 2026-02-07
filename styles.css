@@ -372,11 +372,11 @@ img {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: clamp(500px, 65vw, 1000px);
+    width: clamp(600px, 75vw, 1200px);
     height: auto;
     z-index: 10;
     pointer-events: none;
-    transform: translateY(50%);
+    transform: translateY(50%) translateX(50%);
 }
 
 /* Scroll down arrow */
