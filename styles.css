@@ -385,9 +385,18 @@ img {
     border-color: #444444;
 }
 
-.section-dark .spoke-label {
+.section-dark .solution-feature-card {
     background: #222222;
     border-color: #333333;
+}
+
+.section-dark .solution-feature-card:hover {
+    background: #2a2a2a;
+    border-color: #444444;
+}
+
+.section-dark .solution-feature-card p,
+.section-dark .solution-body p {
     color: var(--color-text-on-dark-secondary);
 }
 
@@ -475,72 +484,66 @@ img {
     line-height: 1.65;
 }
 
-/* --- Solution Visual --- */
-.solution-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
+/* --- Solution Content --- */
+.solution-content {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.solution-center {
-    display: flex;
-    justify-content: center;
+.solution-body {
+    max-width: 720px;
+    margin: 0 auto 56px;
+    text-align: center;
 }
 
-.solution-hub {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--color-text-on-dark);
-    box-shadow: 0 0 80px rgba(235, 99, 63, 0.2);
-    animation: pulse-glow 3s ease-in-out infinite;
+.solution-body p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: 16px;
 }
 
-@keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 60px rgba(235, 99, 63, 0.15); }
-    50% { box-shadow: 0 0 100px rgba(235, 99, 63, 0.3); }
+.solution-body p:last-child {
+    margin-bottom: 0;
 }
 
-.solution-spokes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    max-width: 800px;
+.solution-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
 
-.solution-spoke {
+.solution-feature-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 40px 32px;
+    transition: all var(--transition-medium);
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px);
 }
 
-.solution-spoke.visible {
+.solution-feature-card.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.spoke-label {
-    display: inline-block;
-    padding: 12px 28px;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    transition: all var(--transition-fast);
+.solution-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
-.spoke-label:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+.solution-feature-card h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.solution-feature-card p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
 }
 
 /* --- Team Section --- */
@@ -1126,12 +1129,9 @@ img {
 .talent-tiers [data-animate]:nth-child(2) { transition-delay: 0.15s; }
 .talent-tiers [data-animate]:nth-child(3) { transition-delay: 0.3s; }
 
-.solution-spokes [data-animate]:nth-child(1) { transition-delay: 0s; }
-.solution-spokes [data-animate]:nth-child(2) { transition-delay: 0.08s; }
-.solution-spokes [data-animate]:nth-child(3) { transition-delay: 0.16s; }
-.solution-spokes [data-animate]:nth-child(4) { transition-delay: 0.24s; }
-.solution-spokes [data-animate]:nth-child(5) { transition-delay: 0.32s; }
-.solution-spokes [data-animate]:nth-child(6) { transition-delay: 0.4s; }
+.solution-features [data-animate]:nth-child(1) { transition-delay: 0s; }
+.solution-features [data-animate]:nth-child(2) { transition-delay: 0.1s; }
+.solution-features [data-animate]:nth-child(3) { transition-delay: 0.2s; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
@@ -1220,10 +1220,8 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .solution-hub {
-        width: 150px;
-        height: 150px;
-        font-size: 1rem;
+    .solution-features {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1243,7 +1241,8 @@ img {
     .challenge-card,
     .service-card,
     .engagement-card,
-    .advantage-card {
+    .advantage-card,
+    .solution-feature-card {
         padding: 28px 24px;
     }
 }
