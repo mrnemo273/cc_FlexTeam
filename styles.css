@@ -472,27 +472,22 @@ img {
 
 .solution-card {
     position: sticky;
-    top: 320px;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 48px 40px 48px 100px;
-    margin-bottom: 50vh;
+    margin-bottom: 24px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     transition: box-shadow var(--transition-fast);
 }
 
-.solution-card:last-child {
-    margin-bottom: 24px;
-}
-
-/* Cards stack in the same spot — later cards cover earlier ones */
-.solution-card[data-card="1"] { z-index: 1; }
-.solution-card[data-card="2"] { z-index: 2; }
-.solution-card[data-card="3"] { z-index: 3; }
-.solution-card[data-card="4"] { z-index: 4; }
-.solution-card[data-card="5"] { z-index: 5; }
-.solution-card[data-card="6"] { z-index: 6; }
+/* Staggered sticky tops — cards peek then stack over each other */
+.solution-card[data-card="1"] { top: 240px; z-index: 1; }
+.solution-card[data-card="2"] { top: 260px; z-index: 2; }
+.solution-card[data-card="3"] { top: 280px; z-index: 3; }
+.solution-card[data-card="4"] { top: 300px; z-index: 4; }
+.solution-card[data-card="5"] { top: 320px; z-index: 5; }
+.solution-card[data-card="6"] { top: 340px; z-index: 6; }
 
 .solution-card-number {
     position: absolute;
@@ -1190,10 +1185,12 @@ img {
         top: 32px;
     }
 
-    .solution-card {
-        top: 260px;
-        margin-bottom: 40vh;
-    }
+    .solution-card[data-card="1"] { top: 200px; }
+    .solution-card[data-card="2"] { top: 216px; }
+    .solution-card[data-card="3"] { top: 232px; }
+    .solution-card[data-card="4"] { top: 248px; }
+    .solution-card[data-card="5"] { top: 264px; }
+    .solution-card[data-card="6"] { top: 280px; }
 }
 
 @media (max-width: 480px) {
