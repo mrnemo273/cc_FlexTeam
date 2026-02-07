@@ -370,12 +370,13 @@ img {
 /* Wordmark accent — straddles hero / value-prop boundary */
 .hero-logo-accent {
     position: absolute;
-    bottom: -30%;
-    right: 24px;
-    height: clamp(400px, 55vh, 620px);
-    width: auto;
+    bottom: 0;
+    right: 0;
+    width: clamp(500px, 65vw, 1000px);
+    height: auto;
     z-index: 10;
     pointer-events: none;
+    transform: translateY(50%);
 }
 
 /* Scroll down arrow */
@@ -1254,9 +1255,8 @@ img {
     }
 
     .hero-logo-accent {
-        height: 300px;
-        bottom: -25%;
-        right: 16px;
+        width: clamp(320px, 80vw, 500px);
+        right: 0;
     }
 
     .hero-scroll-arrow {
