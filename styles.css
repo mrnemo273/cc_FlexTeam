@@ -385,18 +385,13 @@ img {
     border-color: #444444;
 }
 
-.section-dark .solution-feature-card {
+.section-dark .solution-card {
     background: #222222;
     border-color: #333333;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
-.section-dark .solution-feature-card:hover {
-    background: #2a2a2a;
-    border-color: #444444;
-}
-
-.section-dark .solution-feature-card p,
-.section-dark .solution-body p {
+.section-dark .solution-card p {
     color: var(--color-text-on-dark-secondary);
 }
 
@@ -484,66 +479,61 @@ img {
     line-height: 1.65;
 }
 
-/* --- Solution Content --- */
-.solution-content {
-    max-width: 900px;
-    margin: 0 auto;
+/* --- Solution Stacking Cards --- */
+.solution-section {
+    padding-bottom: 0;
 }
 
-.solution-body {
+.solution-stack {
     max-width: 720px;
-    margin: 0 auto 56px;
-    text-align: center;
+    margin: 0 auto;
+    /* Extra bottom padding so last card has room to reach its sticky top */
+    padding-bottom: 40px;
 }
 
-.solution-body p {
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    margin-bottom: 16px;
-}
-
-.solution-body p:last-child {
-    margin-bottom: 0;
-}
-
-.solution-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-.solution-feature-card {
+.solution-card {
+    position: sticky;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 40px 32px;
-    transition: all var(--transition-medium);
-    opacity: 0;
-    transform: translateY(24px);
+    padding: 48px 40px 48px 100px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--transition-fast);
 }
 
-.solution-feature-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Each card sticks a bit lower so the tops peek out behind the next */
+.solution-card[data-card="1"] { top: 100px; z-index: 1; }
+.solution-card[data-card="2"] { top: 120px; z-index: 2; }
+.solution-card[data-card="3"] { top: 140px; z-index: 3; }
+.solution-card[data-card="4"] { top: 160px; z-index: 4; }
+.solution-card[data-card="5"] { top: 180px; z-index: 5; }
+.solution-card[data-card="6"] { top: 200px; z-index: 6; }
+
+.solution-card-number {
+    position: absolute;
+    top: 40px;
+    left: 32px;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-accent);
+    letter-spacing: -0.04em;
+    opacity: 0.35;
 }
 
-.solution-feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
-.solution-feature-card h3 {
-    font-size: 1.125rem;
+.solution-card h3 {
+    font-size: 1.25rem;
     font-weight: 500;
     margin-bottom: 12px;
     letter-spacing: -0.01em;
 }
 
-.solution-feature-card p {
-    font-size: 0.9375rem;
+.solution-card p {
+    font-size: 1rem;
     color: var(--color-text-secondary);
-    line-height: 1.65;
+    line-height: 1.7;
 }
 
 /* --- Team Section --- */
@@ -1129,9 +1119,6 @@ img {
 .talent-tiers [data-animate]:nth-child(2) { transition-delay: 0.15s; }
 .talent-tiers [data-animate]:nth-child(3) { transition-delay: 0.3s; }
 
-.solution-features [data-animate]:nth-child(1) { transition-delay: 0s; }
-.solution-features [data-animate]:nth-child(2) { transition-delay: 0.1s; }
-.solution-features [data-animate]:nth-child(3) { transition-delay: 0.2s; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
@@ -1220,9 +1207,23 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .solution-features {
-        grid-template-columns: 1fr;
+    .solution-card {
+        padding: 36px 24px 36px 80px;
     }
+
+    .solution-card-number {
+        font-size: 2rem;
+        left: 24px;
+        top: 32px;
+    }
+
+    /* Tighten sticky offsets on mobile */
+    .solution-card[data-card="1"] { top: 80px; }
+    .solution-card[data-card="2"] { top: 96px; }
+    .solution-card[data-card="3"] { top: 112px; }
+    .solution-card[data-card="4"] { top: 128px; }
+    .solution-card[data-card="5"] { top: 144px; }
+    .solution-card[data-card="6"] { top: 160px; }
 }
 
 @media (max-width: 480px) {
@@ -1241,8 +1242,17 @@ img {
     .challenge-card,
     .service-card,
     .engagement-card,
-    .advantage-card,
-    .solution-feature-card {
+    .advantage-card {
         padding: 28px 24px;
+    }
+
+    .solution-card {
+        padding: 28px 20px 28px 68px;
+    }
+
+    .solution-card-number {
+        font-size: 1.75rem;
+        left: 20px;
+        top: 24px;
     }
 }
