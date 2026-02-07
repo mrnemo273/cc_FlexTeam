@@ -479,29 +479,15 @@ img {
     line-height: 1.65;
 }
 
-/* --- Solution Two-Column Stacking Cards --- */
+/* --- Solution Stacking Cards --- */
 .solution-section {
     padding-bottom: 0;
 }
 
-.solution-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
-}
-
-.solution-left {
-    position: sticky;
-    top: 120px;
-    text-align: left;
-}
-
-.solution-left .section-title {
-    margin-bottom: 0;
-}
-
-.solution-right {
+.solution-stack {
+    max-width: 720px;
+    margin: 0 auto;
+    /* Extra bottom padding so last card has room to reach its sticky top */
     padding-bottom: 40px;
 }
 
@@ -510,7 +496,7 @@ img {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 40px 36px 40px 88px;
+    padding: 48px 40px 48px 100px;
     margin-bottom: 24px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     transition: box-shadow var(--transition-fast);
@@ -526,8 +512,8 @@ img {
 
 .solution-card-number {
     position: absolute;
-    top: 40px;
-    left: 28px;
+    top: 48px;
+    left: 32px;
     font-family: var(--font-heading);
     font-size: 2rem;
     font-weight: 400;
@@ -1218,16 +1204,6 @@ img {
 
     .flexibility-grid {
         grid-template-columns: 1fr;
-    }
-
-    .solution-layout {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .solution-left {
-        position: static;
-        text-align: center;
     }
 
     .solution-card {
