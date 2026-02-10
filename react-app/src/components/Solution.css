@@ -1,0 +1,84 @@
+.solution-section {
+    padding-bottom: 0;
+}
+
+.solution-section .section-header {
+    margin-bottom: 48px;
+}
+
+.solution-stack {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.solution-card {
+    position: sticky;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 48px 40px 48px 100px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--transition-fast);
+}
+
+.solution-card[data-card="1"] { top: 100px; z-index: 1; }
+.solution-card[data-card="2"] { top: 120px; z-index: 2; }
+.solution-card[data-card="3"] { top: 140px; z-index: 3; }
+.solution-card[data-card="4"] { top: 160px; z-index: 4; }
+.solution-card[data-card="5"] { top: 180px; z-index: 5; }
+.solution-card[data-card="6"] { top: 200px; z-index: 6; }
+
+.solution-card-number {
+    position: absolute;
+    top: 48px;
+    left: 32px;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-accent-secondary);
+    letter-spacing: -0.04em;
+}
+
+.solution-card h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.solution-card p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .solution-card {
+        padding: 36px 24px 36px 80px;
+    }
+    .solution-card-number {
+        font-size: 2rem;
+        left: 24px;
+        top: 32px;
+    }
+    .solution-card[data-card="1"] { top: 80px; }
+    .solution-card[data-card="2"] { top: 96px; }
+    .solution-card[data-card="3"] { top: 112px; }
+    .solution-card[data-card="4"] { top: 128px; }
+    .solution-card[data-card="5"] { top: 144px; }
+    .solution-card[data-card="6"] { top: 160px; }
+}
+
+@media (max-width: 480px) {
+    .solution-card {
+        padding: 28px 20px 28px 68px;
+    }
+    .solution-card-number {
+        font-size: 1.75rem;
+        left: 20px;
+        top: 24px;
+    }
+}

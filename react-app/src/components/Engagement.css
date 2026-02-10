@@ -1,0 +1,103 @@
+.engagement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 80px;
+}
+
+.engagement-card {
+    background: #222222;
+    border: 1px solid #333333;
+    border-radius: var(--radius-md);
+    padding: 40px 32px;
+    text-align: center;
+    transition: all var(--transition-medium);
+}
+
+.engagement-card:hover {
+    background: #2a2a2a;
+    border-color: #444444;
+    transform: translateY(-4px);
+}
+
+.engagement-icon-wrap {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 24px;
+    color: var(--color-accent);
+}
+
+.engagement-card h3 {
+    font-size: 1.1875rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+
+.engagement-card p {
+    font-size: 0.9375rem;
+    color: var(--color-text-on-dark-secondary);
+    line-height: 1.65;
+}
+
+/* Flexibility */
+.flexibility-section {
+    text-align: center;
+}
+
+.flexibility-section h3 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+}
+
+.flexibility-intro {
+    font-size: 1.0625rem;
+    color: var(--color-text-on-dark-secondary);
+    margin-bottom: 40px;
+}
+
+.flexibility-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flexibility-card {
+    background: #222222;
+    border: 1px solid #333333;
+    border-radius: var(--radius-md);
+    padding: 36px 32px;
+    text-align: left;
+    transition: all var(--transition-medium);
+}
+
+.flexibility-card h4 {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: var(--color-accent);
+}
+
+.flexibility-card p {
+    font-size: 0.9375rem;
+    color: var(--color-text-on-dark-secondary);
+    line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+    .engagement-grid {
+        grid-template-columns: 1fr;
+    }
+    .flexibility-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .engagement-card {
+        padding: 28px 24px;
+    }
+}

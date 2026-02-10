@@ -1,0 +1,196 @@
+/* =============================================
+   FlexTeam - Chameleon Collective
+   ============================================= */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-parchment: #EAE4C8;
+    --color-black: #010101;
+    --color-burnt-sienna: #EB633F;
+    --color-straw: #E8EB74;
+    --color-electric-blue: #88E8F0;
+    --color-white: #FFFFFF;
+    --color-bg-primary: var(--color-parchment);
+    --color-bg-dark: var(--color-black);
+    --color-bg-card: var(--color-white);
+    --color-bg-card-hover: #F5F3EC;
+    --color-accent: var(--color-burnt-sienna);
+    --color-accent-hover: #D9552F;
+    --color-accent-muted: rgba(235, 99, 63, 0.12);
+    --color-accent-secondary: var(--color-electric-blue);
+    --color-accent-secondary-muted: rgba(136, 232, 240, 0.2);
+    --color-straw-muted: rgba(232, 235, 116, 0.2);
+    --color-text-primary: var(--color-black);
+    --color-text-secondary: #555555;
+    --color-text-muted: #999999;
+    --color-text-on-dark: var(--color-white);
+    --color-text-on-dark-secondary: #BBBBBB;
+    --color-border: #D5D0C0;
+    --color-border-light: #C0BBA9;
+    --font-heading: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.4s ease;
+    --transition-slow: 0.6s ease;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-fast);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+}
+
+.btn-primary:hover {
+    background: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.btn-large {
+    padding: 18px 40px;
+    font-size: 1.0625rem;
+}
+
+/* --- Sections --- */
+.section {
+    padding: 120px 0;
+}
+
+.section-dark {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 72px;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.section-dark .section-subtitle {
+    color: var(--color-text-on-dark-secondary);
+}
+
+.section-subtitle strong {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* --- Animate on scroll --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .section {
+        padding: 80px 0;
+    }
+    .section-header {
+        margin-bottom: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    .section-title {
+        font-size: 1.75rem;
+    }
+}
