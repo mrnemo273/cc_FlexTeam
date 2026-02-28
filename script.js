@@ -1,4 +1,4 @@
-// FlexTeam - Interactive Script
+// Chameleon Bench - Interactive Script
 
 (function () {
     'use strict';
@@ -76,7 +76,7 @@
     });
 
     // --- Active nav link highlighting ---
-    var sections = document.querySelectorAll('section[id]');
+    var sections = document.querySelectorAll('section[id], header[id], footer[id]');
 
     function updateActiveNav() {
         var scrollPos = window.scrollY + navbar.offsetHeight + 100;

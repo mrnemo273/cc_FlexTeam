@@ -3,495 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexTeam | Fractional Teams for PE Portfolio Growth</title>
+    <title>The Chameleon Bench | Chameleon Collective</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo"><img class="cc-logo cc-logo-black" src="images/CCWorkMark_Horiz_Black.png" alt="Chameleon Collective"><img class="cc-logo cc-logo-white" src="images/CCWorkMark_Horiz_White.png" alt="Chameleon Collective"></a>
+            <a href="#" class="nav-logo">
+                <img src="images/cc-logo.svg" alt="Chameleon Collective" class="nav-logo-img">
+            </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#challenge">The Challenge</a></li>
-                <li><a href="#solution">Our Solution</a></li>
-                <li><a href="#team">Our Team</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#advantage">Why Us</a></li>
-                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+                <li><a href="#challenge">Challenge</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#model">Model</a></li>
+                <li><a href="#usecases">Use Cases</a></li>
+                <li><a href="#team">Meet the Team</a></li>
             </ul>
+            <a href="#contact" class="nav-cta">Get Started <span class="arrow">&#8594;</span></a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="hero" id="hero">
-        <div class="hero-bg-pattern"></div>
-        <div class="container">
+        <div class="hero-layout">
             <div class="hero-content">
-                <p class="hero-eyebrow">Flex Teams</p>
-                <h1 class="hero-title">Transform How You Invest in Marketing Talent</h1>
-                <p class="hero-subtitle">
-                    Fractional senior leaders and experts who embed with your team, deliver results, and build lasting capability.
-                </p>
-                <div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                <div class="hero-text-top">
+                    <div class="hero-text-heading">
+                        <span class="label label-green">Bench Model</span>
+                        <h1 class="hero-title">Change is constant.<br>Headcount is <em class="underline">not</em>.</h1>
+                    </div>
+                    <p class="hero-body">
+                        The Chameleon Bench is a flexible operating model that provides continuous access to embedded senior leaders who adapt to your priorities without the cost or delay of hiring.
+                    </p>
                 </div>
+                <ul class="hero-bullets">
+                    <li><span class="bullet-arrow">&#8594;</span> Activate expertise instantly</li>
+                    <li><span class="bullet-arrow">&#8594;</span> Reconfigure as needs evolve</li>
+                    <li><span class="bullet-arrow">&#8594;</span> Deliver without losing momentum</li>
+                </ul>
+                <a href="#contact" class="hero-cta">Learn More <span class="arrow">&#8594;</span></a>
             </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/bench/hero-orgchart.png" alt="Organizational chart illustration">
         </div>
     </header>
 
-    <!-- Challenge Section -->
-    <section class="section section-dark" id="challenge">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">The Challenge</p>
-                <h2 class="section-title">The Problem No One's Solving</h2>
-                <p class="section-subtitle">Your marketing is running in silos—duplicating work, missing opportunities, and flying blind on results.</p>
+    <!-- Challenge / Problem Section -->
+    <section class="section section-orange" id="challenge">
+        <div class="challenge-layout">
+            <div class="challenge-content">
+                <div class="section-header section-header-center">
+                    <span class="label label-none">Challenge</span>
+                    <h2 class="challenge-title">Your strategy moves faster than your structure.</h2>
+                    <p class="challenge-subtitle">Traditional talent models were built for stability, not constant motion.</p>
+                </div>
+                <div class="playing-cards">
+                    <div class="playing-card" data-animate>
+                        <div class="playing-card-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <h3 class="playing-card-title">Priorities shift<br>mid-quarter</h3>
+                        <p class="playing-card-desc">New mandates appear overnight, but the team you have is the team you have.</p>
+                    </div>
+                    <div class="playing-card" data-animate>
+                        <div class="playing-card-icon">
+                            <i class="fa-solid fa-eye-slash"></i>
+                        </div>
+                        <h3 class="playing-card-title">Hiring cannot<br>react in time</h3>
+                        <p class="playing-card-desc">By the time roles are defined, approved, and filled, the moment has passed.</p>
+                    </div>
+                    <div class="playing-card" data-animate>
+                        <div class="playing-card-icon">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+                        <h3 class="playing-card-title">Every change<br>creates gaps</h3>
+                        <p class="playing-card-desc">New initiatives demand skills your current structure was never built to support.</p>
+                    </div>
+                    <div class="playing-card" data-animate>
+                        <div class="playing-card-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="playing-card-title">Momentum<br>keeps resetting</h3>
+                        <p class="playing-card-desc">Agencies, contractors, and new hires all require onboarding before impact.</p>
+                    </div>
+                </div>
             </div>
-            <div class="challenge-grid">
-                <div class="challenge-card" data-animate>
-                    <div class="challenge-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>Siloed Spending</h3>
-                    <p>Different teams running different playbooks, tech stacks, and vendors. The result: duplicated costs, wasted budget, and no shared intelligence.</p>
-                </div>
-                <div class="challenge-card" data-animate>
-                    <div class="challenge-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6m6 0h6m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v10m6 0v-4a2 2 0 00-2-2h-2a2 2 0 00-2 2v4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>No Visibility</h3>
-                    <p>Without a consolidated view of marketing performance, strategic decisions are based on guesswork, not data.</p>
-                </div>
-                <div class="challenge-card" data-animate>
-                    <div class="challenge-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>Talent Gaps</h3>
-                    <p>Most companies can't justify full-time senior marketing leadership for every need. So they settle for reactive strategies that never compound.</p>
-                </div>
-                <div class="challenge-card" data-animate>
-                    <div class="challenge-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>No Shared Playbook</h3>
-                    <p>Without shared best practices across the organization, every team reinvents the wheel—and quality stays inconsistent.</p>
-                </div>
+            <div class="challenge-bg-image">
+                <img src="images/bench/challenge-bg.png" alt="">
             </div>
         </div>
     </section>
 
     <!-- Solution Section -->
-    <section class="section solution-section" id="solution">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">Our Solution</p>
-                <h2 class="section-title">One Team. Total Flexibility. Real Results.</h2>
+    <section class="section-solution" id="solution">
+        <div class="solution-bg-image">
+            <img src="images/bench/solution-bg.png" alt="">
+        </div>
+        <div class="solution-layout">
+            <div class="solution-text">
+                <span class="label label-green">Solution</span>
+                <h2 class="solution-title">There is a better way<br>to build <em>capability</em>.</h2>
+                <p class="solution-callout">It is called the Chameleon Bench.</p>
+                <p class="solution-desc">A standing team of senior experts who integrate into your organization and flex as needs change.</p>
             </div>
-            <div class="solution-stack">
-                <div class="solution-card" data-card="1">
-                    <span class="solution-card-number">1</span>
-                    <h3>Dedicated Senior Talent</h3>
-                    <p>We give you a dedicated team of senior leaders and experts—structured around your priorities, not rigid headcounts.</p>
+            <div class="solution-grid">
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Embedded, not external</h3>
+                        <p>Bench leaders operate inside your rhythms, goals, and culture. They are part of the team from day one.</p>
+                    </div>
                 </div>
-                <div class="solution-card" data-card="2">
-                    <span class="solution-card-number">2</span>
-                    <h3>One Retainer, Full Access</h3>
-                    <p>A single flat-rate retainer gives you on-demand access to fractional CMOs, strategists, and specialists. They embed with your team, bring unified strategy and consistent execution, and deliver measurable growth—without the overhead of agencies or full-time hires.</p>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Curated senior talent</h3>
+                        <p>Operators who have carried real responsibility and understand how work drives business performance.</p>
+                    </div>
                 </div>
-                <div class="solution-card" data-card="3">
-                    <span class="solution-card-number">3</span>
-                    <h3>Built to Flex</h3>
-                    <p>Every engagement flexes around your priorities. As needs shift, your team composition and dedication levels shift with them.</p>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-shuffle"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Elastic by design</h3>
+                        <p>Shift expertise as priorities evolve. No role changes, no re-hiring, no downtime.</p>
+                    </div>
                 </div>
-                <div class="solution-card" data-card="4">
-                    <span class="solution-card-number">4</span>
-                    <h3>Predictable Investment</h3>
-                    <p>One rate. No surprise invoices. Know exactly what you're investing before the work begins.</p>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Predictable investment</h3>
+                        <p>One relationship. Transparent structure. No surprises.</p>
+                    </div>
                 </div>
-                <div class="solution-card" data-card="5">
-                    <span class="solution-card-number">5</span>
-                    <h3>Expertise When You Need It</h3>
-                    <p>Scale up, scale down, or pivot specialists as your priorities evolve.</p>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Built on continuity</h3>
+                        <p>The Bench stays with you, compounding knowledge and accelerating impact over time.</p>
+                    </div>
                 </div>
-                <div class="solution-card" data-card="6">
-                    <span class="solution-card-number">6</span>
-                    <h3>Partners, Not Vendors</h3>
-                    <p>Your team knows your business inside out. They're embedded, invested, and accountable for results.</p>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-people-arrows"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Orchestrated as one team</h3>
+                        <p>We align expertise, priorities, and workflows so the Bench operates as a seamless extension of your organization.</p>
+                    </div>
+                </div>
+                <div class="solution-card" data-animate>
+                    <div class="solution-card-icon">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <div class="solution-card-content">
+                        <h3>Managed for outcomes</h3>
+                        <p>We are accountable to results, not hours or deliverables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section-process" id="process">
+        <div class="process-layout">
+            <div class="process-header">
+                <span class="label label-green">Process</span>
+                <h2 class="process-title">How the Bench works</h2>
+                <p class="process-subtitle">A structured model that builds clarity, installs capability, and evolves with your business.</p>
+            </div>
+            <div class="process-stack">
+                <div class="process-card" data-animate>
+                    <div class="process-card-left">
+                        <span class="process-number process-number-orange">01</span>
+                        <h3>Define the vision<br>and roadmap</h3>
+                    </div>
+                    <p class="process-card-desc">Your Bench Lead, a seasoned operator, works alongside leadership to articulate priorities, align stakeholders, and translate ambition into a practical path forward. Strategy is grounded in outcomes, informed by experience, and built to move.</p>
+                </div>
+                <div class="process-card" data-animate>
+                    <div class="process-card-left">
+                        <span class="process-number process-number-cyan">02</span>
+                        <h3>Stand up<br>the right team</h3>
+                    </div>
+                    <p class="process-card-desc">A stable core of trusted leaders is established, supported by access to specialized experts across marketing, product, brand, and growth. The team is purpose built for the moment while maintaining continuity over time.</p>
+                </div>
+                <div class="process-card" data-animate>
+                    <div class="process-card-left">
+                        <span class="process-number process-number-yellow">03</span>
+                        <h3>Install the<br>operating rhythm</h3>
+                    </div>
+                    <p class="process-card-desc">Bench teams embed into how your organization already runs. With dedicated program leadership, structured intake, and transparent reporting, priorities stay clear and performance never goes dark.</p>
+                </div>
+                <div class="process-card" data-animate>
+                    <div class="process-card-left">
+                        <span class="process-number process-number-gradient">04</span>
+                        <h3>Continuously<br>evolve capability</h3>
+                    </div>
+                    <p class="process-card-desc">The Bench Lead actively monitors progress, surfaces new opportunities, and recalibrates expertise around the core team. Depth increases when needed and recedes when it should, without disrupting momentum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Model Section -->
+    <section class="section-model" id="model">
+        <div class="model-bg-image">
+            <img src="images/bench/model-bg.png" alt="">
+        </div>
+        <div class="model-layout">
+            <div class="model-header-block">
+                <span class="label label-green">Model</span>
+                <h2 class="model-title">Inside the Bench</h2>
+                <p class="model-subtitle">A durable leadership structure supported by elastic expertise.</p>
+            </div>
+            <div class="model-diagram">
+                <div class="model-cards-row">
+                    <div class="model-card" data-animate>
+                        <div class="model-card-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="model-card-body">
+                            <h3>Bench Leader</h3>
+                            <p>Your senior partner and strategic anchor. The Bench Lead aligns priorities, shapes the roadmap, and ensures the right expertise is applied at the right time. They remain the constant as the work evolves.</p>
+                        </div>
+                    </div>
+                    <div class="model-card" data-animate>
+                        <div class="model-card-icon">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        <div class="model-card-body">
+                            <h3>Core Team</h3>
+                            <p>A small group of trusted operators embedded for the long term. They build institutional knowledge, drive day to day progress, and provide continuity across initiatives.</p>
+                        </div>
+                    </div>
+                    <div class="model-card" data-animate>
+                        <div class="model-card-icon">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                        <div class="model-card-body">
+                            <h3>Specialists</h3>
+                            <p>Specialists who join when their capabilities can accelerate outcomes. From analytics and media to lifecycle, product, or creative, depth expands and contracts without disrupting the foundation.</p>
+                        </div>
+                    </div>
+                    <div class="model-arrow-h model-arrow-h-1">
+                        <img src="images/bench/model-arrow-horiz.svg" alt="">
+                    </div>
+                    <div class="model-arrow-h model-arrow-h-2">
+                        <img src="images/bench/model-arrow-horiz.svg" alt="">
+                    </div>
+                </div>
+                <div class="model-connector-bottom">
+                    <div class="model-bracket">
+                        <img src="images/bench/model-bracket.svg" alt="">
+                    </div>
+                    <div class="model-program" data-animate>
+                        <div class="model-card-icon">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <div class="model-card-body">
+                            <h3>Program Manager</h3>
+                            <p>Behind every Bench is structured coordination. Priorities are aligned, work is tracked, and results are visible so nothing slips between roles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section-usecases" id="usecases">
+        <div class="usecases-bg-image">
+            <img src="images/usecases-bg.png" alt="">
+        </div>
+        <div class="usecases-inner">
+            <div class="usecases-header">
+                <span class="label label-black">USE CASE</span>
+                <h2 class="usecases-title">When leaders<br>activate the Bench</h2>
+                <p class="usecases-subtitle">Built for the moments when expectations rise and capacity does not.</p>
+            </div>
+            <div class="usecases-scroll">
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3 class="usecase-card-title">Growth expectations just increased</h3>
+                    </div>
+                    <p class="usecase-card-desc">Pipeline, revenue, or efficiency targets moved, but the team did not. The Bench adds senior leadership and execution depth immediately so momentum matches ambition.</p>
+                    <div class="usecase-card-tags">
+                        <span>Growth Lead</span><span>Demand Gen</span><span>Paid Media</span><span>Analytics</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-shuffle"></i></div>
+                        <h3 class="usecase-card-title">A transformation<br>is underway</h3>
+                    </div>
+                    <p class="usecase-card-desc">New structures, technologies, or ways of working are being introduced while performance still has to deliver. Experienced operators help guide change without slowing the business.</p>
+                    <div class="usecase-card-tags">
+                        <span>Marketing Ops</span><span>Data/Analytics</span><span>Product Marketing</span><span>Change/Enablement</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                        <h3 class="usecase-card-title">Critical skills<br>are missing</h3>
+                    </div>
+                    <p class="usecase-card-desc">The strategy requires capabilities your current organization was never designed to house. The Bench fills gaps with proven expertise without forcing permanent hires.</p>
+                    <div class="usecase-card-tags">
+                        <span>Fractional CMO</span><span>Channel Specialist</span><span>Conversion Lead</span><span>Content / SEO</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <h3 class="usecase-card-title">You need to launch,<br>fast</h3>
+                    </div>
+                    <p class="usecase-card-desc">New products, categories, or initiatives cannot wait for recruiting cycles. The Bench stands up the right leadership and support to move intelligently and quickly.</p>
+                    <div class="usecase-card-tags">
+                        <span>GTM Lead</span><span>Product Marketing</span><span>Creative</span><span>Media</span><span>Lifecycle</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-list-check"></i></div>
+                        <h3 class="usecase-card-title">Accountability needs<br>to tighten</h3>
+                    </div>
+                    <p class="usecase-card-desc">Multiple teams and partners are contributing, but ownership is diffuse. The Bench installs senior oversight, clear priorities, and visible performance.</p>
+                    <div class="usecase-card-tags">
+                        <span>Program Lead</span><span>Marketing Ops</span><span>Analytics</span><span>Channel Owners</span><span>Fractional Leader</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <h3 class="usecase-card-title">Budgets are under pressure</h3>
+                    </div>
+                    <p class="usecase-card-desc">Investment must work harder. The Bench aligns expertise precisely to demand, increasing impact without increasing fixed cost.</p>
+                    <div class="usecase-card-tags">
+                        <span>Fractional CMO</span><span>Performance Lead</span><span>Lifecycle</span><span>Analytics</span><span>Marketing Ops</span>
+                    </div>
+                </div>
+                <div class="usecase-card" data-animate>
+                    <div class="usecase-card-top">
+                        <div class="usecase-card-icon"><i class="fa-solid fa-people-group"></i></div>
+                        <h3 class="usecase-card-title">Leadership bandwidth<br>is thin</h3>
+                    </div>
+                    <p class="usecase-card-desc">Internal leaders are stretched across competing priorities. The Bench adds experienced partners who can own outcomes and move work forward independently.</p>
+                    <div class="usecase-card-tags">
+                        <span>Fractional CMO</span><span>Strategy Lead</span><span>Product Marketing</span><span>Growth</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="section section-dark" id="team">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">Our Team</p>
-                <h2 class="section-title">The People Behind the Transformation</h2>
-                <div class="team-stat">
-                    <span class="stat-number">300+</span>
-                    <span class="stat-label">Fractional Leaders & Experts</span>
-                </div>
+    <section class="section-team" id="team">
+        <div class="team-bg-image">
+            <img src="images/team/team-bg.png" alt="">
+        </div>
+        <div class="team-layout">
+            <div class="team-header">
+                <span class="label label-green">MEET THE TEAM</span>
+                <h2 class="team-title">The operators behind the Bench</h2>
+                <p class="team-subtitle">A durable leadership structure supported by elastic expertise.</p>
             </div>
             <div class="team-grid">
                 <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>Fractional CMO/COO/CRO, VPs & Directors</h3>
-                    <p>The strategic leaders who drive marketing transformation, align priorities, and accelerate growth.</p>
-                </div>
-                <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>Paid Media</h3>
-                    <p>SEM, social, display, and programmatic specialists who turn marketing spend into measurable returns.</p>
-                </div>
-                <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>SEO & Content</h3>
-                    <p>Building organic growth engines and establishing authority across your brand.</p>
-                </div>
-                <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>Design & UI/UX</h3>
-                    <p>Sharpening brand presence and user experience to drive conversion and customer loyalty.</p>
-                </div>
-                <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>Branding & PR</h3>
-                    <p>Strengthening brand reputation and amplifying visibility in the markets that matter.</p>
-                </div>
-                <div class="team-card" data-animate>
-                    <div class="team-card-accent"></div>
-                    <h3>Project Management</h3>
-                    <p>Keeping every initiative on track, on budget, and moving forward.</p>
-                </div>
-            </div>
-
-            <!-- Talent Tiers -->
-            <div class="talent-tiers">
-                <div class="tier" data-animate>
-                    <div class="tier-badge tier-executive">Executive</div>
-                </div>
-                <div class="tier" data-animate>
-                    <div class="tier-badge tier-manager">Senior Manager</div>
-                </div>
-                <div class="tier" data-animate>
-                    <div class="tier-badge tier-specialist">Senior Specialist</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="section" id="services">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">What We Do</p>
-                <h2 class="section-title">Driving Portfolio-Wide Value</h2>
-                <p class="section-subtitle">We standardize and optimize marketing across your portfolio to unlock scalable growth.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card" data-animate>
-                    <span class="service-number">01</span>
-                    <h3>Tech Stack Consolidation</h3>
-                    <p>Audit and recommend a unified marketing technology stack to reduce redundant tools, lower costs and improve data flow.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">02</span>
-                    <h3>Reporting & Analytics</h3>
-                    <p>Implement standardized reporting dashboards, KPIs, and a consistent cadence for performance analysis across all portfolio companies.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">03</span>
-                    <h3>Marketing Playbook Creation</h3>
-                    <p>Develop custom, repeatable playbooks that can be deployed across relevant companies, from go-to-market strategies to lead nurturing campaigns.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">04</span>
-                    <h3>Data Strategy & Governance</h3>
-                    <p>Centralize data from various sources to enable richer business intelligence and better decision-making.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">05</span>
-                    <h3>Vendor Rationalization</h3>
-                    <p>Review and optimize marketing vendor relationships to ensure cost efficiency and alignment with strategic goals.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">06</span>
-                    <h3>Audience & Competitor Intelligence</h3>
-                    <p>Conduct unified market research and competitive analysis to identify new opportunities and threats across your portfolio's sectors.</p>
-                </div>
-                <div class="service-card" data-animate>
-                    <span class="service-number">07</span>
-                    <h3>Training & Enablement</h3>
-                    <p>Provide training for in-house teams on new tools and processes to ensure successful adoption.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Engagement Models Section -->
-    <section class="section section-dark" id="engagement">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">How We Work</p>
-                <h2 class="section-title">Flexible Engagement Models</h2>
-                <p class="section-subtitle">Beyond portfolio-wide standardization, we offer tailored support for individual companies.</p>
-            </div>
-            <div class="engagement-grid">
-                <div class="engagement-card" data-animate>
-                    <div class="engagement-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">FRACTIONAL CMO</span>
+                            <h3 class="team-card-name">Jane Smith</h3>
+                        </div>
+                        <p class="team-card-desc">Scaled demand for three B2B companies from Series B to exit.</p>
                     </div>
-                    <h3>Dedicated Teams</h3>
-                    <p>Build and manage teams of experts to support the creative, brand, and marketing needs of a single portfolio company.</p>
-                </div>
-                <div class="engagement-card" data-animate>
-                    <div class="engagement-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <div class="team-card-photo">
+                        <img src="images/team/jane-smith.png" alt="Jane Smith">
                     </div>
-                    <h3>Interim Leadership</h3>
-                    <p>Place a fractional or interim leader to bridge a talent gap or manage a critical project.</p>
                 </div>
-                <div class="engagement-card" data-animate>
-                    <div class="engagement-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">GROWTH LEADER</span>
+                            <h3 class="team-card-name">David Lee</h3>
+                        </div>
+                        <p class="team-card-desc">Led performance strategy across multi-channel portfolios exceeding $100M.</p>
                     </div>
-                    <h3>Recruiting Services</h3>
-                    <p>Assist in the search and vetting of full-time hires to ensure a seamless transition and long-term success.</p>
+                    <div class="team-card-photo">
+                        <img src="images/team/david-lee.png" alt="David Lee">
+                    </div>
                 </div>
-            </div>
-
-            <!-- Expert Flexibility -->
-            <div class="flexibility-section">
-                <h3>Expert Flexibility & Scaling</h3>
-                <p class="flexibility-intro">The flat-rate retainer covers a fixed team size, but our model is designed for maximum agility.</p>
-                <div class="flexibility-grid">
-                    <div class="flexibility-card" data-animate>
-                        <h4>Expert Swaps</h4>
-                        <p>To address evolving needs, we can seamlessly swap experts within your retainer at no additional cost, ensuring your team always has the right skills for the current challenge.</p>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">LIFECYCLE &amp; CRM LEADER</span>
+                            <h3 class="team-card-name">Maria Chen</h3>
+                        </div>
+                        <p class="team-card-desc">Built retention engines for subscription and marketplace businesses, improving LTV and cross sell performance.</p>
                     </div>
-                    <div class="flexibility-card" data-animate>
-                        <h4>Temporary Additions</h4>
-                        <p>For a specific, short-term project or a critical need, you can add temporary experts on-demand. These ad-hoc engagements are billed at a separate, agreed-upon rate.</p>
+                    <div class="team-card-photo">
+                        <img src="images/team/maria-chen.png" alt="Maria Chen">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">MARKETING OPERATIONS EXECUTIVE</span>
+                            <h3 class="team-card-name">James Patel</h3>
+                        </div>
+                        <p class="team-card-desc">Designed scalable infrastructure across complex organizations, connecting data, tooling, and performance.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/james-patel.png" alt="James Patel">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">BRAND &amp; CREATIVE LEAD</span>
+                            <h3 class="team-card-name">Elena Rodriguez</h3>
+                        </div>
+                        <p class="team-card-desc">Led brand transformation initiatives that strengthened market position while accelerating demand.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/elena-rodriguez.png" alt="Elena Rodriguez">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">PRODUCT MARKETING LEADER</span>
+                            <h3 class="team-card-name">Chris Walker</h3>
+                        </div>
+                        <p class="team-card-desc">Translated product innovation into clear market narratives that drove adoption and revenue growth.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/chris-walker.png" alt="Chris Walker">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">ANALYTICS &amp; INSIGHTS LEAD</span>
+                            <h3 class="team-card-name">Danielle Brooks</h3>
+                        </div>
+                        <p class="team-card-desc">Turned fragmented data into executive clarity, enabling smarter investment decisions.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/danielle-brooks.png" alt="Danielle Brooks">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">PERFORMANCE MARKETING EXECUTIVE</span>
+                            <h3 class="team-card-name">Michael Thompson</h3>
+                        </div>
+                        <p class="team-card-desc">Built retention engines for subscription and marketplace businesses, improving LTV and cross sell performance.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/michael-thompson.png" alt="Michael Thompson">
+                    </div>
+                </div>
+                <div class="team-card" data-animate>
+                    <div class="team-card-info">
+                        <div class="team-card-heading">
+                            <span class="label label-none">GO-TO-MARKET LEADER</span>
+                            <h3 class="team-card-name">Aisha Rahman</h3>
+                        </div>
+                        <p class="team-card-desc">Orchestrated cross functional launches from strategy through execution for global teams.</p>
+                    </div>
+                    <div class="team-card-photo">
+                        <img src="images/team/aisha-rahman.png" alt="Aisha Rahman">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="section" id="pricing">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">Investment</p>
-                <h2 class="section-title">Pricing & Value</h2>
-                <p class="section-subtitle">Our retainer is based on a transparent, blended rate of <strong>$250 per hour</strong> per expert at part-time hours. This flat-rate model simplifies budgeting and gives you predictable access to senior-level marketing talent.</p>
-            </div>
-
-            <!-- Team Pricing Table -->
-            <div class="pricing-table-wrapper" data-animate>
-                <h3 class="pricing-table-title">Team Retainer Pricing</h3>
-                <div class="pricing-table-scroll">
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>Team Size</th>
-                                <th>
-                                    <span class="th-label">Monthly Retainer &frac14;</span>
-                                    <span class="th-detail">8 hrs/week</span>
-                                </th>
-                                <th>
-                                    <span class="th-label">Monthly Retainer &frac12;</span>
-                                    <span class="th-detail">16 hrs/week</span>
-                                </th>
-                                <th class="highlight-col">
-                                    <span class="th-label">Monthly Retainer Full</span>
-                                    <span class="th-detail">32 hrs/week</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="row-label">3 Experts</td>
-                                <td>$24,000</td>
-                                <td>$48,000</td>
-                                <td class="highlight-col">$96,000</td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">5 Experts</td>
-                                <td>$40,000</td>
-                                <td>$80,000</td>
-                                <td class="highlight-col">$160,000</td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">10 Experts</td>
-                                <td>$80,000</td>
-                                <td>$160,000</td>
-                                <td class="highlight-col">$320,000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Per Resource Table -->
-            <div class="pricing-table-wrapper" data-animate>
-                <h3 class="pricing-table-title">Per Resource Pricing</h3>
-                <div class="pricing-table-scroll">
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>Hourly Rate</th>
-                                <th>
-                                    <span class="th-label">Monthly Retainer &frac14;</span>
-                                    <span class="th-detail">8 hrs/week</span>
-                                </th>
-                                <th>
-                                    <span class="th-label">Monthly Retainer &frac12;</span>
-                                    <span class="th-detail">16 hrs/week</span>
-                                </th>
-                                <th class="highlight-col">
-                                    <span class="th-label">Monthly Retainer Full</span>
-                                    <span class="th-detail">32 hrs/week</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="row-label">$350/hr</td>
-                                <td>$11,200</td>
-                                <td>$22,400</td>
-                                <td class="highlight-col">$44,800</td>
-                            </tr>
-                            <tr class="featured-row">
-                                <td class="row-label">$250/hr</td>
-                                <td>$8,000</td>
-                                <td>$16,000</td>
-                                <td class="highlight-col">$32,000</td>
-                            </tr>
-                            <tr>
-                                <td class="row-label">$150/hr</td>
-                                <td>$4,800</td>
-                                <td>$9,600</td>
-                                <td class="highlight-col">$19,200</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Strategic Advantage Section -->
-    <section class="section section-dark" id="advantage">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-eyebrow">The Difference</p>
-                <h2 class="section-title">Our Strategic Advantage</h2>
-                <p class="section-subtitle">We offer a unique, flexible alternative to traditional models.</p>
-            </div>
-            <div class="advantage-grid">
-                <div class="advantage-card" data-animate>
-                    <h3>Fractional Expertise</h3>
-                    <p>Access top-tier talent without the cost and commitment of a full-time hire.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Agility</h3>
-                    <p>Traditional agencies are not set up to react quickly to changing needs. Our fractional teams adapt as your needs change and new challenges arise.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Outcome-Focused Talent</h3>
-                    <p>Our people bring deep experience in certain skillsets, but also years of business knowledge of how their work aligns with goals and outcomes.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Centralized Solution</h3>
-                    <p>Streamline your portfolio's marketing strategy and execution through a single, consistent partner.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Value-Oriented</h3>
-                    <p>Our flat-rate model is a direct investment in improving EBITDA and mitigating the risk of underperforming marketing functions across your portfolio.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Flexibility</h3>
-                    <p>We can work as a centralized partner, a dedicated team for a single company, or a bridge to a full-time hire.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Agency Management & Assessments</h3>
-                    <p>We can manage and assess your existing agency relationships with a senior fractional leader to ensure the best results from external partners.</p>
-                </div>
-                <div class="advantage-card" data-animate>
-                    <h3>Agency Partnerships</h3>
-                    <p>We maintain partnerships and can provide recommendations to ensure every portfolio company has the right support.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section section-cta" id="contact">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Transform Your Portfolio's Marketing?</h2>
-                <p>Let's discuss how our fractional team model can drive scalable growth across your investments.</p>
-                <a href="mailto:hello@flexteam.com" class="btn btn-primary btn-large">Start the Conversation</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
+    <!-- CTA + Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-inner">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="#" class="footer-logo"><img class="footer-logo-img" src="images/CCIcon_White.png" alt="Chameleon Collective"></a>
-                    <p>Fractional teams of senior leaders and experts solving complex challenges across PE firm portfolios.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <ul>
-                            <li><a href="#challenge">The Challenge</a></li>
-                            <li><a href="#solution">Our Solution</a></li>
-                            <li><a href="#team">Our Team</a></li>
-                            <li><a href="#services">Services</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>More</h4>
-                        <ul>
-                            <li><a href="#pricing">Pricing</a></li>
-                            <li><a href="#advantage">Why Us</a></li>
-                            <li><a href="#engagement">Engagement Models</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                <div class="footer-text">
+                    <h2 class="footer-title">See what your<br>Bench might look like</h2>
+                    <div class="footer-text-body">
+                        <p class="footer-desc">Meet with a Bench Lead to explore your priorities, pressure points, and where flexible leadership capacity could create immediate leverage.</p>
+                        <ul class="footer-bullets">
+                            <li><span class="bullet-arrow">&#8594;</span> No commitments.</li>
+                            <li><span class="bullet-arrow">&#8594;</span> No generic pitch.</li>
+                            <li><span class="bullet-arrow">&#8594;</span> Just a practical conversation about what is possible.</li>
                         </ul>
                     </div>
                 </div>
-                <div class="footer-wordmark-wrap">
-                    <img class="footer-wordmark" src="images/CCWorkMark_Vert_White.png" alt="Chameleon Collective">
+                <a href="#" class="footer-cta-btn">Schedule a Meeting <span class="arrow">&#8594;</span></a>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">&copy; Chameleon Collective. All Rights Reserved | <a href="https://chameleoncollective.com/privacy-policy/">Privacy Policy</a></p>
+                <div class="footer-wordmark">
+                    <img src="images/cc-logo.svg" alt="Chameleon Collective">
                 </div>
             </div>
         </div>
