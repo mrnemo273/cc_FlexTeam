@@ -410,19 +410,26 @@ img {
 
 .hero-image {
     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 1920px;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.hero-image img {
+    position: absolute;
     right: 0;
     bottom: 0;
     width: 55%;
     max-width: 788px;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-}
-
-.hero-image img {
-    width: 100%;
     height: auto;
     transform: scaleY(-1);
     display: block;
+    mix-blend-mode: multiply;
 }
 
 /* --- Full-width Image Section --- */
