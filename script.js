@@ -3,15 +3,32 @@
 (function () {
     'use strict';
 
-    // --- Navbar scroll effect ---
+    // --- Navbar scroll effect (hide on scroll down, show on scroll up) ---
     const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
+    const navHeight = 72;
 
     function handleNavbarScroll() {
-        if (window.scrollY > 40) {
+        var currentScrollY = window.scrollY;
+
+        if (currentScrollY > 40) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+
+        // Always show nav near the top of the page
+        if (currentScrollY <= navHeight) {
+            navbar.classList.remove('navbar-hidden');
+        } else if (currentScrollY > lastScrollY) {
+            // Scrolling down — hide the nav
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scrolling up — show the nav
+            navbar.classList.remove('navbar-hidden');
+        }
+
+        lastScrollY = currentScrollY;
     }
 
     window.addEventListener('scroll', handleNavbarScroll, { passive: true });

@@ -145,7 +145,11 @@ img {
     z-index: 1000;
     background: var(--color-bg-primary);
     border-bottom: 1px solid #121212;
-    transition: background var(--transition-medium), border-color var(--transition-medium);
+    transition: transform 0.3s ease, background var(--transition-medium), border-color var(--transition-medium);
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
 }
 
 .nav-container {
