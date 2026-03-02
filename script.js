@@ -6,10 +6,13 @@
     // --- Navbar scroll effect (hide on scroll down, show on scroll up) ---
     const navbar = document.getElementById('navbar');
     let lastScrollY = window.scrollY;
+    let scrollUpAccumulated = 0;
     const navHeight = 72;
+    const scrollUpThreshold = 50;
 
     function handleNavbarScroll() {
         var currentScrollY = window.scrollY;
+        var delta = currentScrollY - lastScrollY;
 
         if (currentScrollY > 40) {
             navbar.classList.add('scrolled');
@@ -20,12 +23,17 @@
         // Always show nav near the top of the page
         if (currentScrollY <= navHeight) {
             navbar.classList.remove('navbar-hidden');
-        } else if (currentScrollY > lastScrollY) {
-            // Scrolling down — hide the nav
+            scrollUpAccumulated = 0;
+        } else if (delta > 0) {
+            // Scrolling down — hide the nav and reset upward accumulator
             navbar.classList.add('navbar-hidden');
+            scrollUpAccumulated = 0;
         } else {
-            // Scrolling up — show the nav
-            navbar.classList.remove('navbar-hidden');
+            // Scrolling up — accumulate distance before showing
+            scrollUpAccumulated += Math.abs(delta);
+            if (scrollUpAccumulated >= scrollUpThreshold) {
+                navbar.classList.remove('navbar-hidden');
+            }
         }
 
         lastScrollY = currentScrollY;
