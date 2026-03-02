@@ -1834,7 +1834,18 @@ img {
     }
 
     .solution-bg-image {
-        display: none;
+        display: block;
+        overflow: hidden;
+        bottom: auto;
+        height: 550px;
+    }
+
+    .solution-bg-image img {
+        left: calc(-55% - 100px);
+        top: calc(-25% - 325px);
+        width: 220%;
+        max-width: none;
+        height: auto;
     }
 
     .process-layout {
