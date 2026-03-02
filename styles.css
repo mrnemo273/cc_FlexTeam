@@ -1808,6 +1808,10 @@ img {
         letter-spacing: -2.2px;
     }
 
+    .solution-title br {
+        display: none;
+    }
+
     .solution-callout {
         font-size: 18px;
     }
@@ -1818,6 +1822,15 @@ img {
 
     .solution-grid {
         grid-template-columns: 1fr;
+    }
+
+    .solution-card {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .solution-card-content h3 {
+        font-size: 22px;
     }
 
     .solution-bg-image {
