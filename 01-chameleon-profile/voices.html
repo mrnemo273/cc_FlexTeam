@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voices — Project 01 · Profile Revamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-brand-row">
+      <img src="icon-white.png" alt="CC" style="height:22px;">
+      <a class="sb-back" href="../../Framework/CC-Project-Memory.html">Memory ↗</a>
+    </div>
+
+    <div class="sb-project-id">Project 01</div>
+    <div class="sb-project-name">The Chameleon Profile, Reimagined.</div>
+    <div class="sb-status">
+      <span class="tag solid-accent">In Synthesis</span>
+      <span class="sb-stage">Stage 3 of 6</span>
+    </div>
+
+    <div class="sb-section-label">Contents</div>
+    <nav class="sb-nav">
+      <a class="sb-link" href="index.html">
+        <span class="sb-link-num">00</span>
+        <span class="sb-link-label">Cover</span>
+        <span class="sb-link-meta">Project overview</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="brief.html">
+        <span class="sb-link-num">01</span>
+        <span class="sb-link-label">The Brief</span>
+        <span class="sb-link-meta">Locked · 5 iterations</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="references.html">
+        <span class="sb-link-num">02</span>
+        <span class="sb-link-label">Reference Material</span>
+        <span class="sb-link-meta">3 sources · UX research · best practices</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="interviews.html">
+        <span class="sb-link-num">03</span>
+        <span class="sb-link-label">Interview Guide</span>
+        <span class="sb-link-meta">R1 complete · 10 of 10</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link active" href="voices.html">
+        <span class="sb-link-num">04</span>
+        <span class="sb-link-label">Voices</span>
+        <span class="sb-link-meta">10 of 10 · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="stakeholders.html">
+        <span class="sb-link-num">05</span>
+        <span class="sb-link-label">Stakeholders</span>
+        <span class="sb-link-meta">JCM + AD synthesis · weighted</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="ideas.html">
+        <span class="sb-link-num">06</span>
+        <span class="sb-link-label">Ideas</span>
+        <span class="sb-link-meta">33 scored · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="decisions.html">
+        <span class="sb-link-num">07</span>
+        <span class="sb-link-label">Decision Log</span>
+        <span class="sb-link-meta">5 entries · 5 taking shape</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="exec-summary.html">
+        <span class="sb-link-num">08</span>
+        <span class="sb-link-label">Executive Summary</span>
+        <span class="sb-link-meta">For Leadership Council</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="wireframes.html">
+        <span class="sb-link-num">09</span>
+        <span class="sb-link-label">Wireframes</span>
+        <span class="sb-link-meta">v2 · modular kits · 4 archetypes</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <div class="sb-footer-meta">
+      <div class="row"><strong>Owners</strong><span>JCM &middot; AD</span></div>
+      <div class="row"><strong>Updated</strong><span>2026-06-16</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="main-inner">
+      <div class="main-content">
+        <div class="main-section-label">Section 04 · Voices</div>
+        <h1>Voices</h1>
+        <dl class="metadata">
+          <dt>Stage</dt><dd>3 of 6 — In Synthesis · <strong>Round 1 complete</strong></dd>
+          <dt>Round 1</dt><dd>4 of 4 sessions done · <strong>10 of 10 voices</strong> · Round 2 next</dd>
+          <dt>Chameleons heard</dt><dd>Caleb · Michael · Sonia · Ivonne · Ilan · Chris B. · Jeff · Pam · Farzana · Chris N.</dd>
+          <dt>Format</dt><dd>Four group conversations (4, 5, 5, 4 attendees) — adapted from original 1:1 plan</dd>
+        </dl>
+
+        <ol class="page-toc">
+          <li><a href="#at-a-glance">At a glance</a></li>
+          <li><a href="#patterns">Patterns across 10 voices</a></li>
+          <li><a href="#participants">The Committee</a></li>
+          <li><a href="#methodology-note">Methodology</a></li>
+          <li><a href="#session-4">Session 4</a></li>
+          <li><a href="#session-3">Session 3</a></li>
+          <li><a href="#session-2">Session 2</a></li>
+          <li><a href="#session-1">Session 1</a></li>
+          <li><a href="#whats-next">What's next</a></li>
+        </ol>
+
+        <button class="toc-hamburger" id="tocHamburger" aria-label="Open page navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="toc-overlay" id="tocOverlay" role="dialog" aria-label="Page navigation">
+          <div class="toc-overlay-label">Jump to</div>
+          <ol class="toc-overlay-list">
+            <li><a href="#at-a-glance">At a glance</a></li>
+            <li><a href="#patterns">Patterns across 10 voices</a></li>
+            <li><a href="#participants">The Committee</a></li>
+            <li><a href="#methodology-note">Methodology</a></li>
+            <li><a href="#session-4">Session 4</a></li>
+            <li><a href="#session-3">Session 3</a></li>
+            <li><a href="#session-2">Session 2</a></li>
+            <li><a href="#session-1">Session 1</a></li>
+            <li><a href="#whats-next">What's next</a></li>
+          </ol>
+        </div>
+
+        <p class="lede"><strong>Round 1 is complete</strong> at 10 of 10 voices across 4 sessions. We've heard rainmakers, creatives, operators, designers, copywriters, and senior growth leaders across the Collective. The voices below preserve every Chameleon's view, including the real cross-session contradictions, because the resolution matters more than smoothing them over. <em>The most recent session is expanded; earlier sessions are collapsed for scanability — click any session header to expand.</em></p>
+
+        <div id="at-a-glance" class="summary-panel">
+          <div class="summary-panel-label">At a glance</div>
+          <h2 class="sum-h">What ten Chameleons told us — and where the patterns landed.</h2>
+
+          <div class="sum-cols">
+            <div>
+              <h3 class="sum-h">Six things every Chameleon landed on</h3>
+              <ol>
+                <li><strong>The page is invisible.</strong> 9 of 10 don't actively use it (only Caleb does). Chris Nella tried to find himself in COS and couldn't.</li>
+                <li><strong>Tag walls are noise.</strong> Clients want curated relevance, not a directory of every skill.</li>
+                <li><strong>Modular layout + strong defaults</strong> is the right shape. Customization is opt-in; default state has to be useful without effort.</li>
+                <li><strong>Lead generation is the page's job</strong> — but how leads route is contested (see tensions →).</li>
+                <li><strong>Testimonials are missing</strong> — clearest missing feature; everyone wanted them, ideally collected automatically.</li>
+                <li><strong>Each Chameleon already customizes per client.</strong> Jeff uses AI to tailor bios; Sonia moves boxes; Ivonne and Farzana send custom slides per pitch. The system should do this for them.</li>
+              </ol>
+            </div>
+            <div>
+              <h3 class="sum-h">Three real tensions, how they resolved</h3>
+              <div class="sum-tension">
+                <strong>Direct vs. vetted vs. centralized leads.</strong> S1 (Caleb, Michael) wanted direct. S2 (Ivonne, Sonia, Ilan) split — vetted for some, variable for Ilan. S3 (Chris, Pamela) explicitly preferred fully centralized routing through BD.
+                <span class="resolved"><a href="ideas.html#idea-14">Idea 14</a> — opt-in tiered routing now includes four options: raw direct / spam-filtered / vetted+closing / fully centralized. Every preference covered.</span>
+              </div>
+              <div class="sum-tension">
+                <strong>Common collaborators tag vs. peer endorsements.</strong> S1 rejected the tag as cliquey; S2 endorsed &ldquo;worked with X on 15 projects&rdquo; as evidence.
+                <span class="resolved">Tag stays killed (<a href="ideas.html#idea-12">Idea 12</a>). Endorsements live in testimonials (<a href="ideas.html#idea-04">Idea 04</a>).</span>
+              </div>
+              <div class="sum-tension">
+                <strong>External ecosystem links vs. Chameleon-only.</strong> Earlier sessions implied pulling activity from LinkedIn / personal sites. S3 (Chris explicit, Pamela aligned) preferred keeping everything inside the Chameleon ecosystem. S4 (Farzana) wants LinkedIn-pull explicitly.
+                <span class="resolved">Best-practices: pages support both. Native modules can be Chameleon-only OR ingest from external. Each Chameleon chooses.</span>
+              </div>
+              <div class="sum-tension">
+                <strong>Peer endorsements &mdash; external or internal?</strong> S3 endorsed peer endorsements as testimonial copy. S4 (Farzana + Chris Nella explicit) said peer endorsements are valuable internally for team-building but <em>not</em> credible to external clients.
+                <span class="resolved">Refined: peer endorsements live in the admin / matching tools (internal lens), not on the public profile. Public testimonials come from clients only.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sum-voices-row">
+            <strong>Voices heard</strong>Caleb · Michael · Sonia · Ivonne · Ilan · Chris B. · Jeff · Pam · Farzana · Chris N. &nbsp;·&nbsp; 10 of 10 captured · Round 1 complete · Round 2 (concept reaction) next
+          </div>
+        </div>
+
+        <!-- ====== PATTERNS ACROSS 10 VOICES ====== -->
+        <h2 id="patterns">Patterns across 10 voices</h2>
+        <p class="patterns-intro">Round 1 verbatim, elevated. Six directional themes the 10 Chameleons collectively converged on — even when their individual language differed — followed by a quantified read of where they overlapped, where they split, and how the discovery curve flattened across four sessions. Designed to compress ten hours of conversation into a scannable strategic frame. Per-session notes remain below.</p>
+
+        <!-- Six directional themes -->
+        <div class="patterns-section">
+          <div class="patterns-subhead">Six directional themes</div>
+          <div class="theme-cards-grid">
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 01</div>
+              <div class="tc-stat">10 of 10</div>
+              <h4>The page is a hub, not a destination.</h4>
+              <p>The profile isn't where the work ends — it's the source every other pitch artifact (slides, PDFs, child bios, COS lookups) pulls from. Chameleons built this informally in private Drives. The system needs to make it native.</p>
+            </div>
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 02</div>
+              <div class="tc-stat">10 of 10</div>
+              <h4>Defaults do the work. Customization is the second layer.</h4>
+              <p>Eight or nine of ten will never edit their page. It has to be presentable, current, and matched to brief without their effort. Customization is a power-user surface — not the baseline experience.</p>
+            </div>
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 03</div>
+              <div class="tc-stat">8 of 10</div>
+              <h4>Tag walls signal effort, not relevance.</h4>
+              <p>Long skill lists read as padding. Curated 3–5 chips read as confidence. The "We over Me" act is choosing what to leave off — not what to bolt on.</p>
+            </div>
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 04</div>
+              <div class="tc-stat">10 of 10</div>
+              <h4>Right lead, right Chameleon, right time — but no single rule.</h4>
+              <p>The most contested area in research. There is no universal routing preference. The system has to honor four distinct postures (direct, vetted, variable, centralized) without forcing anyone into the wrong one.</p>
+            </div>
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 05</div>
+              <div class="tc-stat">10 of 10</div>
+              <h4>Trust transfers from clients — not from us.</h4>
+              <p>The Collective's brand sets the table. The credibility that closes business comes from clients (testimonials, named projects, outcome data). Peer endorsements live internal-only — useful for matching, invisible to prospects.</p>
+            </div>
+
+            <div class="theme-card-direct">
+              <div class="tc-num">Theme 06</div>
+              <div class="tc-stat">7 of 10</div>
+              <h4>Update without rewriting. Override without committing.</h4>
+              <p>Today's workflow is reformatting the same content across PDFs, slides, COS, and the page. The new system pulls from a single source; local edits stay scoped to a single pitch without touching the master.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Theme strength bars -->
+        <div class="patterns-section">
+          <div class="patterns-subhead">Theme strength — what surfaced across all four sessions</div>
+          <p class="patterns-intro">Ranked by how many of the ten voices independently surfaced each pattern. Solid orange = explicit; faded = surfaced indirectly.</p>
+          <div class="theme-strength">
+
+            <div class="theme-bar">
+              <div class="theme-bar-label">Customize per pitch — manually today</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 100%"></div></div>
+              <div class="theme-bar-count">10 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Lead generation is the purpose</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 100%"></div></div>
+              <div class="theme-bar-count">10 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Strong defaults &gt; rich customization</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 100%"></div></div>
+              <div class="theme-bar-count">10 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Profile is effectively invisible</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 90%"></div></div>
+              <div class="theme-bar-count">9 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Testimonials are the missing piece</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 90%"></div></div>
+              <div class="theme-bar-count">9 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Both web AND slide/PDF output wanted</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 80%"></div></div>
+              <div class="theme-bar-count">8 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Tag walls read as noise</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 80%"></div></div>
+              <div class="theme-bar-count">8 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Trust transfers from clients, not peers</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 80%"></div></div>
+              <div class="theme-bar-count">8 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Bio slides are the substitute today</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 70%"></div></div>
+              <div class="theme-bar-count">7 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Today's search/filters don't match how clients look</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill" style="width: 60%"></div></div>
+              <div class="theme-bar-count">6 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">AI-tailored bio is the workflow (some doing it)</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill partial" style="width: 50%"></div></div>
+              <div class="theme-bar-count">5 / 10</div>
+            </div>
+            <div class="theme-bar">
+              <div class="theme-bar-label">Mobile UX is broken today</div>
+              <div class="theme-bar-track"><div class="theme-bar-fill partial" style="width: 10%"></div></div>
+              <div class="theme-bar-count">1 / 10</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Lead routing distribution -->
+        <div class="patterns-section">
+          <div class="patterns-subhead">Lead routing — where the 10 split</div>
+          <p class="patterns-intro">The most contested theme of Round 1. Roughly 50/50 between Chameleons who want leads to come to them directly (in some form) and Chameleons who want everything routed through the Collective. Resolved by giving each Chameleon their own routing posture <a href="ideas.html#idea-14">(Idea 14 — Opt-in routing tiers)</a>.</p>
+
+          <div class="routing-distribution">
+            <div class="routing-bar">
+              <div class="routing-segment tier-1" style="flex: 3;">
+                <div class="rs-count">3</div>
+                <div class="rs-label">Direct</div>
+              </div>
+              <div class="routing-segment tier-2" style="flex: 2;">
+                <div class="rs-count">2</div>
+                <div class="rs-label">Vetted</div>
+              </div>
+              <div class="routing-segment tier-3" style="flex: 2;">
+                <div class="rs-count">2</div>
+                <div class="rs-label">Variable</div>
+              </div>
+              <div class="routing-segment tier-4" style="flex: 3;">
+                <div class="rs-count">3</div>
+                <div class="rs-label">Centralized</div>
+              </div>
+            </div>
+            <div class="routing-legend">
+              <span><strong>Direct</strong> — raw lead, no filter (Caleb · Michael · Chris Nella)</span>
+              <span><strong>Vetted</strong> — spam-filtered + qualified (Sonia · Ivonne)</span>
+              <span><strong>Variable</strong> — depends on current capacity (Ilan · Farzana)</span>
+              <span><strong>Centralized</strong> — all leads through Collective BD (Chris Baccus · Jeff · Pamela)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discovery curve -->
+        <div class="patterns-section">
+          <div class="patterns-subhead">Discovery converged across 4 sessions</div>
+          <p class="patterns-intro">New ideas surfaced per session. The curve flattened — Session 3 and 4 mostly refined and stress-tested ideas already in the set. Signal that Round 1 is genuinely closed.</p>
+
+          <div class="discovery-curve">
+            <div class="discovery-row">
+              <span class="discovery-label">Session 1</span>
+              <div class="discovery-track"><div class="discovery-fill" style="width: 100%">12 new ideas</div></div>
+              <span class="discovery-cumulative">Total: 12</span>
+            </div>
+            <div class="discovery-row">
+              <span class="discovery-label">Session 2</span>
+              <div class="discovery-track"><div class="discovery-fill" style="width: 100%">12 new ideas</div></div>
+              <span class="discovery-cumulative">Total: 24</span>
+            </div>
+            <div class="discovery-row">
+              <span class="discovery-label">Session 3</span>
+              <div class="discovery-track"><div class="discovery-fill" style="width: 42%">5 new</div></div>
+              <span class="discovery-cumulative">Total: 29</span>
+            </div>
+            <div class="discovery-row">
+              <span class="discovery-label">Session 4</span>
+              <div class="discovery-track"><div class="discovery-fill" style="width: 33%">4 new</div></div>
+              <span class="discovery-cumulative">Total: 33</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme x Voice matrix -->
+        <div class="patterns-section">
+          <div class="patterns-subhead">Who emphasized what</div>
+          <p class="patterns-intro">A read on which Chameleon pressed which theme hardest. Strong dot = explicit, repeated emphasis. Mid dot = surfaced. Small dot = mentioned in passing. Empty = didn't surface. Lead routing shows each Chameleon's preferred tier.</p>
+
+          <div class="voice-matrix">
+            <table class="voice-matrix-table">
+              <thead>
+                <tr>
+                  <th class="voice-th">Chameleon</th>
+                  <th>Hub</th>
+                  <th>Defaults</th>
+                  <th>Tag noise</th>
+                  <th>Routing</th>
+                  <th>Trust</th>
+                  <th>Override</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="voice-name">Caleb Ludwick</td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-tier t1">Direct</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Michael Saint-Aubin</td>
+                  <td><span class="em-dot em-light"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-tier t1">Direct</span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Sonia Acosta</td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-tier t2">Vetted</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Ivonne Azurdia</td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-tier t2">Vetted</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Ilan Tito</td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-tier t3">Variable</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Chris Baccus</td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-tier t4">Centralized</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Jeff Blettner</td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-tier t4">Centralized</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Pamela Alegria</td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-tier t4">Centralized</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Farzana Nasser</td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-med"></span></td>
+                  <td><span class="em-tier t3">Variable</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+                <tr>
+                  <td class="voice-name">Chris Nella</td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-tier t1">Direct</span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                  <td><span class="em-dot em-strong"></span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="matrix-legend">
+              <div class="matrix-legend-item"><span class="em-dot em-strong"></span> Explicit, repeated emphasis</div>
+              <div class="matrix-legend-item"><span class="em-dot em-med"></span> Surfaced</div>
+              <div class="matrix-legend-item"><span class="em-dot em-light"></span> Mentioned in passing</div>
+              <div class="matrix-legend-item"><span class="em-dot em-none"></span> Didn't surface</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="participants">The Feedback Committee</h2>
+        <p>The ten Chameleons whose voices shape Round 1. All ten heard across four sessions. Titles and tenure pulled from the Committee Brief.</p>
+
+        <div class="participants-grid">
+          <div class="participant-card">
+            <div class="participant-name">Caleb Ludwick</div>
+            <div class="participant-title">Director of Brand Strategy, Voice, and Messaging</div>
+            <div class="participant-meta"><span class="participant-tenure">&gt;7 yrs</span><span class="participant-session">Session 1</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Michael Saint-Aubin</div>
+            <div class="participant-title">Co-Lead / Design</div>
+            <div class="participant-meta"><span class="participant-tenure">5–7 yrs</span><span class="participant-session">Session 1</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Sonia Acosta</div>
+            <div class="participant-title">Creative Director</div>
+            <div class="participant-meta"><span class="participant-tenure">&lt;2 yrs</span><span class="participant-session">Session 2</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Ivonne Azurdia</div>
+            <div class="participant-title">CD/CW, Direct Marketing, Creative Marketer</div>
+            <div class="participant-meta"><span class="participant-tenure">&gt;7 yrs</span><span class="participant-session">Session 2</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Ilan Tito</div>
+            <div class="participant-title">Global Ecommerce &amp; Merchandising Executive</div>
+            <div class="participant-meta"><span class="participant-tenure">&gt;7 yrs</span><span class="participant-session">Session 2</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Chris Baccus</div>
+            <div class="participant-title">DTC Performance Marketer</div>
+            <div class="participant-meta"><span class="participant-tenure">2–5 yrs</span><span class="participant-session">Session 3</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Jeff Blettner</div>
+            <div class="participant-title">CRO &amp; Experimentation Consultant</div>
+            <div class="participant-meta"><span class="participant-tenure">2–5 yrs</span><span class="participant-session">Session 3</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Pam Alegria</div>
+            <div class="participant-title">Web Design</div>
+            <div class="participant-meta"><span class="participant-tenure">&gt;7 yrs</span><span class="participant-session">Session 3</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Farzana Nasser</div>
+            <div class="participant-title">VP Digital/Growth Marketing</div>
+            <div class="participant-meta"><span class="participant-tenure">&gt;7 yrs</span><span class="participant-session">Session 4</span></div>
+          </div>
+          <div class="participant-card">
+            <div class="participant-name">Chris Nella</div>
+            <div class="participant-title">Interim Head of Growth</div>
+            <div class="participant-meta"><span class="participant-tenure">2–5 yrs</span><span class="participant-session">Session 4</span></div>
+          </div>
+        </div>
+
+        <div id="methodology-note" class="note">
+          <div class="note-label">Methodology Note</div>
+          All four Round 1 sessions ran as group discussions (4, 5, 5, 4 attendees) instead of the originally planned 1:1s — Chameleons had limited time. We adapted: smaller groups when possible, async pre-read with priming questions, async follow-up after the call, explicit dissent solicitation in the room. <strong>What we still can't fully see:</strong> quiet Chameleons who didn't push back in a group setting, even when asked. The synthesis flags this honestly — we are not pretending Round 1 captured every voice. Round 2 (concept reaction with Austin's concept introduced) will use the same adapted approach.
+        </div>
+
+        <details class="collapsible-section" id="session-4">
+        <summary>
+          <h2>Round 1 — Session 4 <span style="font-family: var(--font-body); font-size: 12px; font-weight: 400; color: var(--cc-orange); margin-left: 6px;">closes Round 1</span></h2>
+          <span class="collapsible-meta">2026-06-11 · 2 voices · Farzana, Chris Nella</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+
+        <div class="session-meta">
+          <span><strong>Date</strong> 2026-06-11</span><span class="sep">·</span>
+          <span><strong>Length</strong> ~40 min</span><span class="sep">·</span>
+          <span><strong>Format</strong> Group, 4 attendees</span><span class="sep">·</span>
+          <span><strong>Chameleon voices</strong> 2 (Farzana Nasser, Chris Nella)</span><span class="sep">·</span>
+          <span><strong>Facilitators</strong> Juan-Carlos Morales, Austin Dillman</span>
+        </div>
+
+        <h3>Signal — what Session 4 confirmed and sharpened</h3>
+        <ul class="signal-list">
+          <li><strong>The page is still invisible — now confirmed at 9 of 10.</strong> Chris Nella: &ldquo;I haven&apos;t used it. I haven&apos;t updated my profile in probably a year and a half, two years or more.&rdquo; Farzana: &ldquo;I remember it being there, but kind of forgot about it after a while. My first Chameleon profile was eight years ago. None of that stuff is that relevant anymore.&rdquo; Both bypass it.</li>
+          <li><strong>Bio slides are the substitute — and the architecture insight is &ldquo;hub for bio slides.&rdquo;</strong> Chris: &ldquo;I created a single slide in Google Slides... I just send people there for questions.&rdquo; Farzana&apos;s framing crystallizes the master+children system in Chameleon-native language: &ldquo;If this could be like a hub for the bio slide, so I could send clients a link instead of a PDF, I think that could be really nice.&rdquo; Reinforces <a href="ideas.html#idea-26">Idea 26</a> (master + tailored children) and <a href="ideas.html#idea-27">Idea 27</a> (multi-format output).</li>
+          <li><strong>Mobile UX is broken — first explicit call-out.</strong> Chris: &ldquo;the template of like Chameleon being vertical, that kills a lot of mobile space.&rdquo; First voice across all 4 sessions to surface mobile directly. <em>Folds into best-practices as a constraint, not a new idea.</em></li>
+          <li><strong>Live override of central data.</strong> Chris proposed a critical refinement: the system pulls default content from the central source (COS, soon Core), but each Chameleon can <em>locally overwrite</em> a block in real time without changing the global record. &ldquo;You decide is that the way you want to phrase it here or do I want to rephrase it globally back on COS.&rdquo; Sharpens <a href="ideas.html#idea-26">Idea 26</a> with a specific UX mechanic. Logged as <a href="ideas.html#idea-33">Idea 33</a>.</li>
+          <li><strong>Quarterly maintenance + growth-hack analytics.</strong> Chris: &ldquo;I think we should do a quarterly reminder of like what hasn&apos;t been touched.&rdquo; Farzana: &ldquo;if there was a way to like growth hack the profiles a little bit, I think people would be much more interested in optimizing theirs if they knew what the key was to doing so.&rdquo; Two halves of the same idea: nudge maintenance + show analytics that reveal what&apos;s working. Logged as <a href="ideas.html#idea-31">Idea 31</a>.</li>
+          <li><strong>Custom intake forms per Chameleon.</strong> Chris: &ldquo;if there&apos;s a way to do a form where we could like actually be the ones creating the questions to kind of do some of the pre-populating&hellip; the more that we could write the questions that we would want to be able to pose I think shows kind of the way we operate.&rdquo; Distinct from Idea 7 (light qualifying fields) — this gives each Chameleon a tool to demonstrate operational thoughtfulness through their qualifying questions. Logged as <a href="ideas.html#idea-30">Idea 30</a>.</li>
+          <li><strong>Expert Network integration.</strong> Farzana: &ldquo;the experts should be a part of this as well&hellip; if they&apos;re presenting them as a part of Chameleon Collective.&rdquo; The current expert network feels like &ldquo;a different team&rdquo; to clients. Bringing experts into the same profile system unifies the brand wrapper. Logged as <a href="ideas.html#idea-32">Idea 32</a>.</li>
+          <li><strong>Search by industry / title / capability — not just role.</strong> Both Farzana and Chris confirmed: today&apos;s filters (Leaders / Delivery Specialists / Recruiters) don&apos;t match how clients actually search. Reinforces <a href="ideas.html#idea-15">Idea 15</a> (conversational search) and <a href="ideas.html#idea-23">Idea 23</a> (curated skill tagging cleanup) with fresh voice evidence.</li>
+          <li><strong>Automated testimonial collection MUST include a Chameleon-approval gate.</strong> Farzana explicit: &ldquo;I don&apos;t love the idea of like anyone contacting clients without giving the engagement lead a heads up... it&apos;s always good for someone to be like copied on the communication and like knowing it&apos;s going out and what it&apos;s saying before.&rdquo; Chris: &ldquo;having to approve before you have the [request go out].&rdquo; <strong>Critical refinement to <a href="ideas.html#idea-29">Idea 29</a></strong> — the automation must notify the Chameleon and require approval before any email goes to a client. This is not optional.</li>
+          <li><strong>Thought leadership / external credibility</strong> as activity signal. Farzana: &ldquo;if you&apos;re at conferences that people have heard of, if you&apos;ve been on a stage, if you wrote like an article that was published in like a publication, like all of that stuff should be able to be pulled in.&rdquo; Bridges the external-vs-Chameleon-only debate — specific credibility markers are worth pulling.</li>
+          <li><strong>Pull recent LinkedIn posts as freshness signal.</strong> Farzana: &ldquo;just pulling in like the last three LinkedIn posts that that person posted. Like it gives you a sense of like the kind of content they&apos;re passionate about. It keeps it updated.&rdquo; Specific implementation of activity stream auto-population (refines <a href="ideas.html#idea-20">Idea 20</a>).</li>
+        </ul>
+
+        <div class="voice-quote">
+          &ldquo;If this could be like a hub for the bio slide, so I could send clients a link instead of a PDF, I think that could be really nice. So it serves multiple purposes.&rdquo;
+          <cite>— Farzana Nasser · the Chameleon-native framing of master + tailored children</cite>
+        </div>
+
+        <div class="voice-quote">
+          &ldquo;I&apos;d rather just lead with like who I am from a personality style and the way that I operate. I don&apos;t want to overqualify, but I&apos;d rather just lead with it knowing this is what you&apos;re going to get.&rdquo;
+          <cite>— Chris Nella · in support of concise bios and the &ldquo;How I Work&rdquo; module</cite>
+        </div>
+
+        <h3>Dissent — where Session 4 refined existing thinking</h3>
+        <ul class="signal-list">
+          <li class="muted"><strong>Peer endorsements — internal-only, not public.</strong> S3 endorsed peer endorsements as testimonial copy on the public page. S4 explicitly disagreed. Farzana: &ldquo;I don&apos;t think it&apos;s valuable externally. Like I don&apos;t think clients care of other chameleons.&rdquo; Chris: &ldquo;no like social proof in that.&rdquo; <strong>Refinement:</strong> peer endorsements live in the admin / internal team-building tools (when one Chameleon is recommending another), not on the public-facing profile. Public testimonials come from clients only. Not a contradiction — a sharper placement.</li>
+          <li class="muted"><strong>Video — more cautious than S3.</strong> Farzana: &ldquo;I think that&apos;s like a a bit of a production challenge. Unless we use AI to like normalize everyone&apos;s videos, I feel like they&apos;re all going to look so different and like might not look professional.&rdquo; Refines <a href="ideas.html#idea-02">Idea 02</a> (peer video testimonials) with a stronger caveat: without AI-assisted normalization, video varies too much in quality to be safe to default-on.</li>
+          <li class="muted"><strong>Talking-head video — not preferred.</strong> Neither Farzana nor Chris is comfortable on camera as a personality showcase. But clips from speaking engagements / podcasts (already-produced content) work. Reinforces the &ldquo;activity stream as credibility&rdquo; framing.</li>
+        </ul>
+
+        <h3>New angles — fresh from Session 4</h3>
+        <ul class="signal-list">
+          <li><strong>Custom intake form designer per Chameleon</strong> — each Chameleon writes their own qualifying questions. Demonstrates how they think about scoping. Logged as <a href="ideas.html#idea-30">Idea 30</a>.</li>
+          <li><strong>Quarterly maintenance reminders + growth-hack analytics</strong> — nudge + insight loop. Logged as <a href="ideas.html#idea-31">Idea 31</a>.</li>
+          <li><strong>Expert Network integration</strong> — trusted experts get the same profile system. Logged as <a href="ideas.html#idea-32">Idea 32</a>.</li>
+          <li><strong>Local override of central data</strong> — pull defaults from central source, edit per profile child without changing global. Logged as <a href="ideas.html#idea-33">Idea 33</a>.</li>
+        </ul>
+        </details>
+
+        <details class="collapsible-section" id="session-3">
+        <summary>
+          <h2>Round 1 — Session 3</h2>
+          <span class="collapsible-meta">2026-06-10 · 3 voices · Chris B., Jeff, Pam</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+
+        <div class="session-meta">
+          <span><strong>Date</strong> 2026-06-10</span><span class="sep">·</span>
+          <span><strong>Length</strong> ~60 min</span><span class="sep">·</span>
+          <span><strong>Format</strong> Group, 5 attendees</span><span class="sep">·</span>
+          <span><strong>Chameleon voices</strong> 3 (Chris Baccus, Jeff Blettner, Pamela Alegria)</span><span class="sep">·</span>
+          <span><strong>Facilitators</strong> Juan-Carlos Morales, Austin Dillman</span>
+        </div>
+
+        <h3>Signal — what Session 3 confirmed, sharpened, or added</h3>
+        <ul class="signal-list">
+          <li><strong>3 of 3 didn't actively use their profile pages.</strong> Pamela: &ldquo;I would send my portfolio link.&rdquo; Chris: prefers his personal site. Jeff: profile picture is &ldquo;super pixelated&rdquo; — he sends slides. Pattern across all 3 sessions: 7 of 8 Chameleons bypass the current page.</li>
+          <li><strong>3 of 3 already customize per pitch — manually.</strong> Chris customizes &ldquo;based on the three client restrictions.&rdquo; Pamela &ldquo;moves boxes around.&rdquo; Jeff uses AI: records call notes, uploads to AI, has AI review his profile + proposal, AI suggests &ldquo;you should add this experience you have but didn't mention.&rdquo; <em>This is the single most actionable workflow surfaced in the entire research — Juan immediately spotted that the profile system should do this natively.</em></li>
+          <li><strong>3 of 3 wanted both web AND slide/PDF output.</strong> Jeff: &ldquo;I would still do the slide. In a way slide feels more professional, more polished.&rdquo; Pamela: &ldquo;I would use it instead of my Google slide&rdquo; — but only if it does what the slide does. Juan: web is auto-updated and mobile-responsive; slides age out. <strong>Consensus: one source of truth, multiple output formats.</strong></li>
+          <li><strong>Mini case studies preferred over long case studies.</strong> Jeff: &ldquo;our current case study setup, the longer case studies feels a little problematic… mini case studies probably do a little bit better.&rdquo; Pamela: just the bio, top 3 projects, profile picture, optional portfolio link. The page should be concise, not exhaustive.</li>
+          <li><strong>Curated skills + &ldquo;superpower&rdquo; framing strongly endorsed.</strong> Chris: &ldquo;I've curated my skills a little bit because I don't really want to be contacted about that — I know three other people in Chameleon that are way better than me at that, so let them be those people.&rdquo; Austin: &ldquo;What would a client be willing to pay you for? What do you do most often?&rdquo; — proposed as the baseline question for every Chameleon. Reinforces Braintrust's &ldquo;Superpowers&rdquo; pattern already in <a href="../best-practices.md">best-practices.md</a>.</li>
+          <li><strong>Client list context matters for less-known brands.</strong> Chris: &ldquo;Is it a NASCAR with a bunch of stuff that nobody knows or with a bunch of companies people do know?&rdquo; The logo bar needs context for non-household-name clients (Series B, employee count, industry) — small annotations that help prospects place a brand.</li>
+          <li><strong>Profile-as-credibility-wrapper.</strong> Pamela: &ldquo;I can send my portfolio but I don't have that backup credibility of Chameleon Collective when I send my <code>pamelagria.com</code>… I want to send something that's credible.&rdquo; The Collective's brand is itself a primary trust signal — the page is the wrapper that makes individual work read as backed-by-Chameleon. This sharpens our consultancy-leaning framing.</li>
+          <li><strong>Group/team pitches need a unified output.</strong> Austin: when pitching multiple Chameleons, the current process is manual PDF compilation. Need: cohesive multi-person profile pages that can be assembled and sent as one polished output. <em>This is biz-dev-facing — different from the client-facing &ldquo;build your team&rdquo; UX (<a href="ideas.html#idea-21">Idea 21</a>).</em></li>
+          <li><strong>Automated testimonial collection — strong consensus.</strong> Juan: &ldquo;Every client you work with should get an email afterwards.&rdquo; Jeff: &ldquo;an automated thing is a nice way to do it because it's coming from the company and feels less personal in a good way.&rdquo; Chris: &ldquo;ability to do add a couple testimonials would be wonderful&rdquo; — with moderation. Austin: &ldquo;thumbs up / thumbs down → what did you like about working with Jeff? → 3-sentence testimonial.&rdquo;</li>
+          <li><strong>Image quality + brand cohesion is broken.</strong> Jeff: &ldquo;the images themselves look really bad… we do not feel cohesive and therefore yeah we're just a bunch of freelancers… this is our co-op.&rdquo; The current execution actively undermines the premium positioning — already addressed by our committed designed-portrait treatment in best-practices.</li>
+        </ul>
+
+        <div class="voice-quote">
+          &ldquo;I'm recording my call notes with a client and then I'm uploading those call notes to AI and then I'm having AI review my profile and my proposal, and AI does an excellent job of like, &lsquo;great, but they said this, you're not mentioning this.&rsquo; I'm not filling it with stuff that's made up. I'm filling it with like, yeah I have buyer journey optimization experience but that's not something that I would normally put in.&rdquo;
+          <cite>— Jeff Blettner · the AI tailoring workflow we should build into the system</cite>
+        </div>
+
+        <div class="voice-quote">
+          &ldquo;I can send my portfolio but I don't have that backup credibility of Chameleon Collective when I send my pamelagria.com. I want to send something that's credible — &lsquo;Hey, yes, I've been here for eight plus years. I work with all these clients. These are my colleagues.&rsquo;&rdquo;
+          <cite>— Pamela Alegria · the Collective's brand is itself a trust signal</cite>
+        </div>
+
+        <div class="voice-quote">
+          &ldquo;I've curated my skills a little bit because I'm like, I don't really want to be contacted about that. I know three other people in Chameleon that are way better than me at that. So let them be those people.&rdquo;
+          <cite>— Chris Baccus · why curated tagging matters, and the &ldquo;We over Me&rdquo; culture in action</cite>
+        </div>
+
+        <h3>Dissent — where Session 3 pushed back</h3>
+        <ul class="signal-list">
+          <li class="muted"><strong>Lead generation to individual — Chris and Pamela rejected.</strong> Chris: &ldquo;No, I don't want leads coming to me individually. I'd rather have the lead flow go through the whole team… it also gets away from the idea that we're individuals instead of more of a collective. So I want them to think of it as they're working with Chameleon.&rdquo; Pamela: &ldquo;Not to me. Not really.&rdquo; <strong>This is new — earlier sessions wanted direct or vetted; S3 explicitly wanted fully centralized.</strong> Strengthens (not contradicts) the variable opt-in tiers framework — now we have voices for all four routing options.</li>
+          <li class="muted"><strong>External-platform links — Chris pushed back.</strong> &ldquo;I don't want links to my personal site and all my LinkedIn. Let's try to keep them in the ecosystem of Chameleon. The less we could do that the better.&rdquo; Pamela's preference aligned (wants Chameleon link instead of personal). <em>Note: this contradicts what we currently have in best-practices about pulling activity from LinkedIn / blog / podcast. Resolved by making external ingestion optional per Chameleon — see updated best-practices.</em></li>
+          <li class="muted"><strong>Sizzle reels — Pamela's caveat.</strong> Endorsed in principle if AI-assisted: &ldquo;but only if it's not going to spit out cheesy weird things or change my mockups into something else.&rdquo; The tone risk on AI-generated content is real. Same caution as Ivonne's S2 framing.</li>
+          <li class="muted"><strong>Long case studies — Jeff explicitly flagged.</strong> &ldquo;Our current case study setup, the longer case studies feels a little problematic.&rdquo; Mini case studies preferred. Doesn't contradict but specifies how the work-proof module should be shaped.</li>
+        </ul>
+
+        <h3>New angles — fresh from Session 3</h3>
+        <ul class="signal-list">
+          <li><strong>AI-tailored bio + profile coaching workflow</strong> — Jeff's actual workflow, expanded by Juan into a feature: input client + JD → AI generates a tailored bio page from the master profile. AI can also suggest experiences the Chameleon has but undersold. <strong>Logged as <a href="ideas.html#idea-25">Idea 25</a> · A grade.</strong></li>
+          <li><strong>Master + tailored children profile system</strong> — Juan's framing: &ldquo;one master, and all the little children you make out of it to send to clients individually.&rdquo; Each child saved, shareable, derived from the canonical master. <strong>Logged as <a href="ideas.html#idea-26">Idea 26</a>.</strong></li>
+          <li><strong>Multi-format output (web + slide/PDF export)</strong> — both formats from one source of truth. Web auto-updates, is responsive, is shareable. PDF/slide is what Chameleons send today; should not be deprecated. <strong>Logged as <a href="ideas.html#idea-27">Idea 27</a>.</strong></li>
+          <li><strong>Cohesive group/team profile assembly</strong> — biz-dev-facing tool. When pitching multiple Chameleons, generate a unified team output instead of compiling PDFs manually. <strong>Logged as <a href="ideas.html#idea-28">Idea 28</a>.</strong></li>
+          <li><strong>Automated post-engagement testimonial collection</strong> — triggered after engagement completes (or after 3/6 months for retainers). Thumbs up/down → write 3 sentences → Chameleon moderates. <strong>Logged as <a href="ideas.html#idea-29">Idea 29</a>.</strong></li>
+          <li><strong>Logo annotation for less-known clients</strong> — small contextual annotations (Series B, employee count, industry) on the auto-populated logo bar. <em>Not standalone-scoreable; folds into the Logo Bar idea (<a href="ideas.html#idea-05">Idea 05</a>) as an implementation refinement.</em></li>
+        </ul>
+
+        </details>
+
+        </details>
+
+        <details class="collapsible-section" id="session-2">
+        <summary>
+          <h2>Round 1 — Session 2</h2>
+          <span class="collapsible-meta">2026-06-09 · 3 voices · Sonia, Ivonne, Ilan</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+
+        <div class="session-meta">
+          <span><strong>Date</strong> 2026-06-09</span><span class="sep">·</span>
+          <span><strong>Length</strong> ~60 min</span><span class="sep">·</span>
+          <span><strong>Format</strong> Group, 5 attendees</span><span class="sep">·</span>
+          <span><strong>Chameleon voices</strong> 3 (Sonia Acosta, Ivonne Azurdia, Ilan Tito)</span><span class="sep">·</span>
+          <span><strong>Facilitators</strong> Juan-Carlos Morales, Austin Dillman</span>
+        </div>
+
+        <h3>Signal — what Session 2 added</h3>
+        <ul class="signal-list">
+          <li><strong>3 of 3 didn't know the profile pages existed.</strong> Sonia: &ldquo;I honestly didn't know I had that.&rdquo; Confirmed across 4 of 5 Chameleons heard by end of Session 2 (now 7 of 8 after Session 3).</li>
+          <li><strong>Lead generation is the primary purpose.</strong> Juan: &ldquo;The only thing this page should do is get you work.&rdquo; Ilan agreed: &ldquo;That's very clear.&rdquo; <em>Sharpened S1's framing.</em></li>
+          <li><strong>Site search is broken; that's a UX problem, not a data problem.</strong> Juan tested live — chat search for &ldquo;great copywriters?&rdquo; returned 4 hits. Data exists. Discovery doesn't.</li>
+          <li><strong>Availability is a missing signal.</strong> Sonia: 50% capacity, looking for work. Wanted a system that knows when she's available.</li>
+          <li><strong>The model is hard to explain to clients.</strong> Sonia's client thought CC was an agency and balked. The page should carry &ldquo;hire your team, not an agency&rdquo; — Ilan's phrase.</li>
+        </ul>
+
+        <div class="voice-quote">
+          &ldquo;Hire your team, not your agency. The profiles are an extension of that.&rdquo;
+          <cite>— Ilan Tito · the positioning frame in one line</cite>
+        </div>
+
+        <h3>Dissent — Session 2 splits (preserved)</h3>
+        <ul class="signal-list">
+          <li class="muted"><strong>Vetted leads vs. direct leads.</strong> Ivonne and Sonia preferred vetted; Ilan wanted direct but flagged variation. Resolved via opt-in tiers (<a href="ideas.html#idea-14">Idea 14</a>).</li>
+          <li class="muted"><strong>Star ratings — group reaction mixed.</strong> Logged as C+ with risk called out.</li>
+        </ul>
+
+        <h3>New angles — Session 2 (preserved)</h3>
+        <ul class="signal-list">
+          <li>Variable / opt-in vetting tiers (Ilan)</li>
+          <li>&ldquo;Hire your team, not your agency&rdquo; positioning module (Ilan)</li>
+          <li>Conversational AI search (Juan)</li>
+          <li>Available-now filter + automated availability triggers (Sonia, Juan)</li>
+          <li>Capacity tracked via revenue targets (Austin)</li>
+          <li>AI-generated social content from profile data (Ivonne)</li>
+          <li>Gamified team-builder UX (Sonia)</li>
+          <li>Sizzle reels of work (Sonia)</li>
+          <li>Curated skill tagging (Austin)</li>
+        </ul>
+        </details>
+
+        <details class="collapsible-section" id="session-1">
+        <summary>
+          <h2>Round 1 — Session 1</h2>
+          <span class="collapsible-meta">2026-06-08 · 2 voices · Caleb, Michael</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+
+        <div class="session-meta">
+          <span><strong>Date</strong> 2026-06-08</span><span class="sep">·</span>
+          <span><strong>Length</strong> ~60 min</span><span class="sep">·</span>
+          <span><strong>Format</strong> Group, 4 attendees</span><span class="sep">·</span>
+          <span><strong>Chameleon voices</strong> 2 (Michael Saint-Aubin, Caleb Ludwick)</span><span class="sep">·</span>
+          <span><strong>Facilitators</strong> Juan-Carlos Morales, Austin Dillman</span>
+        </div>
+
+        <h3>Signal — what Session 1 surfaced</h3>
+        <ul class="signal-list">
+          <li><strong>The page isn't doing its job.</strong> Michael avoids it; Caleb: &ldquo;looks like sh*t because there's too much going on.&rdquo;</li>
+          <li><strong>Walls of tags are noise.</strong> <em>Confirmed across all 3 sessions.</em></li>
+          <li><strong>Modular layout + strong defaults is the right shape.</strong> <em>Confirmed by all 3 sessions.</em></li>
+          <li><strong>Testimonials are missing.</strong> Caleb collects them with nowhere to put them. <em>Reinforced by S2 + S3 including automated collection.</em></li>
+          <li><strong>Direct contact with spam tradeoff accepted.</strong> Caleb. <em>S2 split; S3 wanted fully centralized — all routes captured by the tier system.</em></li>
+          <li><strong>Default state has to work without effort.</strong> <em>Reinforced by all 3 sessions.</em></li>
+          <li><strong>The page is top-of-funnel, not closing.</strong></li>
+        </ul>
+
+        <div class="voice-quote">
+          &ldquo;It looks like sh*t because there's too much going on. But if it were bite-size content modules, then I think it could look great.&rdquo;
+          <cite>— Caleb Ludwick · about his own current profile</cite>
+        </div>
+
+        <h3>Dissent — Session 1 pushback (preserved)</h3>
+        <ul class="signal-list">
+          <li class="muted"><strong>Common collaborators tag — both rejected.</strong> Michael: &ldquo;clicky.&rdquo;</li>
+          <li class="muted"><strong>&ldquo;How I Work&rdquo; with productized offerings — pigeonholing risk (Caleb).</strong></li>
+          <li class="muted"><strong>Personal content must be optional.</strong></li>
+        </ul>
+
+        <h3>New angles — Session 1 (preserved)</h3>
+        <ul class="signal-list">
+          <li>Peer-to-peer video testimonials (Michael)</li>
+          <li>Sample deliverables, anonymized (Juan)</li>
+          <li>Articulate the Chameleon-vs-agency value prop (Michael)</li>
+          <li>&ldquo;How I Work&rdquo; as a Loom or annotated slides (Caleb)</li>
+          <li>De-AI the site (Michael)</li>
+          <li>Pre-populated subject lines on contact (Michael)</li>
+        </ul>
+        </details>
+
+        <h2 id="whats-next">What's next</h2>
+        <p><strong>Round 1 is complete.</strong> Session 4 confirmed the patterns we&apos;d seen and added four new ideas (custom intake forms, quarterly maintenance reminders, Expert Network integration, local override of central data) plus one critical refinement to automated testimonial collection (Chameleon-approval gate before email goes to client). <strong>Next: Round 2 &mdash; concept reaction.</strong> We introduce Austin's concept (<code>austindillman.chameleoncollective.com</code>) and capture honest reactions. Per the original methodology, Question 7 (&ldquo;Is this even the right thing to invest in?&rdquo;) only appears in Round 2. Same adapted format. All 33 ideas scored against the rubric on the <a href="ideas.html">Ideas</a> page; the locked best-practices live in <a href="../best-practices.md">best-practices.md</a>; the LC-ready synthesis is on the <a href="exec-summary.html">Executive Summary</a> page.</p>
+
+      </div>
+      <div class="page-footer-strip">
+        <span class="pn-prev"><a href="interviews.html">← Interviews</a></span>
+        <span class="pn-section">Voices · 04 / 09</span>
+        <span class="pn-next"><a href="stakeholders.html">Stakeholders →</a></span>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function() {
+  const pageToc = document.querySelector('ol.page-toc');
+  const hamburger = document.getElementById('tocHamburger');
+  const overlay = document.getElementById('tocOverlay');
+  if (!pageToc || !hamburger || !overlay) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hamburger.classList.remove('visible');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+    } else {
+      hamburger.classList.add('visible');
+    }
+  }, { rootMargin: '-12px 0px 0px 0px', threshold: 0 });
+  observer.observe(pageToc);
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = overlay.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!overlay.contains(e.target) && !hamburger.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>

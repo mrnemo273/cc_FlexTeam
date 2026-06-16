@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Decision Log — Project 01 · Profile Revamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-brand-row">
+      <img src="icon-white.png" alt="CC" style="height:22px;">
+      <a class="sb-back" href="../../Framework/CC-Project-Memory.html">Memory ↗</a>
+    </div>
+
+    <div class="sb-project-id">Project 01</div>
+    <div class="sb-project-name">The Chameleon Profile, Reimagined.</div>
+    <div class="sb-status">
+      <span class="tag solid-accent">In Synthesis</span>
+      <span class="sb-stage">Stage 3 of 6</span>
+    </div>
+
+    <div class="sb-section-label">Contents</div>
+    <nav class="sb-nav">
+      <a class="sb-link" href="index.html">
+        <span class="sb-link-num">00</span>
+        <span class="sb-link-label">Cover</span>
+        <span class="sb-link-meta">Project overview</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="brief.html">
+        <span class="sb-link-num">01</span>
+        <span class="sb-link-label">The Brief</span>
+        <span class="sb-link-meta">Locked · 5 iterations</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="references.html">
+        <span class="sb-link-num">02</span>
+        <span class="sb-link-label">Reference Material</span>
+        <span class="sb-link-meta">3 sources · UX research · best practices</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="interviews.html">
+        <span class="sb-link-num">03</span>
+        <span class="sb-link-label">Interview Guide</span>
+        <span class="sb-link-meta">R1 complete · 10 of 10</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="voices.html">
+        <span class="sb-link-num">04</span>
+        <span class="sb-link-label">Voices</span>
+        <span class="sb-link-meta">10 of 10 · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="stakeholders.html">
+        <span class="sb-link-num">05</span>
+        <span class="sb-link-label">Stakeholders</span>
+        <span class="sb-link-meta">JCM + AD synthesis · weighted</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="ideas.html">
+        <span class="sb-link-num">06</span>
+        <span class="sb-link-label">Ideas</span>
+        <span class="sb-link-meta">33 scored · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link active" href="decisions.html">
+        <span class="sb-link-num">07</span>
+        <span class="sb-link-label">Decision Log</span>
+        <span class="sb-link-meta">5 entries · 5 taking shape</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="exec-summary.html">
+        <span class="sb-link-num">08</span>
+        <span class="sb-link-label">Executive Summary</span>
+        <span class="sb-link-meta">For Leadership Council</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="wireframes.html">
+        <span class="sb-link-num">09</span>
+        <span class="sb-link-label">Wireframes</span>
+        <span class="sb-link-meta">v2 · modular kits · 4 archetypes</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <div class="sb-footer-meta">
+      <div class="row"><strong>Owners</strong><span>JCM &middot; AD</span></div>
+      <div class="row"><strong>Updated</strong><span>2026-06-16</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="main-inner">
+      <div class="main-content">
+        <div class="main-section-label">Section 07 · Decision Log</div>
+        <h1>Decision Log</h1>
+        <dl class="metadata">
+          <dt>Entries</dt><dd>5</dd>
+          <dt>Latest</dt><dd>2026-06-11</dd>
+          <dt>Round 1</dt><dd><strong>Complete</strong> · 4 of 4 sessions · 10 of 10 voices · 33 ideas scored</dd>
+        </dl>
+
+        <ol class="page-toc">
+          <li><a href="#decision-005">005 · Session 4 + R1 closed</a></li>
+          <li><a href="#decision-004">004 · Session 3</a></li>
+          <li><a href="#decision-003">003 · Session 2</a></li>
+          <li><a href="#decision-002">002 · Session 1</a></li>
+          <li><a href="#decision-001">001 · Brief locked</a></li>
+        </ol>
+
+        <button class="toc-hamburger" id="tocHamburger" aria-label="Open page navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="toc-overlay" id="tocOverlay" role="dialog" aria-label="Page navigation">
+          <div class="toc-overlay-label">Jump to</div>
+          <ol class="toc-overlay-list">
+            <li><a href="#decision-005">005 · Session 4 + R1 closed</a></li>
+            <li><a href="#decision-004">004 · Session 3</a></li>
+            <li><a href="#decision-003">003 · Session 2</a></li>
+            <li><a href="#decision-002">002 · Session 1</a></li>
+            <li><a href="#decision-001">001 · Brief locked</a></li>
+          </ol>
+        </div>
+
+        <p class="lede">Chronological record of what we agreed and why. Each entry stays even when superseded — the changelog is part of the project's memory. <em>The most recent decision is expanded; earlier decisions are collapsed for scanability.</em></p>
+
+                <h2 id="decision-005">Decision 005 · Session 4 outcomes + Round 1 closed <span style="font-family: var(--font-body); font-size: 14px; font-weight: 400; color: var(--cc-orange); margin-left: 8px;">Most recent · expanded</span></h2>
+        <dl class="activity">
+          <dt>2026-06-11 · decision-005 · status logged</dt>
+          <dd>
+            Session 4 (Juan, Austin facilitating; Farzana Nasser, Chris Nella as Chameleon voices) closes out Round 1 at 10 of 10 voices across 4 sessions. The patterns held — 9 of 10 Chameleons don&apos;t actively use their profile, all customize per pitch, bio slides remain the substitute. Four new ideas surfaced, several existing ideas refined.
+            <br><br>
+            <strong>Newly aligned from Session 4:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><strong>Custom intake forms per Chameleon.</strong> Each Chameleon writes their own qualifying questions on the contact form, demonstrating how they think about scoping. Distinct from the standard pre-populated fields. Logged as <a href="ideas.html#idea-30">Idea 30</a>.</li>
+              <li><strong>Quarterly maintenance reminders + growth-hack analytics.</strong> Quarterly nudge for stale profiles paired with analytics showing what&apos;s driving traffic and matches. Two-sided incentive: keep your profile updated AND see the payoff. Logged as <a href="ideas.html#idea-31">Idea 31</a>.</li>
+              <li><strong>Expert Network integration.</strong> Trusted experts get the same profile system, removing the &ldquo;two layers of Chameleon&rdquo; feel clients currently experience. Logged as <a href="ideas.html#idea-32">Idea 32</a>.</li>
+              <li><strong>Local override of central data.</strong> The profile pulls defaults from the central source (COS → Core), but each profile&apos;s edits live locally. UX mechanic refining Idea 26. Logged as <a href="ideas.html#idea-33">Idea 33</a>.</li>
+            </ul>
+            <br>
+            <strong>Critical refinements — what Session 4 sharpened:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><a href="ideas.html#idea-29">Idea 29 (Automated post-engagement testimonial collection)</a>: <strong>must include Chameleon-approval gate.</strong> Farzana and Chris Nella explicit: the system cannot autonomously email clients. It notifies the Chameleon, the Chameleon approves (or modifies, or skips) before the email goes out. This is not optional. Updates the idea&apos;s recommendation; rescore stays A.</li>
+              <li><strong>Peer endorsements — internal-only, not public.</strong> S3 endorsed peer endorsements as testimonial copy on the profile. S4 explicitly disagreed: peer endorsements have no credibility to clients, only to internal team-builders. <strong>Refinement:</strong> peer endorsements live in the admin / matching tools (when a Chameleon is recommending another), not on the public profile. Public testimonials come from clients only. Not a contradiction — a sharper placement. Best-practices updated.</li>
+              <li><a href="ideas.html#idea-02">Idea 02 (Peer-to-peer video testimonials)</a>: stronger caveat. Video production varies too much without AI-assisted normalization to be safe to default-on. Stays opt-in; flag the production-quality concern in the implementation.</li>
+              <li><a href="ideas.html#idea-26">Idea 26 (Master + tailored children)</a>: Farzana&apos;s &ldquo;hub for bio slides&rdquo; phrase is the Chameleon-native framing. Adopt for internal explanation.</li>
+            </ul>
+            <br>
+            <strong>Methodology note — Round 1 complete:</strong> Four sessions in group format (4, 5, 5, 4 attendees). 1:1 was never viable. We accept the tradeoff and flag it honestly in synthesis. Sample skews toward Chameleons who actively think about their own go-to-market; less represented are delivery-only and Expert Network voices. Round 2 (concept reaction) should explicitly invite one of each. <strong>Total scored ideas: 33.</strong>
+          </dd>
+        </dl>
+
+        <details class="collapsible-section" id="decision-004">
+        <summary>
+          <h2>Decision 004 · Session 3 outcomes + Round 1 sample expanded</h2>
+          <span class="collapsible-meta">2026-06-10 · 5 new ideas · 4th routing tier</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+        <dl class="activity">
+          <dt>2026-06-10 · decision-004 · status logged</dt>
+          <dd>
+            Session 3 (Juan, Austin facilitating; Chris Baccus, Jeff Blettner, Pamela Alegria as Chameleon voices) brought us to 8 of 10 voices. Sample expanded from 8 to 10 — <strong>Session 4 tomorrow</strong> will add two more, ideally a delivery-focused practitioner and a quieter or newer Chameleon, to balance Round 1's slight skew toward go-to-market-active voices. Five new ideas scored, three existing ideas reframed with Session 3 input, and the locked best-practices doc updated to reflect new commitments.
+            <br><br>
+            <strong>Newly aligned from Session 3:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><strong>Automated post-engagement testimonial collection.</strong> Triggered after engagement completes (or 3/6-month checkpoints for retainers). Thumbs up/down → 3-sentence prompt → Chameleon moderates which display. Logged as <a href="ideas.html#idea-29">Idea 29</a>.</li>
+              <li><strong>Master + tailored children profile system.</strong> One canonical master profile; Chameleons generate tailored derivatives for specific pitches; each child is saveable and shareable. Logged as <a href="ideas.html#idea-26">Idea 26</a>.</li>
+              <li><strong>AI-tailored bio + profile coaching workflow.</strong> Jeff's existing manual AI workflow built into the system: input client + JD, AI generates a tailored bio from the master, AI surfaces relevant experience the Chameleon undersold. Logged as <a href="ideas.html#idea-25">Idea 25</a>.</li>
+              <li><strong>Multi-format output (web + slide/PDF).</strong> One source of truth, multiple output formats. Web stays auto-updated and mobile-responsive; slide/PDF export covers the &ldquo;polished feel&rdquo; Chameleons still want. Logged as <a href="ideas.html#idea-27">Idea 27</a>.</li>
+              <li><strong>Cohesive group/team profile assembly.</strong> Biz-dev-facing tool that compiles a unified multi-Chameleon pitch artifact instead of manual PDF compilation. Logged as <a href="ideas.html#idea-28">Idea 28</a>.</li>
+              <li><strong>Six-week project timeline reaffirmed.</strong> Wireframes → review → handoff to web team. No change to existing arc.</li>
+            </ul>
+            <br>
+            <strong>Reframings — what Session 3 changed:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><a href="ideas.html#idea-14">Idea 14 (Variable lead-routing tiers)</a>: <strong>fourth tier added.</strong> Chris and Pamela explicitly preferred fully centralized routing (all leads to BD, no direct routing through profile). Joins the three existing tiers (raw direct / spam-filtered / vetted+closing). Every preference across all three sessions now has a covered option.</li>
+              <li><strong>External vs. Chameleon-ecosystem activity sources.</strong> Earlier best-practices anticipated pulling activity from LinkedIn / personal sites. Chris explicitly preferred keeping everything inside the Chameleon ecosystem; Pamela aligned. Updated best-practices: external ingestion supported but optional per Chameleon. Native modules can be Chameleon-only for those who prefer.</li>
+              <li><strong>Activity stream motivation.</strong> Juan tested whether direct lead capture would motivate Chameleons to publish more content. Chris and Pamela said no — they preferred Collective-cohesion to individual lead gen. Updated best-practices: the activity stream's purpose is <em>brand and credibility</em>, not direct lead capture.</li>
+              <li><a href="ideas.html#idea-05">Idea 05 (Auto-populated logo bar)</a>: <strong>contextual annotation needed.</strong> Chris flagged the &ldquo;NASCAR of unknown logos&rdquo; problem — for less-known clients, small annotations (stage, employee count, industry) help prospects place a brand. Folded into Idea 5 as an implementation refinement.</li>
+              <li><a href="ideas.html#idea-04">Idea 04 (Client testimonials feature)</a>: <strong>automation layer separated</strong> into <a href="ideas.html#idea-29">Idea 29</a>. The base testimonial feature stays; the automated collection system is its companion.</li>
+            </ul>
+            <br>
+            <strong>Methodology note — Round 1 status:</strong> Three sessions done in group format (4, 5, 5 attendees). 1:1 was not viable. We adapted with smaller groups, async pre-read, async follow-up, explicit dissent solicitation in the room. The synthesis flags what we can't fully see — quiet voices that didn't push back in a room — rather than pretending we've fully heard every voice. <strong>Session 4 tomorrow</strong> closes Round 1, then Round 2 (concept reaction) begins with Austin's concept introduced.
+          </dd>
+        </dl>
+
+        </details>
+
+        <details class="collapsible-section" id="decision-003">
+        <summary>
+          <h2>Decision 003 · Session 2 outcomes + reframings</h2>
+          <span class="collapsible-meta">2026-06-09 · positioning frame + 3-tier routing</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+        <dl class="activity">
+          <dt>2026-06-09 · decision-003 · status logged</dt>
+          <dd>
+            Session 2 (Juan, Austin facilitating; Sonia Acosta, Ivonne Azurdia, Ilan Tito as Chameleon voices) added three new perspectives, validated several Session 1 themes, and forced us to reframe two earlier scoring assumptions. <strong>No prior conclusion was silently overwritten</strong> — instead, ideas were updated with explicit notes about what changed and why.
+            <br><br>
+            <strong>Newly aligned from Session 2:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><strong>Profile purpose is exclusively lead generation.</strong> Not social presence, not general company info.</li>
+              <li><strong>&ldquo;Hire your team, not your agency&rdquo;</strong> becomes the positioning frame for the page (Ilan's phrasing). Logged as <a href="ideas.html#idea-13">Idea 13</a>.</li>
+              <li><strong>Lead vetting is opt-in and variable across three tiers</strong> — raw direct / spam-filtered / vetted+closing support. Logged as <a href="ideas.html#idea-14">Idea 14</a>. <em>Session 3 added a fourth tier (fully centralized) — see Decision 004.</em></li>
+            </ul>
+          </dd>
+        </dl>
+        </details>
+
+        <details class="collapsible-section" id="decision-002">
+        <summary>
+          <h2>Decision 002 · Session 1 aligned outcomes</h2>
+          <span class="collapsible-meta">2026-06-09 · testimonials, lead ownership, fee, timeline</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+        <dl class="activity">
+          <dt>2026-06-09 · decision-002 · status logged</dt>
+          <dd>
+            Session 1 (Juan, Austin facilitating; Michael Saint-Aubin and Caleb Ludwick as the Chameleon voices) surfaced four explicit alignments worth logging as decisions.
+            <br><br>
+            <strong>Aligned in conversation:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li><strong>Client testimonials feature</strong> will be a first-class feature on the new profile.</li>
+              <li><strong>Lead ownership: leads generated through a Chameleon's profile go to that Chameleon</strong> with full credit. <em>Session 3 added the fully-centralized opt-out tier; sub-decision still valid for Chameleons who want it.</em></li>
+              <li><strong>Admin fee: 1–2% for passthrough.</strong> <em>Session 2 added tier structure (see Decision 003).</em></li>
+              <li><strong>Six-week project arc.</strong></li>
+            </ul>
+          </dd>
+        </dl>
+        </details>
+
+        <details class="collapsible-section" id="decision-001">
+        <summary>
+          <h2>Decision 001 · Brief locked</h2>
+          <span class="collapsible-meta">2026-06-02 · brief locked after 5 iterations</span>
+          <span class="collapsible-toggle"></span>
+        </summary>
+        <dl class="activity">
+          <dt>2026-06-02 · decision-001 · status locked</dt>
+          <dd>
+            After five iterations with Nemo, the brief is locked. The core thesis shifted during the conversation — from &ldquo;Chameleons own and edit their pages&rdquo; to &ldquo;the page works for the human who lands on it.&rdquo;
+            <br><br>
+            <strong>Sub-decisions:</strong>
+            <ul style="margin: 10px 0 0 20px; padding: 0; line-height: 1.7;">
+              <li>Two-wave research methodology.</li>
+              <li>Austin's concept explicitly withheld from Round 1 to prevent concept-anchoring bias.</li>
+              <li>Sample diversified.</li>
+              <li>Project page restructured as a multi-page working document.</li>
+            </ul>
+          </dd>
+        </dl>
+        </details>
+
+      </div>
+      <div class="page-footer-strip">
+        <span class="pn-prev"><a href="ideas.html">← Ideas</a></span>
+        <span class="pn-section">Decision Log · 07 / 09</span>
+        <span class="pn-next"><a href="exec-summary.html">Executive Summary →</a></span>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function() {
+  const pageToc = document.querySelector('ol.page-toc');
+  const hamburger = document.getElementById('tocHamburger');
+  const overlay = document.getElementById('tocOverlay');
+  if (!pageToc || !hamburger || !overlay) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hamburger.classList.remove('visible');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+    } else {
+      hamburger.classList.add('visible');
+    }
+  }, { rootMargin: '-12px 0px 0px 0px', threshold: 0 });
+  observer.observe(pageToc);
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = overlay.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!overlay.contains(e.target) && !hamburger.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>

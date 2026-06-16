@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration C · Cover Statement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* ─── DESIGN HYPOTHESIS ─────────────────────────────
+     Full-bleed cover statement. Duotone hero portrait
+     dominates the first viewport. Wider content frames.
+     Visual chapter system with icons + ornaments.
+     Designed as a "book" of profile.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --orange: #EA633F;
+    --ink: #121212;
+    --paper: #FFFFFF;
+    --cream: #F5F2E8;
+    --rule: #D6D2C5;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cream); color: var(--ink);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--ink); color: var(--paper);
+    padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .topbar a { color: var(--paper); text-decoration: none; opacity: 0.8; }
+  .topbar a:hover { color: var(--orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--orange); color: var(--ink); padding: 2px 8px; font-weight: 600; }
+
+  /* WIDER container */
+  .container {
+    max-width: 1440px; margin: 0 auto;
+    padding: 0 32px;
+  }
+  .container-mid {
+    max-width: 1080px; margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ─── HERO: full-bleed cover statement ─── */
+  .hero {
+    min-height: calc(100vh - 36px);
+    background: var(--orange);
+    color: var(--ink);
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: auto;
+  }
+  .hero-top i { margin-right: 8px; }
+  .hero-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 40px 0;
+  }
+  .hero-text { order: 2; }
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0 0 24px;
+  }
+  .hero-role {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0;
+    max-width: 460px;
+    letter-spacing: -0.005em;
+  }
+
+  /* DUOTONE PORTRAIT — orange shows through */
+  .hero-photo {
+    order: 1;
+    aspect-ratio: 4 / 5;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(115%);
+    mix-blend-mode: screen;
+  }
+  .hero-photo-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-size: 180px; font-weight: 400;
+    color: var(--orange); opacity: 0.6;
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    margin-top: auto;
+  }
+  .hero-stat {
+    font-family: var(--display);
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-stat-icon {
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+  .hero-stat-num {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+  }
+  .hero-stat-label {
+    font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  /* ─── CHAPTER BREAK ─── */
+  .chapter-break {
+    text-align: center;
+    padding: 64px 24px 32px;
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--soft);
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+  }
+  .chapter-break i { color: var(--orange); opacity: 0.7; }
+  .chapter-break .line {
+    width: 60px; height: 1px;
+    background: var(--rule);
+    display: inline-block;
+  }
+
+  /* ─── BIO ─── */
+  .bio {
+    padding: 16px 0 80px;
+  }
+  .bio-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 40px;
+    text-align: center;
+  }
+  .bio-body p {
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink);
+    margin: 0 0 22px;
+  }
+  .bio-body em {
+    color: var(--orange);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* ─── PRACTICE: cards with icons ─── */
+  .practice {
+    background: var(--paper);
+    padding: 64px 0 80px;
+  }
+  .practice-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-align: center;
+    margin: 0 auto 56px;
+    max-width: 480px;
+  }
+  .practice-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .practice-card {
+    background: var(--cream);
+    padding: 32px 28px;
+    border-top: 3px solid var(--orange);
+    display: flex; flex-direction: column;
+  }
+  .practice-icon {
+    width: 64px; height: 64px;
+    background: var(--paper);
+    color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 28px;
+    border-radius: 50%;
+  }
+  .practice-num {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--orange);
+    letter-spacing: -0.04em;
+    margin-bottom: 12px;
+  }
+  .practice-name {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 14px;
+    letter-spacing: -0.005em;
+  }
+  .practice-desc {
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--soft);
+    margin: 0 0 24px;
+    flex: 1;
+  }
+  .practice-deliverable {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .practice-deliverable i { color: var(--orange); }
+
+  /* ─── WORK: dark statement ─── */
+  .work {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 0;
+  }
+  .work-tag {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .work-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    text-align: center;
+    margin: 0 auto 56px;
+    max-width: 480px;
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .work-piece {
+    background: rgba(255,255,255,0.04);
+    padding: 32px;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .work-icon {
+    width: 56px; height: 56px;
+    background: var(--orange);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .work-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .work-title {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--paper);
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .work-body {
+    font-family: var(--body);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+  }
+
+  /* ─── QUOTE ─── */
+  .quote {
+    background: var(--cream);
+    padding: 96px 0;
+    text-align: center;
+  }
+  .quote-mark {
+    font-family: var(--display);
+    font-size: 96px;
+    line-height: 0.5;
+    color: var(--orange);
+    font-weight: 400;
+    margin-bottom: 32px;
+    display: block;
+  }
+  .quote-text {
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0 auto 32px;
+    max-width: 820px;
+    letter-spacing: -0.01em;
+  }
+  .quote-attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .quote-attr i { color: var(--orange); }
+  .quote-attr .name { color: var(--ink); }
+
+  /* ─── CLOSING ─── */
+  .closing {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 96px 0;
+    text-align: center;
+  }
+  .closing-icon {
+    width: 64px; height: 64px;
+    background: var(--orange);
+    color: var(--ink);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    border-radius: 50%;
+    margin-bottom: 28px;
+  }
+  .closing-mark {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .closing-headline {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    margin: 0 0 24px;
+    max-width: 540px;
+    margin-left: auto; margin-right: auto;
+  }
+  .closing-body {
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+    margin: 0 auto 36px;
+  }
+  .closing-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 32px;
+    background: var(--orange);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .footer {
+    padding: 24px 24px;
+    text-align: center;
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ───── TABLET ───── */
+  @media (min-width: 720px) {
+    .hero-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      padding: 64px 0;
+    }
+    .hero-text { order: 1; }
+    .hero-photo { order: 2; aspect-ratio: 4 / 5; }
+    .hero-photo-initials { font-size: 200px; }
+    .hero-name { font-size: 108px; line-height: 0.88; }
+    .hero-role { font-size: 22px; max-width: 580px; }
+    .hero-bottom {
+      grid-template-columns: repeat(3, auto);
+      gap: 48px;
+      justify-content: start;
+    }
+    .hero-stat-num { font-size: 48px; }
+
+    .bio-headline { font-size: 32px; }
+    .practice-headline, .work-headline, .closing-headline { font-size: 36px; max-width: 580px; }
+    .practice-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .practice-num { font-size: 56px; }
+    .practice-name { font-size: 24px; }
+    .work-grid { gap: 28px; }
+    .work-piece {
+      grid-template-columns: 56px 1fr;
+      gap: 24px;
+    }
+    .work-title { font-size: 26px; }
+    .quote-text { font-size: 32px; }
+    .work { padding: 112px 0; }
+    .quote { padding: 128px 0; }
+    .closing { padding: 120px 0; }
+  }
+
+  /* ───── DESKTOP ───── */
+  @media (min-width: 1100px) {
+    .hero-name { font-size: 152px; letter-spacing: -0.04em; }
+    .hero-role { font-size: 26px; }
+    .hero-stat-num { font-size: 56px; }
+    .hero-photo-initials { font-size: 240px; }
+    .practice-headline, .work-headline, .closing-headline { font-size: 44px; }
+  }
+  @media (min-width: 1400px) {
+    .hero-name { font-size: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../../wireframes.html"><i class="fa-solid fa-arrow-left"></i> Back</a>
+  <div class="right">
+    <span>Exploration C · Cover Statement</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<!-- HERO: cover moment -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <span><i class="fa-solid fa-bookmark"></i>Chameleon Profile · 001 / 006</span>
+      <span><i class="fa-solid fa-location-dot"></i>Brooklyn · 2026</span>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1 class="hero-name">Caleb<br>Ludwick</h1>
+        <p class="hero-role">A strategist who writes the brand into being. Voice systems, positioning, naming.</p>
+      </div>
+      <div class="hero-photo">
+        <div class="hero-photo-initials">CL</div>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-stat">
+        <i class="fa-solid fa-pen-fancy hero-stat-icon"></i>
+        <span class="hero-stat-num">17</span>
+        <span class="hero-stat-label">Years of voice work</span>
+      </div>
+      <div class="hero-stat">
+        <i class="fa-solid fa-clock hero-stat-icon"></i>
+        <span class="hero-stat-num">7+</span>
+        <span class="hero-stat-label">Years in the Collective</span>
+      </div>
+      <div class="hero-stat">
+        <i class="fa-solid fa-building hero-stat-icon"></i>
+        <span class="hero-stat-num">40+</span>
+        <span class="hero-stat-label">Brands voiced</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter break -->
+<div class="chapter-break">
+  <span class="line"></span>
+  <i class="fa-solid fa-circle"></i>
+  <span>Chapter 002 · About</span>
+  <i class="fa-solid fa-circle"></i>
+  <span class="line"></span>
+</div>
+
+<!-- BIO -->
+<section class="bio">
+  <div class="container-mid">
+    <p class="bio-headline">Where strategy meets the written word.</p>
+    <div class="bio-body">
+      <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it.</p>
+      <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. Sometimes it's a complete voice overhaul. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE -->
+<section class="practice">
+  <div class="container-mid">
+    <div class="chapter-break" style="margin: -32px auto 24px; padding-top: 0;">
+      <span class="line"></span>
+      <i class="fa-solid fa-circle"></i>
+      <span>Chapter 003 · Practice</span>
+      <i class="fa-solid fa-circle"></i>
+      <span class="line"></span>
+    </div>
+    <h2 class="practice-headline">What I do, in three areas.</h2>
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-icon"><i class="fa-solid fa-comments"></i></div>
+        <div class="practice-num">01</div>
+        <h3 class="practice-name">Brand voice systems</h3>
+        <p class="practice-desc">A complete voice playbook — principles, tone, vocabulary, do's and don'ts, examples across product surfaces.</p>
+        <div class="practice-deliverable"><i class="fa-solid fa-book"></i>6–10 week engagement</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div class="practice-num">02</div>
+        <h3 class="practice-name">Positioning &amp; messaging</h3>
+        <p class="practice-desc">Positioning thesis, elevator pitch, value-proposition hierarchy, and the messaging architecture that makes campaigns hang together.</p>
+        <div class="practice-deliverable"><i class="fa-solid fa-file-lines"></i>4–8 week sprint</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon"><i class="fa-solid fa-pen-nib"></i></div>
+        <div class="practice-num">03</div>
+        <h3 class="practice-name">Naming &amp; identity language</h3>
+        <p class="practice-desc">Product names, feature names, sub-brands, taglines. Sometimes a full naming engagement; sometimes just a sprint.</p>
+        <div class="practice-deliverable"><i class="fa-solid fa-bolt"></i>2–6 week sprint</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work">
+  <div class="container-mid">
+    <div class="work-tag">Chapter 004 · Selected work</div>
+    <h2 class="work-headline">Three recent engagements.</h2>
+
+    <div class="work-grid">
+      <div class="work-piece">
+        <div class="work-icon"><i class="fa-solid fa-credit-card"></i></div>
+        <div>
+          <div class="work-meta">Mastercard · Voice Strategy · 2024</div>
+          <h3 class="work-title">Rebuilding tone across seven product surfaces.</h3>
+          <p class="work-body">Mastercard's product organization had grown faster than its voice. We wrote the unifying voice document, then ran a six-week embed where I rewrote the highest-traffic surfaces alongside their copy leads.</p>
+        </div>
+      </div>
+      <div class="work-piece">
+        <div class="work-icon"><i class="fa-solid fa-code"></i></div>
+        <div>
+          <div class="work-meta">Stripe · Brand Messaging · 2023</div>
+          <h3 class="work-title">A second-person platform voice for developers.</h3>
+          <p class="work-body">Stripe asked us to refine the way they speak to developers without losing the way they speak to founders. The answer was build a system where both could coexist in the same surface.</p>
+        </div>
+      </div>
+      <div class="work-piece">
+        <div class="work-icon"><i class="fa-solid fa-leaf"></i></div>
+        <div>
+          <div class="work-meta">Patagonia · Editorial Language · 2022</div>
+          <h3 class="work-title">A long-form brand book and voice playbook.</h3>
+          <p class="work-body">Codifying one of the strongest brand voices in market for an organization that had grown past the founder's range. Currently the operating doc for editorial, marketing, and product content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="container-mid">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+    <div class="quote-attr"><i class="fa-solid fa-user"></i><span class="name">CMO</span> · Patagonia</div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="container-mid">
+    <div class="closing-icon"><i class="fa-solid fa-envelope"></i></div>
+    <div class="closing-mark">Chapter 006 · Contact</div>
+    <h2 class="closing-headline">Reach out to the Collective about Caleb's availability.</h2>
+    <p class="closing-body">New project inquiries route through the Collective's BD team. They'll find out if Caleb is the right fit and whether the timing works.</p>
+    <a href="#" class="closing-cta">Contact the Collective <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<footer class="footer">
+  Chameleon Profile · Exploration C · Cover Statement
+</footer>
+
+</body>
+</html>

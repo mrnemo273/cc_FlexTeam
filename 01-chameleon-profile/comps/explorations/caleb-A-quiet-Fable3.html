@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration A3 · Quiet, In Motion (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── UX HYPOTHESIS — FABLE 3 ───────────────────────
+     QUIET, IN MOTION. Editorial restraint with award-
+     site choreography: character-staggered hero, rules
+     that draw themselves, a pinned horizontal gallery
+     of work plates, a typographic marquee, scrub
+     parallax everywhere. GSAP + ScrollTrigger.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-cream-light); color: var(--cc-black);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: var(--cc-black); color: var(--cc-white);
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .topbar a { color: var(--cc-white); text-decoration: none; opacity: 0.8; }
+  .topbar a:hover { color: var(--cc-orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+  @media (max-width: 640px) { .topbar .right span:not(.tag) { display: none; } }
+
+  /* Scroll progress hairline */
+  .progress {
+    position: fixed; top: 37px; left: 0; right: 0; height: 2px;
+    background: transparent; z-index: 199;
+  }
+  .progress .bar { height: 100%; width: 100%; background: var(--cc-orange); transform-origin: left; transform: scaleX(0); }
+
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 110px 0 64px;
+    position: relative;
+  }
+  .hero-kicker {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange);
+    margin-bottom: 30px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .hero-kicker .kline { width: 0; height: 1px; background: var(--cc-orange); display: inline-block; }
+  .hero-name {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(58px, 12.5vw, 180px);
+    line-height: 0.9; letter-spacing: -0.05em;
+    margin: 0 0 30px;
+  }
+  .hero-name .line { display: block; overflow: hidden; }
+  .hero-name .ch { display: inline-block; will-change: transform; }
+  .hero-name .ital { font-style: italic; }
+  .hero-sub-row {
+    display: grid; grid-template-columns: 1fr; gap: 28px;
+    align-items: end;
+  }
+  .hero-role {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(17px, 1.9vw, 24px);
+    line-height: 1.45; max-width: 460px; margin: 0;
+  }
+  .hero-stats {
+    display: flex; gap: 36px;
+    border-top: 1px solid var(--cc-black);
+    padding-top: 16px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-stats b { display: block; font-size: 22px; font-weight: 300; letter-spacing: -0.02em; text-transform: none; margin-top: 6px; }
+  .hero-portrait {
+    position: absolute; right: clamp(20px, 4vw, 56px); top: 16vh;
+    width: min(30vw, 300px);
+    aspect-ratio: 4 / 5;
+    background: var(--cc-orange);
+    overflow: hidden;
+    display: none;
+    will-change: transform;
+  }
+  .hero-portrait .init {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; padding: 18px;
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(90px, 9vw, 140px);
+    line-height: 0.8; letter-spacing: -0.06em;
+    color: var(--cc-black); opacity: 0.35;
+  }
+  @media (min-width: 980px) { .hero-portrait { display: block; } }
+  .hero-scrollcue {
+    position: absolute; bottom: 22px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.34em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee {
+    background: var(--cc-black);
+    overflow: hidden; white-space: nowrap;
+    padding: 18px 0;
+  }
+  .marquee-track { display: inline-flex; will-change: transform; }
+  .marquee span {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(20px, 2.6vw, 34px);
+    letter-spacing: -0.01em;
+    color: var(--cc-cream-light);
+    padding-right: 18px;
+  }
+  .marquee span i { color: var(--cc-orange); font-style: normal; }
+
+  /* ─── SHARED SECTION APPARATUS ─── */
+  .ch-head {
+    display: flex; align-items: baseline; gap: 16px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    margin-bottom: 36px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ch-head .num { font-size: 36px; font-weight: 300; letter-spacing: -0.03em; color: var(--cc-orange); line-height: 0.9; }
+  .ch-head .line { flex: 1; height: 1px; background: var(--rule); align-self: center; transform-origin: left; }
+  .ch-title {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(30px, 4.6vw, 60px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin: 0 0 36px;
+  }
+  .ch-title .ital { font-style: italic; }
+  .fade-up { will-change: transform, opacity; }
+
+  /* ─── ABOUT ─── */
+  .about { padding: 120px 0; }
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 900px) { .about-grid { grid-template-columns: 1.2fr 0.8fr; gap: 80px; } }
+  .about-prose p { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.8; margin: 0 0 22px; }
+  .about-prose p:first-of-type::first-letter {
+    font-family: var(--display); font-weight: 300;
+    font-size: 84px; line-height: 0.84;
+    float: left; margin: 8px 16px 0 0;
+    color: var(--cc-orange);
+  }
+  .about-prose em { color: var(--cc-orange); font-style: italic; font-weight: 500; }
+  .about-aside {
+    border-top: 1px solid var(--cc-black);
+    font-family: var(--display);
+    font-variant-numeric: tabular-nums;
+    align-self: start;
+  }
+  .about-aside .row {
+    display: grid; grid-template-columns: 110px 1fr; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+  }
+  .about-aside dt { margin: 0; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; color: var(--soft); padding-top: 2px; }
+  .about-aside dd { margin: 0; font-family: var(--body); font-size: 13.5px; line-height: 1.55; }
+
+  /* ─── PRACTICE ─── */
+  .practice { background: var(--cc-white); padding: 120px 0; }
+  .p-row {
+    display: grid; grid-template-columns: 1fr; gap: 14px;
+    padding: 34px 0; border-top: 1px solid var(--rule);
+  }
+  .p-row:last-of-type { border-bottom: 1px solid var(--rule); }
+  @media (min-width: 900px) { .p-row { grid-template-columns: 100px 1fr 1.2fr auto; gap: 36px; align-items: start; } }
+  .p-no {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(40px, 4.5vw, 64px);
+    line-height: 0.85; letter-spacing: -0.05em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .p-name { font-family: var(--display); font-size: clamp(20px, 2vw, 28px); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
+  .p-name .ital { font-style: italic; font-weight: 300; }
+  .p-desc { font-size: 14.5px; line-height: 1.7; color: var(--soft); margin: 0; max-width: 520px; }
+  .p-chip {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid var(--cc-black);
+    padding: 8px 13px;
+    justify-self: start; align-self: start; white-space: nowrap;
+  }
+
+  /* ─── WORK — pinned horizontal gallery ─── */
+  .work { background: var(--cc-black); color: var(--cc-white); }
+  .work-intro { padding: 110px 0 30px; }
+  .work-intro .ch-head { color: rgba(255,255,255,0.5); }
+  .work-intro .ch-head .line { background: rgba(255,255,255,0.18); }
+  .work-intro .ch-title { color: var(--cc-white); }
+  .work-intro .ch-title .ital { color: var(--cc-orange); }
+  .h-wrap { overflow: hidden; }
+  .h-track {
+    display: flex; gap: clamp(20px, 3vw, 48px);
+    padding: 30px clamp(20px, 4vw, 56px) 110px;
+    will-change: transform;
+    width: max-content;
+  }
+  .plate {
+    flex: 0 0 auto;
+    width: min(78vw, 560px);
+    background: #1B1B1B;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: clamp(24px, 3vw, 44px);
+    display: flex; flex-direction: column;
+    min-height: clamp(340px, 50vh, 460px);
+  }
+  .plate-no {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(48px, 6vw, 84px);
+    line-height: 0.85; letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--cc-orange);
+    margin-bottom: auto;
+  }
+  .plate-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange);
+    margin: 26px 0 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .plate h3 {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(20px, 2vw, 27px);
+    line-height: 1.18; letter-spacing: -0.01em;
+    margin: 0 0 14px; color: var(--cc-white);
+  }
+  .plate p { font-size: 14px; line-height: 1.68; color: rgba(255,255,255,0.7); margin: 0; }
+  .plate .outcome { margin-top: 16px; font-size: 12.5px; font-style: italic; color: rgba(255,255,255,0.55); border-left: 2px solid var(--cc-orange); padding-left: 12px; }
+  .h-cue {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    padding: 0 clamp(20px, 4vw, 56px) 26px;
+  }
+
+  /* ─── QUOTE ─── */
+  .quote { padding: 130px 0; }
+  .quote .qmark {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(110px, 14vw, 200px);
+    line-height: 0.5; color: var(--cc-orange);
+    display: block; margin-bottom: 16px;
+  }
+  .quote .qtext {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(26px, 4vw, 54px);
+    line-height: 1.28; letter-spacing: -0.018em;
+    margin: 0 0 36px; max-width: 980px;
+  }
+  .quote .qtext .w { display: inline-block; will-change: transform, opacity; }
+  .attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .attr::before { content: ''; width: 40px; height: 1px; background: var(--cc-orange); }
+  .attr .name { color: var(--cc-black); }
+
+  /* ─── CONTACT ─── */
+  .contact { background: var(--cc-orange); padding: 120px 0 60px; }
+  .contact .big {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(44px, 9vw, 130px);
+    line-height: 0.92; letter-spacing: -0.045em;
+    margin: 0 0 32px;
+  }
+  .contact .big .ital { font-style: italic; }
+  .contact p { font-size: 15px; line-height: 1.7; max-width: 460px; margin: 0 0 40px; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 18px 36px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cta:hover { gap: 24px; }
+  .colophon {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 90px; padding-top: 16px;
+    border-top: 1px solid rgba(18,18,18,0.35);
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .cc-mark {
+    width: 26px; height: 26px;
+    background: var(--cc-black); color: var(--cc-orange);
+    font-family: var(--display); font-weight: 600; font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration A3 · Quiet, In Motion</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+<div class="progress"><div class="bar" id="progressbar"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-portrait" id="portrait">
+    <span class="init">CL</span>
+  </div>
+  <div class="container">
+    <div class="hero-kicker"><span class="kline" id="kline"></span><span id="kicker" style="opacity:0;">Chameleon Profile · Strategy + Voice</span></div>
+    <h1 class="hero-name" id="heroname">
+      <span class="line" data-split>Caleb</span>
+      <span class="line ital" data-split>Ludwick</span>
+    </h1>
+    <div class="hero-sub-row">
+      <p class="hero-role fade-up" id="herorole">A strategist who writes the brand into being. Voice systems, positioning, naming.</p>
+      <div class="hero-stats fade-up" id="herostats">
+        <span>Years<b data-count="17">0</b></span>
+        <span>Collective<b data-count="7" data-suffix="+">0</b></span>
+        <span>Brands<b data-count="40" data-suffix="+">0</b></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scrollcue">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mtrack">
+    <span>Voice Systems <i>·</i> Positioning <i>·</i> Naming <i>·</i> Manifestos <i>·</i> Anthems <i>·</i> Brand Books <i>·</i>&nbsp;</span>
+    <span>Voice Systems <i>·</i> Positioning <i>·</i> Naming <i>·</i> Manifestos <i>·</i> Anthems <i>·</i> Brand Books <i>·</i>&nbsp;</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <div class="ch-head">
+      <span class="num fade-up">002</span><span class="fade-up">About</span><span class="line draw"></span>
+    </div>
+    <h2 class="ch-title fade-up">Where strategy meets <span class="ital">the written word.</span></h2>
+    <div class="about-grid">
+      <div class="about-prose fade-up">
+        <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it — in voice playbooks, naming systems, manifestos, anthems, packaging, ads, and the boring 200-word product descriptions that most brands fumble.</p>
+        <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. I get on the call, listen, then come back with the language. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+      </div>
+      <dl class="about-aside fade-up">
+        <div class="row"><dt>Engagement</dt><dd>6–12 weeks for voice systems. 4–8 weeks for positioning sprints.</dd></div>
+        <div class="row"><dt>Currently</dt><dd>Engaged through Q2 2026. Accepting two engagements for Q3.</dd></div>
+        <div class="row"><dt>Sectors</dt><dd>Financial services, fashion, hospitality, SaaS.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE -->
+<section class="practice">
+  <div class="container">
+    <div class="ch-head">
+      <span class="num fade-up">003</span><span class="fade-up">Practice</span><span class="line draw"></span>
+    </div>
+    <h2 class="ch-title fade-up">Three places I work, with <span class="ital">three different deliverables.</span></h2>
+
+    <div class="p-row fade-up">
+      <div class="p-no">01</div>
+      <h3 class="p-name">Brand voice <span class="ital">systems</span></h3>
+      <p class="p-desc">A complete voice playbook — principles, tone, vocabulary, do's and don'ts, examples across product surfaces.</p>
+      <span class="p-chip">6–10 Week Engagement</span>
+    </div>
+    <div class="p-row fade-up">
+      <div class="p-no">02</div>
+      <h3 class="p-name">Positioning &amp; <span class="ital">messaging</span></h3>
+      <p class="p-desc">Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture that makes campaigns hang together.</p>
+      <span class="p-chip">4–8 Week Sprint</span>
+    </div>
+    <div class="p-row fade-up">
+      <div class="p-no">03</div>
+      <h3 class="p-name">Naming &amp; identity <span class="ital">language</span></h3>
+      <p class="p-desc">Product names, feature names, sub-brands, taglines. Full naming engagement or sprint when an in-house team is stuck.</p>
+      <span class="p-chip">2–6 Week Sprint</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK: pinned horizontal gallery -->
+<section class="work">
+  <div class="work-intro container">
+    <div class="ch-head">
+      <span class="num fade-up">004</span><span class="fade-up">Selected Work</span><span class="line draw"></span>
+    </div>
+    <h2 class="ch-title fade-up">Three recent <span class="ital">engagements.</span></h2>
+  </div>
+  <div class="h-cue">Scroll — the gallery moves sideways</div>
+  <div class="h-wrap" id="hwrap">
+    <div class="h-track" id="htrack">
+      <article class="plate">
+        <div class="plate-no">01</div>
+        <div class="plate-meta">Mastercard · Voice Strategy · 2024</div>
+        <h3>Rebuilding tone across seven product surfaces.</h3>
+        <p>Seven teams writing in seven registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads.</p>
+        <p class="outcome">Still in use 18 months later; measurable lift on card-comparison flows.</p>
+      </article>
+      <article class="plate">
+        <div class="plate-no">02</div>
+        <div class="plate-meta">Stripe · Brand Messaging · 2023</div>
+        <h3>A second-person platform voice for developers.</h3>
+        <p>Refine the developer voice without losing the founder voice. The answer: a system where both could coexist in the same surface.</p>
+        <p class="outcome">Adopted across Docs, Atlas, and Stripe Press.</p>
+      </article>
+      <article class="plate">
+        <div class="plate-no">03</div>
+        <div class="plate-meta">Patagonia · Editorial Language · 2022</div>
+        <h3>A long-form brand book and voice playbook.</h3>
+        <p>Codifying one of the strongest brand voices in market for an organization grown past the founder's range.</p>
+        <p class="outcome">Now the operating doc for editorial, marketing, and product content.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="container">
+    <span class="qmark fade-up">&ldquo;</span>
+    <p class="qtext" id="qtext">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+    <div class="attr fade-up"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <h2 class="big fade-up">Let's <span class="ital">talk.</span></h2>
+    <p class="fade-up">New project inquiries route through the Collective's BD team. Usually a 48-hour response.</p>
+    <a href="#" class="cta fade-up">Contact the Collective <span>&rarr;</span></a>
+    <div class="colophon">
+      <span class="cc-mark">CC</span>
+      <span>Chameleon Profile · Exploration A3</span>
+      <span>006 / 006</span>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Split hero name into chars
+  document.querySelectorAll('[data-split]').forEach(line => {
+    const text = line.textContent;
+    line.textContent = '';
+    [...text].forEach(c => {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c;
+      line.appendChild(s);
+    });
+  });
+
+  if (!reduce) {
+    // Hero entrance
+    gsap.set('.hero-name .ch', { yPercent: 110 });
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    tl.to('.hero-name .ch', { yPercent: 0, duration: 1.1, stagger: 0.035 }, 0.15)
+      .to('#kline', { width: 32, duration: 0.6 }, 0.2)
+      .to('#kicker', { opacity: 1, duration: 0.6 }, 0.4)
+      .from('#herorole', { y: 26, opacity: 0, duration: 0.9 }, 0.7)
+      .from('#herostats', { y: 26, opacity: 0, duration: 0.9 }, 0.85)
+      .from('#portrait', { y: 60, opacity: 0, duration: 1.2 }, 0.5);
+
+    // Counters
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '';
+      const obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: 1.6, delay: 1, ease: 'power2.out',
+        onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; }
+      });
+    });
+
+    // Hero portrait parallax on scroll
+    gsap.to('#portrait', {
+      yPercent: 24, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    // Progress bar
+    gsap.to('#progressbar', {
+      scaleX: 1, ease: 'none',
+      scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+    });
+
+    // Marquee
+    gsap.to('#mtrack', { xPercent: -50, ease: 'none', duration: 22, repeat: -1 });
+
+    // Generic fade-ups
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.from(el, {
+        y: 34, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    // Rules that draw themselves
+    gsap.utils.toArray('.line.draw').forEach(el => {
+      gsap.from(el, {
+        scaleX: 0, duration: 1.2, ease: 'power3.inOut',
+        scrollTrigger: { trigger: el, start: 'top 90%' }
+      });
+    });
+
+    // Pinned horizontal gallery (desktop only)
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 980px)', () => {
+      const track = document.getElementById('htrack');
+      const dist = () => track.scrollWidth - window.innerWidth;
+      gsap.to(track, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: {
+          trigger: '#hwrap', start: 'top top',
+          end: () => '+=' + dist(),
+          pin: true, scrub: 1, invalidateOnRefresh: true
+        }
+      });
+    });
+
+    // Quote: word-stagger scrub
+    const q = document.getElementById('qtext');
+    const words = q.textContent.split(' ');
+    q.innerHTML = words.map(w => `<span class="w">${w}</span>`).join(' ');
+    gsap.from('#qtext .w', {
+      opacity: 0.12, y: 10, stagger: 0.04, ease: 'none',
+      scrollTrigger: { trigger: '.quote', start: 'top 75%', end: 'top 30%', scrub: true }
+    });
+  } else {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      el.textContent = el.dataset.count + (el.dataset.suffix || '');
+    });
+  }
+</script>
+
+</body>
+</html>

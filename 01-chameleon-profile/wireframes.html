@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wireframes — Project 01 · Profile Revamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-brand-row">
+      <img src="icon-white.png" alt="CC" style="height:22px;">
+      <a class="sb-back" href="../../Framework/CC-Project-Memory.html">Memory ↗</a>
+    </div>
+
+    <div class="sb-project-id">Project 01</div>
+    <div class="sb-project-name">The Chameleon Profile, Reimagined.</div>
+    <div class="sb-status">
+      <span class="tag solid-accent">In Synthesis</span>
+      <span class="sb-stage">Stage 3 of 6</span>
+    </div>
+
+    <div class="sb-section-label">Contents</div>
+    <nav class="sb-nav">
+      <a class="sb-link" href="index.html">
+        <span class="sb-link-num">00</span>
+        <span class="sb-link-label">Cover</span>
+        <span class="sb-link-meta">Project overview</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="brief.html">
+        <span class="sb-link-num">01</span>
+        <span class="sb-link-label">The Brief</span>
+        <span class="sb-link-meta">Locked · 5 iterations</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="references.html">
+        <span class="sb-link-num">02</span>
+        <span class="sb-link-label">Reference Material</span>
+        <span class="sb-link-meta">3 sources · UX research · best practices</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="interviews.html">
+        <span class="sb-link-num">03</span>
+        <span class="sb-link-label">Interview Guide</span>
+        <span class="sb-link-meta">R1 complete · 10 of 10</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="voices.html">
+        <span class="sb-link-num">04</span>
+        <span class="sb-link-label">Voices</span>
+        <span class="sb-link-meta">10 of 10 · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="stakeholders.html">
+        <span class="sb-link-num">05</span>
+        <span class="sb-link-label">Stakeholders</span>
+        <span class="sb-link-meta">JCM + AD synthesis · weighted</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="ideas.html">
+        <span class="sb-link-num">06</span>
+        <span class="sb-link-label">Ideas</span>
+        <span class="sb-link-meta">33 scored · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="decisions.html">
+        <span class="sb-link-num">07</span>
+        <span class="sb-link-label">Decision Log</span>
+        <span class="sb-link-meta">5 entries · 5 taking shape</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="exec-summary.html">
+        <span class="sb-link-num">08</span>
+        <span class="sb-link-label">Executive Summary</span>
+        <span class="sb-link-meta">For Leadership Council</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link active" href="wireframes.html">
+        <span class="sb-link-num">09</span>
+        <span class="sb-link-label">Wireframes</span>
+        <span class="sb-link-meta">v2 · modular kits · 4 archetypes</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <div class="sb-footer-meta">
+      <div class="row"><strong>Owners</strong><span>JCM &middot; AD</span></div>
+      <div class="row"><strong>Updated</strong><span>2026-06-16</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="main-inner">
+      <div class="main-content">
+        <div class="main-section-label">Section 09 · Wireframes</div>
+        <h1>Wireframes</h1>
+        <dl class="metadata">
+          <dt>Status</dt><dd>v2 — modular approach (primary) · three directions preserved as earlier explorations</dd>
+          <dt>Fidelity</dt><dd>Low / medium · black-and-white wires · CC layout system</dd>
+          <dt>Prepared</dt><dd>June 10, 2026 · evolving post-Round-1</dd>
+          <dt>For review by</dt><dd>The Feedback Committee · then LC</dd>
+        </dl>
+
+        <ol class="page-toc">
+          <li><a href="#shift">The shift</a></li>
+          <li><a href="#archetypes">Chameleon archetypes</a></li>
+          <li><a href="#library">Module library</a></li>
+          <li><a href="#module-wires">Module wireframes</a></li>
+          <li><a href="#kits">Default kits per archetype</a></li>
+          <li><a href="#comps">Live design comps</a></li>
+          <li><a href="#admin">Admin (next)</a></li>
+          <li><a href="#earlier">Earlier explorations</a></li>
+          <li><a href="#next">What's next</a></li>
+        </ol>
+
+        <button class="toc-hamburger" id="tocHamburger" aria-label="Open page navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="toc-overlay" id="tocOverlay" role="dialog" aria-label="Page navigation">
+          <div class="toc-overlay-label">Jump to</div>
+          <ol class="toc-overlay-list">
+            <li><a href="#shift">The shift</a></li>
+            <li><a href="#archetypes">Chameleon archetypes</a></li>
+            <li><a href="#library">Module library</a></li>
+            <li><a href="#kits">Default kits per archetype</a></li>
+            <li><a href="#admin">Admin (next)</a></li>
+            <li><a href="#earlier">Earlier explorations</a></li>
+            <li><a href="#next">What's next</a></li>
+          </ol>
+        </div>
+
+        <p class="lede">The first cut of wireframes proposed three structural directions — Editorial, Active Pitch Tool, Live Page. Reviewing the feedback, a sharper read emerges: <strong>Chameleons don't fit one shape, and they shouldn't have to.</strong> A strategist&apos;s work shows up differently than a designer&apos;s. An interim leader&apos;s case studies look nothing like an operator&apos;s. The right answer is a <strong>kit of modules</strong> with archetype-aware defaults — not three rigid presets.</p>
+
+        <h2 id="shift">The shift — from directions to modules</h2>
+        <p>The three structural directions are useful as <em>illustrative bundles</em> of what a profile could feel like. But locking the Collective into one of them would force every Chameleon into a shape that doesn&apos;t fit their practice. The modular approach keeps the strategic commitments (feel consultancy, work talent network) while letting each profile match the work it&apos;s describing.</p>
+
+        <div class="wf-leans">
+          <div class="wf-leans-col">
+            <h4>What stays the same</h4>
+            <ul>
+              <li>The eight-module page architecture as the canonical structure</li>
+              <li>Master + tailored children as the data model (Idea 26)</li>
+              <li>Multi-format output — web and slide/PDF from one source (Idea 27)</li>
+              <li>Four-tier opt-in lead routing (Idea 14)</li>
+              <li>Automated post-engagement testimonial collection (Idea 29)</li>
+              <li>The framing principle: <em>feel consultancy, work talent network</em></li>
+            </ul>
+          </div>
+          <div class="wf-leans-col">
+            <h4>What changes</h4>
+            <ul>
+              <li>No single &ldquo;default profile&rdquo; — defaults vary by Chameleon archetype</li>
+              <li>Each module has variants (visual / metric / narrative) that match the work it&apos;s showing</li>
+              <li>Modules can be reordered within their section group</li>
+              <li>Conditional modules appear only when relevant data exists (no half-built sections)</li>
+              <li>Admin becomes the central UX — Chameleon picks their starting kit, then refines</li>
+              <li>Adding new modules later doesn&apos;t require redesigning the page</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ============================== ARCHETYPES ============================== -->
+        <h2 id="archetypes">The four Chameleon archetypes</h2>
+        <p>Every Chameleon picks a primary archetype during admin onboarding. Their archetype loads sensible default modules; they can swap, add, remove. Archetypes aren&apos;t rigid categories — they&apos;re a sensible <em>starting kit</em>. Many Chameleons span two (Ivonne: creative + strategy; Ilan: operator + leader). The system supports that — but the default has to start somewhere.</p>
+
+        <div class="archetype-grid">
+          <div class="archetype-card">
+            <div class="archetype-card-label">Archetype 01</div>
+            <h3>Creative + Visual</h3>
+            <p class="arch-desc">Practitioners whose work IS visual. Designers, art directors, illustrators, video editors, devs who ship UX, brand identity creators. The portfolio is the credibility.</p>
+            <dl class="arch-meta">
+              <dt>Show</dt><dd>Sample carousels · sizzle reels · brand-treatment shots · packaging mockups</dd>
+              <dt>De-emphasize</dt><dd>Long-form narrative · metric-forward cards · written case studies</dd>
+              <dt>Bio shape</dt><dd>Short (1–2 paragraphs) — the work speaks</dd>
+              <dt>Content cadence</dt><dd>Project-driven · weekly to monthly updates</dd>
+            </dl>
+            <div class="arch-committee"><strong>Who fits:</strong> Pam Alegria · Sonia Acosta · Ivonne Azurdia (hybrid with Strategy)</div>
+          </div>
+
+          <div class="archetype-card">
+            <div class="archetype-card-label">Archetype 02</div>
+            <h3>Strategy + Voice</h3>
+            <p class="arch-desc">Practitioners whose work IS thinking. Brand strategists, voice/messaging writers, planners, copy directors. Their case studies are written; their deliverables are frameworks and books.</p>
+            <dl class="arch-meta">
+              <dt>Show</dt><dd>Long-form bio · named-client narratives · published thought leadership · awards</dd>
+              <dt>De-emphasize</dt><dd>Visual carousels · metric callouts · availability indicator</dd>
+              <dt>Bio shape</dt><dd>Long (3–5 paragraphs) — the bio IS the proof</dd>
+              <dt>Content cadence</dt><dd>Quarterly thought pieces · talks · published essays</dd>
+            </dl>
+            <div class="arch-committee"><strong>Who fits:</strong> Caleb Ludwick · Michael Saint-Aubin · Ivonne Azurdia (hybrid with Creative)</div>
+          </div>
+
+          <div class="archetype-card">
+            <div class="archetype-card-label">Archetype 03</div>
+            <h3>Operator + Growth</h3>
+            <p class="arch-desc">Practitioners whose work IS metrics. CRO, growth, paid media, lifecycle, performance, analytics. Their case studies are number-driven; their credibility is measurable outcomes.</p>
+            <dl class="arch-meta">
+              <dt>Show</dt><dd>Stat callouts · metrics-forward project cards · industry chips · result tables</dd>
+              <dt>De-emphasize</dt><dd>Long-form bio · visual carousels · personal modules</dd>
+              <dt>Bio shape</dt><dd>Mid (2 paragraphs) + AI-tailored bio overlay heavily used</dd>
+              <dt>Content cadence</dt><dd>Per-engagement results · quarterly digests</dd>
+            </dl>
+            <div class="arch-committee"><strong>Who fits:</strong> Jeff Blettner · Chris Baccus · Farzana Nasser (hybrid with Leader)</div>
+          </div>
+
+          <div class="archetype-card">
+            <div class="archetype-card-label">Archetype 04</div>
+            <h3>Interim + Leader</h3>
+            <p class="arch-desc">Practitioners whose work IS leadership. Fractional CMO/CRO/VP, interim heads, transformation leaders, board advisors. Their case studies are functions built and engagements led.</p>
+            <dl class="arch-meta">
+              <dt>Show</dt><dd>Engagement timeline · functional practice areas · executive testimonials · outcome narratives</dd>
+              <dt>De-emphasize</dt><dd>Sample deliverables · tactical case studies · contact form (low cold-traffic)</dd>
+              <dt>Bio shape</dt><dd>Mid-long (3 paragraphs) — career arc + current focus</dd>
+              <dt>Content cadence</dt><dd>Engagement starts/ends · talks · published frameworks</dd>
+            </dl>
+            <div class="arch-committee"><strong>Who fits:</strong> Chris Nella · Ilan Tito · Farzana Nasser (hybrid with Operator)</div>
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="note-label">On hybrids</div>
+          Some Chameleons cleanly fit one archetype. Many span two (Ivonne, Ilan, Farzana — flagged above). The system handles this in two ways: <strong>(1)</strong> the Chameleon picks a primary archetype for default modules + content cadence, then <strong>(2)</strong> adds one or two modules from a secondary archetype (e.g., Ivonne starts as Strategy + adds the Visual carousel). The master + tailored children architecture means they can ALSO generate per-pitch variants that lean one way or the other depending on the client.
+        </div>
+
+        <!-- ============================== MODULE LIBRARY ============================== -->
+        <h2 id="library">The module library</h2>
+        <p>Sixteen modules in five groups. Some are <strong>required</strong> on every profile (Identity, Bio, Contact). Most are <strong>optional</strong> and load per archetype default. Each module that supports variants is noted — the variant the Chameleon picks adapts the module to their work shape.</p>
+
+        <div class="module-cat">
+          <div class="module-cat-label">Identity &amp; positioning</div>
+          <div class="module-library">
+            <div class="module-card">
+              <div class="module-card-name">Identity Hero <span class="module-required">Required</span></div>
+              <div class="module-card-desc">Portrait, name, location, role/headline. Foundation of every profile.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Hero + bio start (Strategy)</li>
+                  <li>Hero + stat callouts (Operator, Leader)</li>
+                  <li>Hero + work thumbnails (Creative)</li>
+                  <li>Hero + availability bar (looking-for-work)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Stat Callouts <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">2–3 numbers in the hero: years, $ managed, brands served, teams built, engagements completed.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Revenue/results (Operator)</li>
+                  <li>Leadership scope (Leader)</li>
+                  <li>Tenure + craft (Strategy)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Operator</span><span class="best-for-tag">Leader</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Availability Indicator <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Status bar showing current capacity. Auto-pulled from revenue-target tracking (Idea 19).</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Top-of-page status bar (looking-for-work)</li>
+                  <li>Inline in hero (active)</li>
+                  <li>Hidden (booked / fractional)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Creative</span><span class="best-for-tag">Operator</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Positioning Line <span class="module-required">Required</span></div>
+              <div class="module-card-desc">&ldquo;Hire your team, not your agency&rdquo; (Idea 13). Persistent across every profile.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>In hero (default)</li>
+                  <li>Near contact CTA</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-cat">
+          <div class="module-cat-label">Bio &amp; expertise</div>
+          <div class="module-library">
+            <div class="module-card">
+              <div class="module-card-name">Bio <span class="module-required">Required</span></div>
+              <div class="module-card-desc">First-person narrative. Length and shape vary by archetype.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Long-form (4–5 paragraphs · Strategy)</li>
+                  <li>Mid-form (2–3 paragraphs · Operator, Leader)</li>
+                  <li>Short personal (1–2 paragraphs · Creative)</li>
+                  <li>+ AI-tailored bio overlay (Idea 25) — available on any variant</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Practice Areas <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">3 areas of focus with descriptions. The strategist&apos;s equivalent to expertise chips.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Functional (Brand voice · Positioning · Identity — Strategy)</li>
+                  <li>Outcome-led (Built marketing function · Led transformation — Leader)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Strategy</span><span class="best-for-tag">Leader</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Expertise Chips <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">3–5 curated chips on-page; 30+ underlying tags power search (Idea 23).</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Skills-focused (CRO · Funnel optimization · Lifecycle — Operator)</li>
+                  <li>Practice-focused (Brand identity · Editorial design — Creative)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Creative</span><span class="best-for-tag">Operator</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-cat">
+          <div class="module-cat-label">Work proof</div>
+          <div class="module-library">
+            <div class="module-card">
+              <div class="module-card-name">Logo Bar <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Auto-populated from COS (Idea 5). Annotated for less-known clients (Series B, employees).</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Carousel (default)</li>
+                  <li>Static grid (denser display)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Visual Work Carousel <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Scrollable carousel of sample work. AI-assisted sizzle reel auto-generates weekly.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Static samples (always-on)</li>
+                  <li>Auto-rotating sizzle (Idea 24)</li>
+                  <li>Per-project galleries</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Creative</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Metrics-Forward Project Cards <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Big number, label, client, scope. The operator&apos;s credibility carrier.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>3-card grid (top results)</li>
+                  <li>Sortable table (recent · highest · most-relevant)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Operator</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Narrative Project Stories <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Braintrust&apos;s Product/Role/Contribution/Team framework. Written paragraphs per project.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>3 selected (default)</li>
+                  <li>Full case-study expand</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Strategy</span><span class="best-for-tag">Leader</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Engagement Timeline <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Chronological list of fractional / interim engagements with role, scope, outcomes.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Timeline visualization</li>
+                  <li>Compact list</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Leader</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-cat">
+          <div class="module-cat-label">Trust signals &amp; activity</div>
+          <div class="module-library">
+            <div class="module-card">
+              <div class="module-card-name">Testimonials <span class="module-required">Required when present</span></div>
+              <div class="module-card-desc">First-class feature (Idea 4). Auto-collected post-engagement (Idea 29). Chameleon moderates display.</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Pull-quotes (2 prominent · Strategy, Leader)</li>
+                  <li>Card grid (3–6 · Operator, Creative)</li>
+                  <li>Peer endorsements row (named Chameleons)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Activity Stream <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Recent thought leadership, posts, talks. Tabbed: Recent · Pinned · From the Collective (fallback).</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Chameleon-only (Chris&apos;s preference)</li>
+                  <li>External-pull (LinkedIn, blog, podcast)</li>
+                  <li>Shared-Collective fallback when empty</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag">Strategy</span><span class="best-for-tag">Leader</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Recognition / Awards <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Awards, hall-of-fame mentions, press recognition. Only displays when present.</div>
+              <div class="module-best-for"><span class="best-for-tag">Strategy</span><span class="best-for-tag">Creative</span><span class="best-for-tag">Leader</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-cat">
+          <div class="module-cat-label">Contact &amp; personal</div>
+          <div class="module-library">
+            <div class="module-card">
+              <div class="module-card-name">Contact / CTA <span class="module-required">Required</span></div>
+              <div class="module-card-desc">Routing tier varies. Pre-populated subject line (Idea 3). Optional qualifying fields (Idea 7).</div>
+              <div class="module-variants">
+                <div class="module-variants-label">Variants</div>
+                <ul>
+                  <li>Embedded form, tier 1 direct (Operator looking for work)</li>
+                  <li>Form + tier 2 spam-filter (Operator, Creative active)</li>
+                  <li>Form + tier 3 vetted + closing support</li>
+                  <li>Line of text, tier 4 fully centralized (Strategy, Leader)</li>
+                </ul>
+              </div>
+              <div class="module-best-for"><span class="best-for-tag all">All archetypes</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Build-a-Team Strip <span class="module-optional">Optional</span></div>
+              <div class="module-card-desc">Bottom-of-page CTA: assemble a multi-Chameleon team around this person. Auto-suggested teammates based on availability + recent collaborators (Idea 21).</div>
+              <div class="module-best-for"><span class="best-for-tag">Creative</span><span class="best-for-tag">Operator</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">&ldquo;How I Work&rdquo; <span class="module-optional">Opt-in</span></div>
+              <div class="module-card-desc">Personal module explaining process (Idea 9). Format flexibility — written, Loom, annotated slides.</div>
+              <div class="module-best-for"><span class="best-for-tag">Strategy</span><span class="best-for-tag">Leader</span></div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-card-name">Off Hours / Personal <span class="module-optional">Opt-in</span></div>
+              <div class="module-card-desc">Non-work content (Idea 11). Wildlife photography, music, sport. Humanizes when used selectively.</div>
+              <div class="module-best-for"><span class="best-for-tag">Creative</span><span class="best-for-tag">Strategy</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================== MODULE WIREFRAMES ============================== -->
+        <h2 id="module-wires">Module wireframes</h2>
+        <p>What each module actually looks like as a rendered UI block. Low-medium fidelity, B&amp;W. Modules with strong variants show 2&ndash;4 alternatives side-by-side &mdash; the choice of variant adapts the module to a Chameleon&apos;s archetype and working style.</p>
+
+        <div class="mod-wire-section">
+
+          <!-- ============== IDENTITY & POSITIONING ============== -->
+          <div class="mod-wire-group-label">Identity &amp; positioning</div>
+
+          <div class="mod-wire mod-wire-wide">
+            <div class="mod-wire-title">01 &middot; Identity Hero <span class="module-required">Required</span></div>
+            <div class="mod-wire-purpose">Portrait, name, location, role/headline. Foundation of every profile. Four variants depending on archetype.</div>
+            <div class="mod-wire-variants v4">
+
+              <div>
+                <div class="mod-wire-variant-label">Editorial &middot; Strategy</div>
+                <div class="wf-canvas">
+                  <div class="wb-row wb-row-hero">
+                    <div class="wb-portrait"><span>Portrait</span></div>
+                    <div style="padding-top: 4px;">
+                      <div class="wb-title">Caleb Ludwick</div>
+                      <div class="wb-sub" style="margin-bottom: 4px;">Brooklyn, NY</div>
+                      <div class="wb-sub" style="font-style: italic; color: var(--wf-ink);">&ldquo;A strategist who writes the brand into being.&rdquo;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">With stat callouts &middot; Operator</div>
+                <div class="wf-canvas">
+                  <div class="wb-row wb-row-hero">
+                    <div class="wb-portrait"><span>Portrait</span></div>
+                    <div style="padding-top: 4px;">
+                      <div class="wb-title">Jeff Blettner</div>
+                      <div class="wb-sub" style="margin-bottom: 6px;">Austin, TX</div>
+                      <div class="wb-stats">
+                        <div class="wb-stat"><div class="wb-stat-num">$1.4B</div><div class="wb-stat-label">Tested</div></div>
+                        <div class="wb-stat"><div class="wb-stat-num">12y</div><div class="wb-stat-label">Building</div></div>
+                        <div class="wb-stat"><div class="wb-stat-num">2.5y</div><div class="wb-stat-label">In CC</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">With chips &middot; Creative</div>
+                <div class="wf-canvas">
+                  <div class="wb-row wb-row-hero">
+                    <div class="wb-portrait"><span>Portrait</span></div>
+                    <div style="padding-top: 4px;">
+                      <div class="wb-title">Sonia Acosta</div>
+                      <div class="wb-sub" style="margin-bottom: 6px;">Mexico City &middot; Creative Director</div>
+                      <div class="wb-chips">
+                        <span class="wb-chip wb-chip-solid">Brand</span>
+                        <span class="wb-chip wb-chip-solid">DTC</span>
+                        <span class="wb-chip wb-chip-solid">Editorial</span>
+                        <span class="wb-chip">Packaging</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">+ Availability bar &middot; Looking for work</div>
+                <div class="wf-canvas">
+                  <div class="wb-status-bar" style="text-transform: uppercase;">
+                    <span><span class="wb-status-dot"></span>Available now</span>
+                    <span>50% capacity</span>
+                  </div>
+                  <div class="wb-row wb-row-hero">
+                    <div class="wb-portrait"><span>Portrait</span></div>
+                    <div style="padding-top: 4px;">
+                      <div class="wb-title">Sonia Acosta</div>
+                      <div class="wb-sub">Mexico City &middot; Creative Director</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mod-wire-grid">
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">02 &middot; Stat Callouts <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">2&ndash;3 numbers in the hero. Adapts to what the archetype measures.</div>
+              <div class="mod-wire-variants v3">
+                <div>
+                  <div class="mod-wire-variant-label">Operator</div>
+                  <div class="wf-canvas"><div class="wb-stats"><div class="wb-stat"><div class="wb-stat-num">$1.4B</div><div class="wb-stat-label">Tested</div></div><div class="wb-stat"><div class="wb-stat-num">+11%</div><div class="wb-stat-label">Avg lift</div></div><div class="wb-stat"><div class="wb-stat-num">4&times;</div><div class="wb-stat-label">Tests shipped</div></div></div></div>
+                </div>
+                <div>
+                  <div class="mod-wire-variant-label">Leader</div>
+                  <div class="wf-canvas"><div class="wb-stats"><div class="wb-stat"><div class="wb-stat-num">8</div><div class="wb-stat-label">Engagements</div></div><div class="wb-stat"><div class="wb-stat-num">$400M</div><div class="wb-stat-label">Scope</div></div><div class="wb-stat"><div class="wb-stat-num">4</div><div class="wb-stat-label">Functions built</div></div></div></div>
+                </div>
+                <div>
+                  <div class="mod-wire-variant-label">Strategy</div>
+                  <div class="wf-canvas"><div class="wb-stats"><div class="wb-stat"><div class="wb-stat-num">20y</div><div class="wb-stat-label">Writing</div></div><div class="wb-stat"><div class="wb-stat-num">7y</div><div class="wb-stat-label">In CC</div></div><div class="wb-stat"><div class="wb-stat-num">40+</div><div class="wb-stat-label">Brands voiced</div></div></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">03 &middot; Availability Indicator <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Status auto-pulled from revenue-target tracking (Idea 19).</div>
+              <div class="mod-wire-variants v2">
+                <div>
+                  <div class="mod-wire-variant-label">Top-of-page bar</div>
+                  <div class="wf-canvas" style="padding-top: 0;"><div class="wb-status-bar" style="margin: 0 -14px;"><span><span class="wb-status-dot"></span>Available now &middot; 50% capacity</span><span>Booking through Sep</span></div></div>
+                </div>
+                <div>
+                  <div class="mod-wire-variant-label">Inline in hero</div>
+                  <div class="wf-canvas"><div class="wb-chips"><span class="wb-chip wb-chip-solid">&middot; Available now</span><span class="wb-chip">Booking through Sep</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">04 &middot; Positioning Line <span class="module-required">Required</span></div>
+              <div class="mod-wire-purpose">Persistent across every profile. Reinforces the Collective model.</div>
+              <div class="mod-wire-variants v2">
+                <div>
+                  <div class="mod-wire-variant-label">In hero</div>
+                  <div class="wf-canvas"><div class="wb wb-empty" style="text-align: center; padding: 18px;">&ldquo;Hire your team, not your agency.&rdquo;</div></div>
+                </div>
+                <div>
+                  <div class="mod-wire-variant-label">Near contact CTA</div>
+                  <div class="wf-canvas"><div style="font-family: var(--font-body); font-size: 10px; font-style: italic; color: var(--wf-mid); text-align: center; margin-bottom: 8px;">&ldquo;Hire your team, not your agency.&rdquo;</div><div class="wb-btn-row" style="justify-content: center;"><span class="wb-btn">Talk to me</span></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ============== BIO & EXPERTISE ============== -->
+          <div class="mod-wire-group-label">Bio &amp; expertise</div>
+
+          <div class="mod-wire mod-wire-wide">
+            <div class="mod-wire-title">05 &middot; Bio <span class="module-required">Required</span></div>
+            <div class="mod-wire-purpose">First-person narrative. Length varies by archetype. Any variant can have the AI-tailored bio overlay (Idea 25).</div>
+            <div class="mod-wire-variants v3">
+
+              <div>
+                <div class="mod-wire-variant-label">Long-form &middot; Strategy</div>
+                <div class="wf-canvas">
+                  <div class="wb"><span class="wb-tag">4 PARAGRAPHS</span>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="m"></span><span class="s"></span></div></div>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="m"></span><span class="x"></span></div></div>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="s"></span><span class="m"></span></div></div>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="x"></span></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Mid + AI button &middot; Operator</div>
+                <div class="wf-canvas">
+                  <div class="wb"><span class="wb-tag">2 PARAGRAPHS</span>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="m"></span><span class="s"></span></div></div>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="x"></span></div></div>
+                    <div class="wb-btn-row" style="margin-top: 8px;">
+                      <span class="wb-btn">&#9889; Generate tailored bio</span>
+                      <span class="wb-btn wb-btn-secondary">Read full</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Short &middot; Creative</div>
+                <div class="wf-canvas">
+                  <div class="wb"><span class="wb-tag">1 PARAGRAPH + LINKS</span>
+                    <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="m"></span><span class="s"></span></div></div>
+                    <div class="wb-chips" style="margin-top: 8px;">
+                      <span class="wb-chip">Portfolio</span>
+                      <span class="wb-chip">Behance</span>
+                      <span class="wb-chip">IG</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="mod-wire-note">All variants support the AI-tailored bio overlay: input a client + JD, AI generates a tailored child bio surfacing what the Chameleon undersold (Jeff&apos;s workflow built native).</div>
+          </div>
+
+          <div class="mod-wire-grid">
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">06 &middot; Practice Areas <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">3 areas with 1-line descriptions. The strategist&apos;s equivalent of expertise chips.</div>
+              <div class="wf-canvas">
+                <div class="wb-row wb-row-3">
+                  <div class="wb-project"><div class="wb-project-title">Brand voice</div><div class="wb-textlines"><span class="m"></span><span class="s"></span></div></div>
+                  <div class="wb-project"><div class="wb-project-title">Positioning</div><div class="wb-textlines"><span class="m"></span><span class="s"></span></div></div>
+                  <div class="wb-project"><div class="wb-project-title">Identity</div><div class="wb-textlines"><span class="m"></span><span class="x"></span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">07 &middot; Expertise Chips <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">3&ndash;5 curated chips on-page. 30+ underlying tags power search but stay hidden (Idea 23).</div>
+              <div class="wf-canvas">
+                <div class="wb-chips">
+                  <span class="wb-chip wb-chip-solid">CRO</span>
+                  <span class="wb-chip wb-chip-solid">A/B testing</span>
+                  <span class="wb-chip wb-chip-solid">Funnel optimization</span>
+                  <span class="wb-chip">Lifecycle</span>
+                  <span class="wb-chip">Paid acquisition</span>
+                </div>
+                <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 8px; font-style: italic;">+ 47 hidden tags powering search</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ============== WORK PROOF ============== -->
+          <div class="mod-wire-group-label">Work proof</div>
+
+          <div class="mod-wire-grid">
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">08 &middot; Logo Bar <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Auto-populated from COS. Override + annotation for less-known clients (Idea 5 + S3 refinement).</div>
+              <div class="wf-canvas">
+                <div class="wb-logorow">
+                  <div class="wb-logo">Stripe</div>
+                  <div class="wb-logo">Klaviyo</div>
+                  <div class="wb-logo">Rec.<sup style="font-size:6px">Series B</sup></div>
+                  <div class="wb-logo">Ramp</div>
+                </div>
+                <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 6px; font-style: italic;">Hover for context: company stage, employee count.</div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">09 &middot; Visual Work Carousel <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Scrollable carousel. AI-assisted sizzle auto-generates weekly (Idea 24 + 20).</div>
+              <div class="wf-canvas">
+                <div class="wb-row wb-row-3" style="margin-bottom: 8px;">
+                  <div class="wb-portrait" style="aspect-ratio: 4 / 3;"><span>Sample 1</span></div>
+                  <div class="wb-portrait" style="aspect-ratio: 4 / 3;"><span>Sample 2</span></div>
+                  <div class="wb-portrait" style="aspect-ratio: 4 / 3;"><span>Sample 3</span></div>
+                </div>
+                <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); display: flex; justify-content: space-between;"><span>&lsaquo; Scroll &middot; 14 samples</span><span>Auto-sizzle weekly</span></div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">10 &middot; Metrics-Forward Project Cards <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Big number, label, client, scope. The operator&apos;s credibility carrier.</div>
+              <div class="wf-canvas">
+                <div class="wb-row wb-row-3">
+                  <div class="wb-project">
+                    <div class="wb-stat" style="border: none; padding: 0;"><div class="wb-stat-num">+11%</div><div class="wb-stat-label">Conv lift</div></div>
+                    <div class="wb-project-meta" style="margin-top: 4px;"><span>Stripe</span></div>
+                  </div>
+                  <div class="wb-project">
+                    <div class="wb-stat" style="border: none; padding: 0;"><div class="wb-stat-num">$34M</div><div class="wb-stat-label">Attributable</div></div>
+                    <div class="wb-project-meta" style="margin-top: 4px;"><span>Klaviyo</span></div>
+                  </div>
+                  <div class="wb-project">
+                    <div class="wb-stat" style="border: none; padding: 0;"><div class="wb-stat-num">4&times;</div><div class="wb-stat-label">Tests</div></div>
+                    <div class="wb-project-meta" style="margin-top: 4px;"><span>Recess</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">11 &middot; Narrative Project Stories <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Braintrust&apos;s Product/Role/Contribution/Team framework. Paragraphs per project.</div>
+              <div class="wf-canvas">
+                <div class="wb-project" style="margin-bottom: 6px;">
+                  <div class="wb-project-meta"><span>Mastercard</span><span>&middot;</span><span>Voice strategy</span><span>&middot;</span><span>2024</span></div>
+                  <div class="wb-project-title">Rebuilding tone across 7 product surfaces</div>
+                  <div class="wb-textlines"><span class="m"></span><span class="s"></span></div>
+                </div>
+                <div class="wb-project">
+                  <div class="wb-project-meta"><span>Stripe</span><span>&middot;</span><span>Messaging</span><span>&middot;</span><span>2023</span></div>
+                  <div class="wb-project-title">A second-person platform voice for developers</div>
+                  <div class="wb-textlines"><span class="m"></span><span class="s"></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire mod-wire-wide">
+              <div class="mod-wire-title">12 &middot; Engagement Timeline <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Chronological list of fractional / interim engagements. Role, scope, outcomes. Best for interim leaders whose case studies ARE their engagements.</div>
+              <div class="wf-canvas">
+                <div class="wb-timeline">
+                  <div class="wb-timeline-item">
+                    <div class="wb-timeline-date">Q3 2025 &ndash; Present</div>
+                    <div class="wb-timeline-title">Fractional VP Growth &middot; Recess</div>
+                    <div class="wb-timeline-detail">Built the paid-and-lifecycle org. 3-person team. $40M revenue scope. Currently leading 2026 plan.</div>
+                  </div>
+                  <div class="wb-timeline-item">
+                    <div class="wb-timeline-date">2024 &ndash; Q2 2025</div>
+                    <div class="wb-timeline-title">Interim CMO &middot; Athletic Greens</div>
+                    <div class="wb-timeline-detail">Led brand transformation through Series C. Built 12-person marketing function. Brand refresh shipped.</div>
+                  </div>
+                  <div class="wb-timeline-item">
+                    <div class="wb-timeline-date">2023 &ndash; 2024</div>
+                    <div class="wb-timeline-title">Head of Growth &middot; Hims</div>
+                    <div class="wb-timeline-detail">$8.2M Series A growth strategy. Established analytics + experimentation discipline.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ============== TRUST & ACTIVITY ============== -->
+          <div class="mod-wire-group-label">Trust signals &amp; activity</div>
+
+          <div class="mod-wire mod-wire-wide">
+            <div class="mod-wire-title">13 &middot; Testimonials <span class="module-required">Required when present</span></div>
+            <div class="mod-wire-purpose">First-class feature (Idea 4). Auto-collected post-engagement (Idea 29). Chameleon moderates display. Three layout variants.</div>
+            <div class="mod-wire-variants v3">
+
+              <div>
+                <div class="mod-wire-variant-label">Pull-quotes &middot; Strategy / Leader</div>
+                <div class="wf-canvas">
+                  <div class="wb-quote" style="margin-bottom: 8px;">Caleb gave us back the words for what we were already doing.<cite>VP Brand, Stripe</cite></div>
+                  <div class="wb-quote">The kind of writer you trust with the whole brand voice.<cite>CMO, Patagonia</cite></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Card grid &middot; Operator / Creative</div>
+                <div class="wf-canvas">
+                  <div class="wb-row wb-row-3">
+                    <div class="wb-quote">Best CRO partner.<cite>VP Growth, Stripe</cite></div>
+                    <div class="wb-quote">Shipped 4&times; more.<cite>Head Growth, Klaviyo</cite></div>
+                    <div class="wb-quote">No bad experiments.<cite>CMO, Recess</cite></div>
+                  </div>
+                  <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 6px; font-style: italic;">Last auto-ask: 6 weeks ago &middot; 2 pending</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Peer endorsements row</div>
+                <div class="wf-canvas">
+                  <div class="wb-quote" style="margin-bottom: 6px;">I&apos;ve worked with Sonia on 9 projects. She makes the work better.<cite>Ivonne Azurdia &middot; Chameleon</cite></div>
+                  <div class="wb-quote">Sonia is the designer I pitch first when a brand needs taste.<cite>Caleb Ludwick &middot; Chameleon</cite></div>
+                </div>
+              </div>
+
+            </div>
+            <div class="mod-wire-note">Killed: the &ldquo;common collaborators&rdquo; tag (Idea 12 — surfaced as a clique signal). The peer-endorsement variant above accomplishes the same intent through testimonial copy with names attached, not algorithmic clustering.</div>
+          </div>
+
+          <div class="mod-wire-grid">
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">14 &middot; Activity Stream <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Tabbed: Chameleon&apos;s own posts &middot; Pinned &middot; From the Collective (fallback when stream is sparse).</div>
+              <div class="wf-canvas">
+                <div class="wb-tabs">
+                  <span class="wb-tab active">Recent</span>
+                  <span class="wb-tab">Pinned</span>
+                  <span class="wb-tab">Collective</span>
+                </div>
+                <div class="wb-textlines wb-tight" style="text-transform: none; letter-spacing: 0;">
+                  <span class="m"></span><span class="s"></span>
+                  <span class="m"></span><span class="x"></span>
+                  <span class="m"></span><span class="s"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">15 &middot; Recognition / Awards <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Awards, hall-of-fame mentions, press recognition. Only displays when present.</div>
+              <div class="wf-canvas">
+                <div class="wb wb-empty" style="padding: 8px 12px; margin-bottom: 6px;">AIGA Medal &middot; 2024</div>
+                <div class="wb wb-empty" style="padding: 8px 12px; margin-bottom: 6px;">Fast Company Most Creative &middot; 2023</div>
+                <div class="wb wb-empty" style="padding: 8px 12px;">Yale Critic in Residence &middot; 2022&ndash;present</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ============== CONTACT & PERSONAL ============== -->
+          <div class="mod-wire-group-label">Contact &amp; personal</div>
+
+          <div class="mod-wire mod-wire-wide">
+            <div class="mod-wire-title">16 &middot; Contact / CTA <span class="module-required">Required</span></div>
+            <div class="mod-wire-purpose">Routing tier (Idea 14) varies. Pre-populated subject line (Idea 3). Optional qualifying fields (Idea 7). Four tier variants &mdash; every preference voiced in research is covered.</div>
+            <div class="mod-wire-variants v4">
+
+              <div>
+                <div class="mod-wire-variant-label">Tier 1 &middot; Raw direct</div>
+                <div class="wf-canvas">
+                  <div class="wb-form">
+                    <div class="wb-field"><label>What you need</label><div class="wb-field-input"></div></div>
+                    <div class="wb-field"><label>Email</label><div class="wb-field-input"></div></div>
+                    <div class="wb-btn-row"><span class="wb-btn">Talk to Sonia &rarr;</span></div>
+                    <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 6px;">Goes to Sonia&apos;s inbox</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Tier 2 &middot; Spam-filtered</div>
+                <div class="wf-canvas">
+                  <div class="wb-form">
+                    <div class="wb-field"><label>Subject (pre-pop)</label><div class="wb-field-input"></div></div>
+                    <div class="wb-field"><label>Budget &middot; Timeline</label><div class="wb-field-input"></div></div>
+                    <div class="wb-field"><label>What you need</label><div class="wb-field-input" style="height: 30px;"></div></div>
+                    <div class="wb-btn-row"><span class="wb-btn">Talk to Jeff</span></div>
+                    <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 6px;">Screened by Collective, forwarded</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Tier 3 &middot; Vetted + closing</div>
+                <div class="wf-canvas">
+                  <div class="wb-form">
+                    <div class="wb-field"><label>What you need</label><div class="wb-field-input"></div></div>
+                    <div class="wb-field"><label>Budget</label><div class="wb-field-input"></div></div>
+                    <div class="wb-btn-row" style="margin-bottom: 6px;"><span class="wb-btn">Connect with Ilan</span></div>
+                    <div style="background: var(--wf-soft); border: 1px solid var(--wf-line); padding: 5px 7px; font-family: var(--font-body); font-size: 9px; color: var(--wf-ink); line-height: 1.4;"><strong>Collective will vet + handle closing.</strong> Premium tier, opt-in fee.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mod-wire-variant-label">Tier 4 &middot; Fully centralized</div>
+                <div class="wf-canvas">
+                  <div class="wb wb-empty" style="padding: 16px; text-align: center; font-style: normal; text-transform: none; font-family: var(--font-body); font-size: 11px; color: var(--wf-ink);">
+                    Reach out to the Collective<br>about Caleb&apos;s availability
+                    <div class="wb-btn-row" style="justify-content: center; margin-top: 10px;">
+                      <span class="wb-btn">Contact CC</span>
+                    </div>
+                    <div style="font-family: var(--font-body); font-size: 9px; color: var(--wf-mid); margin-top: 6px; font-style: italic;">No form &middot; routes to BD</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mod-wire-grid">
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">17 &middot; Build-a-Team Strip <span class="module-optional">Optional</span></div>
+              <div class="mod-wire-purpose">Bottom-of-page CTA. Auto-suggests teammates from recent collaborators + current availability (Idea 21).</div>
+              <div class="wf-canvas">
+                <div class="wb wb-strong" style="text-transform: none; letter-spacing: 0; padding: 12px 14px; font-family: var(--font-body);">
+                  <div style="font-size: 11px; font-weight: 600; margin-bottom: 6px;">Build a team around Sonia</div>
+                  <div style="font-size: 9.5px; color: var(--wf-paper); opacity: 0.8; margin-bottom: 8px; line-height: 1.4;">Auto-suggested based on availability + recent collaborators</div>
+                  <div class="wb-btn-row" style="flex-wrap: wrap;">
+                    <span class="wb-btn" style="background: var(--wf-paper); color: var(--wf-ink); font-size: 8.5px;">+ Caleb (strategy)</span>
+                    <span class="wb-btn" style="background: var(--wf-paper); color: var(--wf-ink); font-size: 8.5px;">+ Ivonne (copy)</span>
+                    <span class="wb-btn" style="background: var(--wf-paper); color: var(--wf-ink); font-size: 8.5px;">+ Add dev</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">18 &middot; &ldquo;How I Work&rdquo; <span class="module-optional">Opt-in</span></div>
+              <div class="mod-wire-purpose">Personal process module (Idea 9). Written, Loom, or annotated slides.</div>
+              <div class="wf-canvas">
+                <div class="wb"><span class="wb-tag">PROCESS</span>
+                  <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="m"></span><span class="x"></span></div></div>
+                  <div class="wb-btn-row" style="margin-top: 6px;"><span class="wb-btn wb-btn-secondary">Watch 2-min walkthrough &rarr;</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mod-wire">
+              <div class="mod-wire-title">19 &middot; Off Hours / Personal <span class="module-optional">Opt-in</span></div>
+              <div class="mod-wire-purpose">Non-work content (Idea 11). Humanizes when used selectively. Optional only.</div>
+              <div class="wf-canvas">
+                <div class="wb"><span class="wb-tag">OFF HOURS</span>
+                  <div class="wb-row wb-row-3" style="margin-bottom: 8px;">
+                    <div class="wb-portrait" style="aspect-ratio: 1;"><span>Photo 1</span></div>
+                    <div class="wb-portrait" style="aspect-ratio: 1;"><span>Photo 2</span></div>
+                    <div class="wb-portrait" style="aspect-ratio: 1;"><span>Photo 3</span></div>
+                  </div>
+                  <div class="wb-paragraph"><div class="wb-textlines"><span class="m"></span><span class="x"></span></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <p style="margin-top: 16px;">Together these 19 module wires (16 modules + variants) make up the full library a Chameleon can compose from. The default kits per archetype below show one suggested starting composition for each of the four archetypes &mdash; but the system supports any combination.</p>
+
+        <!-- ============================== KITS ============================== -->
+        <h2 id="kits">Default kits per archetype</h2>
+        <p>One column per archetype. Each shows the modules loaded by default, in order. <strong>Signature modules</strong> (orange-tinted) are the archetype-specific moves. <strong>Common modules</strong> appear in most kits. <strong>Optional modules</strong> are visible in admin but off by default. Every Chameleon can add, remove, reorder.</p>
+
+        <div class="kit-legend">
+          <div class="kit-legend-item"><span class="kit-legend-swatch signature"></span>Signature module · this archetype&apos;s differentiator</div>
+          <div class="kit-legend-item"><span class="kit-legend-swatch"></span>Common module · appears in most archetypes</div>
+          <div class="kit-legend-item"><span class="kit-legend-swatch optional"></span>Available · off by default for this archetype</div>
+        </div>
+
+        <div class="kit-grid">
+
+          <!-- KIT 1 — CREATIVE -->
+          <div class="kit-column">
+            <div class="kit-column-header">
+              <h3>01 · Creative + Visual</h3>
+              <div class="kit-sub">Pam · Sonia · creatives</div>
+            </div>
+            <div class="kit-stack">
+              <div class="kit-block">
+                <div class="kit-block-name">Identity Hero</div>
+                <div class="kit-block-detail">Portrait + name + role + 5 expertise chips inline</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Availability Indicator</div>
+                <div class="kit-block-detail">Status bar at the top — visible from first scroll</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Visual Work Carousel</div>
+                <div class="kit-block-detail">14 anonymized samples · AI-assisted sizzle weekly</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Bio — Short</div>
+                <div class="kit-block-detail">2 paragraphs · the work speaks first</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Logo Bar</div>
+                <div class="kit-block-detail">Auto-populated from COS · 8 logos</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Peer Endorsements</div>
+                <div class="kit-block-detail">Named Chameleons quoting collaborations</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Testimonials</div>
+                <div class="kit-block-detail">Card grid of 3–6 client quotes</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Contact Form</div>
+                <div class="kit-block-detail">Embedded · tier 2 spam-filtered</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Build-a-Team Strip</div>
+                <div class="kit-block-detail">Pair me with strategist + dev + copy</div>
+              </div>
+              <div class="kit-block optional">
+                <div class="kit-block-name">Off Hours · opt-in</div>
+                <div class="kit-block-detail">Wildlife / music / personal craft</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KIT 2 — STRATEGY -->
+          <div class="kit-column">
+            <div class="kit-column-header">
+              <h3>02 · Strategy + Voice</h3>
+              <div class="kit-sub">Caleb · Michael · brand strategists</div>
+            </div>
+            <div class="kit-stack">
+              <div class="kit-block signature">
+                <div class="kit-block-name">Identity Hero · Editorial</div>
+                <div class="kit-block-detail">Treated portrait · name · location · personal headline</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Bio — Long</div>
+                <div class="kit-block-detail">4–5 paragraphs · first-person · the proof</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Practice Areas</div>
+                <div class="kit-block-detail">3 areas (Voice · Identity · Positioning) with descriptions</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Narrative Project Stories</div>
+                <div class="kit-block-detail">3 named clients · Product/Role/Contribution/Team frame</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Activity Stream — Thought Leadership</div>
+                <div class="kit-block-detail">Talks · published essays · Chameleon-only</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Testimonials — Pull-Quotes</div>
+                <div class="kit-block-detail">2 prominent · attributed to title + brand</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Recognition / Awards</div>
+                <div class="kit-block-detail">Only displays when present</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Contact — Light</div>
+                <div class="kit-block-detail">Single line · routes to BD (tier 4)</div>
+              </div>
+              <div class="kit-block optional">
+                <div class="kit-block-name">&ldquo;How I Work&rdquo; · opt-in</div>
+                <div class="kit-block-detail">Process module · Loom or annotated</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KIT 3 — OPERATOR -->
+          <div class="kit-column">
+            <div class="kit-column-header">
+              <h3>03 · Operator + Growth</h3>
+              <div class="kit-sub">Jeff · Chris Baccus · operators</div>
+            </div>
+            <div class="kit-stack">
+              <div class="kit-block signature">
+                <div class="kit-block-name">Identity Hero + Stat Callouts</div>
+                <div class="kit-block-detail">Portrait · 3 stats ($1.4B tested · 12 yrs · 2.5 yrs CC)</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Bio — Mid + AI-Tailored Button</div>
+                <div class="kit-block-detail">2 paragraphs default · &ldquo;Generate tailored bio&rdquo; visible</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Curated Expertise Chips</div>
+                <div class="kit-block-detail">5 chips (CRO · A/B · Funnel · Lifecycle · Paid) · 47 hidden tags power search</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Logo Bar with Annotation</div>
+                <div class="kit-block-detail">Auto-populated + Series B context for less-known clients</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Metrics-Forward Project Cards</div>
+                <div class="kit-block-detail">3 cards · +11% lift · $34M attributable · 4× tests shipped</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Testimonials — Card Grid</div>
+                <div class="kit-block-detail">3 short quotes · auto-collected · last ask 6 weeks ago</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Activity — Tabbed</div>
+                <div class="kit-block-detail">Recent · Pinned · From the Collective</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Contact Form — Full</div>
+                <div class="kit-block-detail">Pre-populated subject · budget + timeline optional · tier 2</div>
+              </div>
+              <div class="kit-block optional">
+                <div class="kit-block-name">Availability Indicator · opt-in</div>
+                <div class="kit-block-detail">Hidden by default · turn on between engagements</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KIT 4 — LEADER -->
+          <div class="kit-column">
+            <div class="kit-column-header">
+              <h3>04 · Interim + Leader</h3>
+              <div class="kit-sub">Chris Nella · Ilan · fractional/interim</div>
+            </div>
+            <div class="kit-stack">
+              <div class="kit-block signature">
+                <div class="kit-block-name">Identity Hero + Leadership Stats</div>
+                <div class="kit-block-detail">3 stats (8 engagements led · $400M+ scope · 4 functions built)</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Bio — Mid-Long</div>
+                <div class="kit-block-detail">3 paragraphs · career arc + current focus</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Practice Areas — Functional</div>
+                <div class="kit-block-detail">3 outcomes (Built marketing org · Led growth transformation · Set up analytics)</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Engagement Timeline</div>
+                <div class="kit-block-detail">Recent 4 fractional roles · scope · outcomes · attribution</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Logo Bar — Brand Tier Annotated</div>
+                <div class="kit-block-detail">Auto-populated + stage + size context</div>
+              </div>
+              <div class="kit-block signature">
+                <div class="kit-block-name">Executive Testimonials</div>
+                <div class="kit-block-detail">2–3 pull-quotes from CEOs/founders</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Activity Stream — Sparse</div>
+                <div class="kit-block-detail">Talks · engagement announcements · published frameworks</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Recognition / Press</div>
+                <div class="kit-block-detail">Board roles · advisor positions · published features</div>
+              </div>
+              <div class="kit-block">
+                <div class="kit-block-name">Contact — Light</div>
+                <div class="kit-block-detail">Single line · routes to BD (tier 4)</div>
+              </div>
+              <div class="kit-block optional">
+                <div class="kit-block-name">Board / Advisor section · opt-in</div>
+                <div class="kit-block-detail">Current advisory positions + board roles</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="note">
+          <div class="note-label">Reading the kits</div>
+          The signature modules tell the truth about how each archetype&apos;s work shows up. <strong>Creatives</strong> lead with availability + sample carousel + peer endorsements + build-a-team — their value is being chosen for the next project. <strong>Strategists</strong> lead with bio + practice areas + narrative + thought leadership — their value is the body of thinking. <strong>Operators</strong> lead with stats + AI-tailored bio + metrics-forward cards + full contact form — their value is the demonstrated lift, and they&apos;re the ones most likely to pitch actively. <strong>Leaders</strong> lead with leadership stats + engagement timeline + executive testimonials — their value is the engagements they&apos;ve led and the outcomes they own.
+        </div>
+
+        <!-- ============================== LIVE DESIGN COMPS ============================== -->
+        <h2 id="comps">Live design comps &mdash; one per archetype</h2>
+        <p>Four full design comps using real Chameleon content from the live profiles. Each comp uses its archetype&apos;s default kit, in the CC design system, with a different accent per page (per the &ldquo;one accent per page&rdquo; rule). Click any card to open the standalone comp in a new tab.</p>
+
+        <div class="comp-grid">
+          <a class="comp-card" href="comps/arch-01-creative-ivonne.html" target="_blank">
+            <div class="comp-card-preview accent-cyan">
+              <div class="comp-card-preview-label">
+                <div class="comp-card-preview-name">Ivonne Azurdia</div>
+                <div class="comp-card-preview-role">Creative + Visual</div>
+              </div>
+            </div>
+            <div class="comp-card-body">
+              <div class="comp-card-tag">Arch 01 &middot; Cyan accent</div>
+              <h3 class="comp-card-title">The Creative + Visual comp</h3>
+              <p class="comp-card-desc">Cyan duotone hero, visual work carousel, peer endorsements, embedded contact form, build-a-team strip. Real bio + clients from <a href="https://chameleoncollective.com/ivonne-azurdia" target="_blank">chameleoncollective.com/ivonne-azurdia</a>.</p>
+              <span class="comp-card-arrow">Open the comp →</span>
+            </div>
+          </a>
+
+          <a class="comp-card" href="comps/arch-02-strategy-caleb.html" target="_blank">
+            <div class="comp-card-preview accent-orange">
+              <div class="comp-card-preview-label">
+                <div class="comp-card-preview-name">Caleb Ludwick</div>
+                <div class="comp-card-preview-role">Strategy + Voice</div>
+              </div>
+            </div>
+            <div class="comp-card-body">
+              <div class="comp-card-tag">Arch 02 &middot; Orange accent</div>
+              <h3 class="comp-card-title">The Strategy + Voice comp</h3>
+              <p class="comp-card-desc">Editorial cover layout, drop-cap bio, three numbered practice areas, narrative project stories, pull-quote testimonials, light contact. Pentagram-leaning prestige feel.</p>
+              <span class="comp-card-arrow">Open the comp →</span>
+            </div>
+          </a>
+
+          <a class="comp-card" href="comps/arch-03-operator-chris.html" target="_blank">
+            <div class="comp-card-preview accent-yellow">
+              <div class="comp-card-preview-label">
+                <div class="comp-card-preview-name">Chris Baccus</div>
+                <div class="comp-card-preview-role">Operator + Growth</div>
+              </div>
+            </div>
+            <div class="comp-card-body">
+              <div class="comp-card-tag">Arch 03 &middot; Yellow-green accent</div>
+              <h3 class="comp-card-title">The Operator + Growth comp</h3>
+              <p class="comp-card-desc">Dashboard-feel hero with stat callouts, AI-tailored bio button, expertise chips, brand-stage logo bar, metrics-forward project cards, full contact form. Real content from <a href="https://chameleoncollective.com/chris-baccus" target="_blank">chameleoncollective.com/chris-baccus</a>.</p>
+              <span class="comp-card-arrow">Open the comp →</span>
+            </div>
+          </a>
+
+          <a class="comp-card" href="comps/arch-04-leader-ilan.html" target="_blank">
+            <div class="comp-card-preview accent-orange">
+              <div class="comp-card-preview-label">
+                <div class="comp-card-preview-name">Ilan Tito</div>
+                <div class="comp-card-preview-role">Interim + Leader</div>
+              </div>
+            </div>
+            <div class="comp-card-body">
+              <div class="comp-card-tag">Arch 04 &middot; Orange accent</div>
+              <h3 class="comp-card-title">The Interim + Leader comp</h3>
+              <p class="comp-card-desc">Executive hero with leadership stats, functional practice areas, vertical engagement timeline (Cartier, MAC, Francesca&apos;s, Theory), brand-tier logo bar, executive testimonials. Real content from <a href="https://chameleoncollective.com/ilan-tito" target="_blank">chameleoncollective.com/ilan-tito</a>.</p>
+              <span class="comp-card-arrow">Open the comp →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="note">
+          <div class="note-label">On the design choices</div>
+          Each comp commits to one accent per page (per the cc-design-system rule). Orange repeats on Caleb and Ilan because both are leadership-coded archetypes &mdash; but the layouts differ dramatically (Caleb is editorial-magazine, Ilan is executive-boardroom). The variety across the four comps demonstrates that the modular system <em>and</em> the design system together can deliver distinct character per archetype without sacrificing brand consistency.
+        </div>
+
+        <!-- ============================== ADMIN ============================== -->
+        <h2 id="admin">The admin — coming next</h2>
+        <p>The module library and archetype kits change where the central UX lives. With three rigid directions, the design conversation is &ldquo;which template?&rdquo; With modules, the conversation becomes &ldquo;what does my admin look like?&rdquo; — because that&apos;s where Chameleons pick their archetype, swap in modules, configure their routing tier, manage tailored child profiles, and toggle automated testimonial collection.</p>
+
+        <p>This is the next workstream. The admin wireframe will visualize:</p>
+        <ul class="signal-list">
+          <li><strong>Archetype picker</strong> at first-time onboarding — &ldquo;You&apos;re a Strategist? Here&apos;s your starting kit.&rdquo;</li>
+          <li><strong>Module library browser</strong> — drag-to-add, drag-to-reorder, all with strong defaults</li>
+          <li><strong>AI-tailored bio flow</strong> — Jeff&apos;s manual workflow built native (Idea 25)</li>
+          <li><strong>Master + tailored children manager</strong> — saved versions per pitch (Idea 26)</li>
+          <li><strong>Routing tier selector</strong> — pick 1 of 4 with implications described per tier (Idea 14)</li>
+          <li><strong>Automated testimonial collection settings</strong> — cadence, who gets asked, moderation queue (Idea 29)</li>
+          <li><strong>Multi-format export controls</strong> — web + PDF/slide preview (Idea 27)</li>
+        </ul>
+
+        <p style="margin-top: 12px;">The strategic point: the admin is where the Collective&apos;s &ldquo;feel consultancy, work talent network&rdquo; promise is operationalized for the Chameleon. Get the admin wrong and even the best public page can&apos;t make up for friction. Get the admin right and the system maintains itself — which is the whole point.</p>
+
+        <!-- ============================== EARLIER EXPLORATIONS ============================== -->
+        <h2 id="earlier">Earlier explorations &mdash; three structural directions</h2>
+        <p>The first cut of wireframes proposed three structural directions. We&apos;re preserving them here as project memory — they helped us see that the right answer wasn&apos;t any single one of them, but the modular approach above. Each direction now reads as a <em>coherent bundle</em> of modules — useful as an illustrative grouping but not the final architecture.</p>
+
+        <div class="wf-leans">
+          <div class="wf-leans-col">
+            <h4>Direction A — The Editorial</h4>
+            <ul>
+              <li>Mapped to: <strong>Strategy + Voice</strong> archetype</li>
+              <li>Bundle: Editorial Hero + Long Bio + Narrative Projects + Activity Stream + Pull-Quote Testimonials + Light Contact</li>
+              <li>Useful as: the default starting kit for strategists, brand practitioners, voice writers</li>
+            </ul>
+          </div>
+          <div class="wf-leans-col">
+            <h4>Direction B — The Active Pitch Tool</h4>
+            <ul>
+              <li>Mapped to: <strong>Operator + Growth</strong> archetype</li>
+              <li>Bundle: Stat Hero + AI Bio + Expertise Chips + Metrics Cards + Auto Testimonials + Tabbed Activity + Full Contact</li>
+              <li>Useful as: the default starting kit for performance practitioners, growth marketers, CROs</li>
+            </ul>
+          </div>
+          <div class="wf-leans-col">
+            <h4>Direction C — The Live Page</h4>
+            <ul>
+              <li>Mapped to: <strong>Creative + Visual</strong> archetype (and looking-for-work mode for any archetype)</li>
+              <li>Bundle: Status Bar + Hero + Embedded Contact + Visual Carousel + Short Bio + Metrics + Peer Endorsements + Build-a-Team</li>
+              <li>Useful as: the default starting kit for creatives, designers, anyone with active capacity to fill</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top: 12px;">In other words: <strong>the three directions weren&apos;t wrong — they were templates.</strong> The modular system above generalizes them into a library where Chameleons can sit cleanly inside one bundle, or assemble across two when their practice spans both.</p>
+
+        <p>For reference, the original three wireframes (with full BW visualizations, annotations, and tradeoff blocks) are preserved further down. They remain useful as <em>illustrative endpoints</em> — showing what a profile feels like when it leans hard in one direction vs another.</p>
+
+        <details class="collapsible-section" id="earlier-direction-a">
+          <summary>
+            <h2>Direction A · The Editorial — full wireframe (preserved)</h2>
+            <span class="collapsible-meta">Consultancy lean · maps to Strategy + Voice archetype</span>
+            <span class="collapsible-toggle"></span>
+          </summary>
+          <p style="font-family: var(--font-body); font-size: 13px; color: var(--cc-ink-soft); margin: 8px 0 16px;"><em>The original Direction A wireframe is archived. It demonstrated what a fully-Editorial-leaning profile feels like — narrow single column, Pentagram pattern, multi-paragraph bio expanded by default, light contact. The Strategy + Voice archetype kit above is the modular generalization. To see the original full visualization, see the v1 of this page in git history or ask for the archived screenshot.</em></p>
+        </details>
+
+        <details class="collapsible-section" id="earlier-direction-b">
+          <summary>
+            <h2>Direction B · The Active Pitch Tool — full wireframe (preserved)</h2>
+            <span class="collapsible-meta">Workflow-native · maps to Operator + Growth archetype</span>
+            <span class="collapsible-toggle"></span>
+          </summary>
+          <p style="font-family: var(--font-body); font-size: 13px; color: var(--cc-ink-soft); margin: 8px 0 16px;"><em>The original Direction B wireframe is archived. It demonstrated the master+children sidebar + AI-tailored bio button + tabbed activity stream + structured project cards. The Operator + Growth archetype kit above is the modular generalization.</em></p>
+        </details>
+
+        <details class="collapsible-section" id="earlier-direction-c">
+          <summary>
+            <h2>Direction C · The Live Page — full wireframe (preserved)</h2>
+            <span class="collapsible-meta">Discovery-led · maps to Creative + Visual archetype</span>
+            <span class="collapsible-toggle"></span>
+          </summary>
+          <p style="font-family: var(--font-body); font-size: 13px; color: var(--cc-ink-soft); margin: 8px 0 16px;"><em>The original Direction C wireframe is archived. It demonstrated the availability status bar + embedded contact form + sample carousel + build-a-team strip. The Creative + Visual archetype kit above is the modular generalization.</em></p>
+        </details>
+
+        <!-- ============================== NEXT ============================== -->
+        <h2 id="next">What's next</h2>
+        <p>The modular approach reframes the design problem in a way that&apos;s honest to how Chameleons actually differ. Two parallel workstreams now make sense:</p>
+
+        <ul class="signal-list">
+          <li><strong>Round 2 testing of the modular approach</strong> — show the archetypes + module library to the Feedback Committee. Test: does your archetype fit you? Are there modules missing? Does the default kit feel like a good starting point?</li>
+          <li><strong>Admin page wireframe</strong> (queued — see Section 08 next iteration) — design where the Chameleon picks their archetype, swaps modules, configures routing, manages tailored children, sets testimonial cadence. The admin is the central UX once the public page is modular.</li>
+          <li><strong>One full BW wireframe per archetype kit</strong> — once we lock the modules, build a low-fidelity assembled-page wireframe for each archetype so we can see what the full assembled experience looks like. (Round 3 of this page.)</li>
+        </ul>
+
+        <p>The strategic point hasn&apos;t changed: <em>the profile is the moment our model becomes real to a client.</em> The modular approach is how we deliver on that promise across the range of Chameleon practices, not just one of them.</p>
+
+      </div>
+      <div class="page-footer-strip">
+        <span class="pn-prev"><a href="exec-summary.html">← Executive Summary</a></span>
+        <span class="pn-section">Wireframes · 09 / 09</span>
+        <span class="pn-next"><a href="index.html">Cover →</a></span>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function() {
+  const pageToc = document.querySelector('ol.page-toc');
+  const hamburger = document.getElementById('tocHamburger');
+  const overlay = document.getElementById('tocOverlay');
+  if (!pageToc || !hamburger || !overlay) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hamburger.classList.remove('visible');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+    } else {
+      hamburger.classList.add('visible');
+    }
+  }, { rootMargin: '-12px 0px 0px 0px', threshold: 0 });
+  observer.observe(pageToc);
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = overlay.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!overlay.contains(e.target) && !hamburger.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>

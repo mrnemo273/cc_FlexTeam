@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration B3 · Kinetic Swiss (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── UX HYPOTHESIS — FABLE 3 ───────────────────────
+     KINETIC SWISS. The lattice lives: an interactive
+     dot-grid canvas warps around the cursor in the
+     hero. Chapter numerals pin while content scrolls
+     past them. Rules draw, numbers count, rows reveal
+     with clipped wipes. A custom crosshair cursor
+     replaces the pointer. GSAP + ScrollTrigger +
+     vanilla canvas.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-white); color: var(--cc-black);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  /* Custom crosshair cursor (desktop) */
+  @media (pointer: fine) {
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 999;
+      width: 26px; height: 26px;
+      margin: -13px 0 0 -13px;
+      pointer-events: none;
+      mix-blend-mode: difference;
+    }
+    .cursor::before, .cursor::after { content: ''; position: absolute; background: #fff; }
+    .cursor::before { left: 12px; top: 0; width: 2px; height: 26px; }
+    .cursor::after { top: 12px; left: 0; height: 2px; width: 26px; }
+  }
+  @media (pointer: coarse) { .cursor { display: none; } }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: var(--cc-black); color: var(--cc-white);
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .topbar a { color: var(--cc-white); text-decoration: none; opacity: 0.8; }
+  .topbar a:hover { color: var(--cc-orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+  @media (max-width: 640px) { .topbar .right span:not(.tag) { display: none; } }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+  /* ─── HERO with interactive dot lattice ─── */
+  .hero {
+    min-height: 100svh;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 110px 0 80px;
+    overflow: hidden;
+  }
+  #lattice { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-tag {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange);
+    margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-tag .tline { width: 0; height: 1px; background: var(--cc-orange); display: inline-block; }
+  .hero-name {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(56px, 13vw, 200px);
+    line-height: 0.88; letter-spacing: -0.05em;
+    margin: 0 0 36px;
+  }
+  .hero-name .row { display: block; overflow: hidden; }
+  .hero-name .inner { display: inline-block; will-change: transform; }
+  .hero-name .ital { font-style: italic; }
+  .hero-spec {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    border-top: 2px solid var(--cc-black);
+    max-width: 760px;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 720px) { .hero-spec { grid-template-columns: repeat(3, 1fr); } }
+  .spec-cell {
+    padding: 18px 24px 18px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--display);
+  }
+  @media (min-width: 720px) { .spec-cell { border-bottom: none; border-right: 1px solid var(--rule); } .spec-cell:last-child { border-right: none; } }
+  .spec-cell .k {
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft); margin-bottom: 8px;
+  }
+  .spec-cell .v { font-size: clamp(20px, 2vw, 30px); font-weight: 300; letter-spacing: -0.02em; }
+  .spec-cell .v i { font-style: normal; color: var(--cc-orange); }
+
+  /* ─── SECTION ARCHITECTURE: pinned numeral ─── */
+  section.ch { position: relative; border-top: 2px solid var(--cc-black); }
+  .ch-grid { display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 980px) { .ch-grid { grid-template-columns: 320px 1fr; } }
+  .ch-rail { padding: 48px 0; }
+  @media (min-width: 980px) { .ch-rail { border-right: 1px solid var(--rule); min-height: 100%; } }
+  .ch-rail-inner { padding-right: 24px; }
+  .ch-num {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(72px, 9vw, 150px);
+    line-height: 0.82; letter-spacing: -0.06em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .ch-lab {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    margin-top: 16px; padding-top: 12px;
+    border-top: 1px solid var(--cc-black);
+    display: inline-block;
+  }
+  .ch-main { padding: 48px 0 72px; }
+  @media (min-width: 980px) { .ch-main { padding: 64px 0 96px 56px; } }
+  .ch-title {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(28px, 3.6vw, 52px);
+    line-height: 1.04; letter-spacing: -0.025em;
+    margin: 0 0 36px; max-width: 720px;
+  }
+  .ch-title .ital { font-style: italic; }
+  .wipe { clip-path: inset(0 100% 0 0); will-change: clip-path; }
+  .fade-up { will-change: transform, opacity; }
+
+  /* About */
+  .about-body p { font-size: clamp(15px, 1.25vw, 17.5px); line-height: 1.78; margin: 0 0 20px; max-width: 640px; }
+  .about-body em { color: var(--cc-orange); font-style: italic; font-weight: 500; }
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--cc-black);
+    margin-top: 40px; max-width: 640px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-strip div { padding: 20px; border-right: 1px solid var(--cc-black); font-family: var(--display); }
+  .stat-strip div:last-child { border-right: none; }
+  .stat-strip b { display: block; font-weight: 300; font-size: clamp(26px, 3vw, 44px); letter-spacing: -0.03em; margin-bottom: 6px; }
+  .stat-strip span { font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; color: var(--soft); }
+
+  /* Practice rows */
+  .p-item {
+    display: grid; grid-template-columns: 64px 1fr; gap: 20px;
+    padding: 30px 0; border-top: 1px solid var(--rule);
+  }
+  .p-item:last-child { border-bottom: 1px solid var(--rule); }
+  .p-item .no {
+    font-family: var(--display); font-weight: 300;
+    font-size: 38px; line-height: 0.9; letter-spacing: -0.04em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .p-item h3 { font-family: var(--display); font-size: clamp(19px, 1.8vw, 26px); font-weight: 400; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .p-item h3 .ital { font-style: italic; font-weight: 300; }
+  .p-item p { font-size: 14.5px; line-height: 1.68; color: var(--soft); margin: 0 0 14px; max-width: 560px; }
+  .p-item .chip {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid var(--cc-black);
+    padding: 7px 12px; display: inline-block;
+  }
+
+  /* Work (dark) */
+  section.ch.dark { background: var(--cc-black); color: var(--cc-white); border-top-color: var(--cc-black); }
+  .dark .ch-rail { border-right-color: rgba(255,255,255,0.18); }
+  .dark .ch-lab { color: var(--cc-white); border-top-color: var(--cc-white); }
+  .dark .ch-title { color: var(--cc-white); }
+  .dark .ch-title .ital { color: var(--cc-orange); }
+  .w-item {
+    padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.18);
+    display: grid; grid-template-columns: 1fr; gap: 8px 28px;
+  }
+  .w-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.18); }
+  @media (min-width: 860px) { .w-item { grid-template-columns: 190px 1fr; align-items: start; } }
+  .w-item .meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+  }
+  .w-item h3 { font-family: var(--display); font-weight: 400; font-size: clamp(19px, 1.8vw, 26px); line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 10px; color: var(--cc-white); }
+  .w-item p { font-size: 14px; line-height: 1.68; color: rgba(255,255,255,0.7); margin: 0; max-width: 620px; }
+
+  /* Quote */
+  .q-block { padding: 24px 0 0; }
+  .q-text {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(24px, 3.4vw, 46px);
+    line-height: 1.3; letter-spacing: -0.018em;
+    margin: 0 0 32px; max-width: 860px;
+  }
+  .q-text::before { content: '\201C'; color: var(--cc-orange); font-style: normal; margin-right: 4px; }
+  .attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .attr::before { content: ''; width: 40px; height: 1px; background: var(--cc-orange); }
+  .attr .name { color: var(--cc-black); }
+
+  /* Contact */
+  section.ch.accent { background: var(--cc-orange); border-top-color: var(--cc-black); }
+  .accent .ch-rail { border-right-color: rgba(18,18,18,0.3); }
+  .accent .ch-num { color: var(--cc-black); }
+  .accent .ch-title { color: var(--cc-black); }
+  .accent p { font-size: 15px; line-height: 1.7; color: var(--cc-black); max-width: 460px; margin: 0 0 36px; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 17px 34px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cta:hover { gap: 24px; }
+
+  .footer {
+    background: var(--cc-black); color: rgba(255,255,255,0.45);
+    padding: 18px clamp(20px, 4vw, 56px);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .footer .num { color: var(--cc-orange); }
+  .cc-mark {
+    width: 26px; height: 26px;
+    background: var(--cc-white); color: var(--cc-black);
+    font-family: var(--display); font-weight: 600; font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration B3 · Kinetic Swiss</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="lattice" aria-hidden="true"></canvas>
+  <div class="container hero-content">
+    <div class="hero-tag"><span class="tline" id="tline"></span><span id="ttext" style="opacity:0;">001 · Chameleon Profile</span></div>
+    <h1 class="hero-name">
+      <span class="row"><span class="inner" data-reveal>Caleb</span></span>
+      <span class="row ital"><span class="inner" data-reveal>Ludwick</span></span>
+    </h1>
+    <div class="hero-spec" id="herospec">
+      <div class="spec-cell"><div class="k">Discipline</div><div class="v">Strategy <i>+</i> Voice</div></div>
+      <div class="spec-cell"><div class="k">Base</div><div class="v">Brooklyn, NY</div></div>
+      <div class="spec-cell"><div class="k">Status</div><div class="v"><i>Available</i> 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 002 ABOUT -->
+<section class="ch" id="about">
+  <div class="container ch-grid">
+    <div class="ch-rail"><div class="ch-rail-inner" data-pin>
+      <div class="ch-num" data-numscrub>002</div>
+      <div class="ch-lab">About</div>
+    </div></div>
+    <div class="ch-main">
+      <h2 class="ch-title fade-up">Where strategy meets <span class="ital">the written word.</span></h2>
+      <div class="about-body fade-up">
+        <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it.</p>
+        <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. Sometimes it's a complete voice overhaul. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+      </div>
+      <div class="stat-strip fade-up">
+        <div><b data-count="17">0</b><span>Years writing</span></div>
+        <div><b data-count="7" data-suffix="+">0</b><span>Years CC</span></div>
+        <div><b data-count="40" data-suffix="+">0</b><span>Brands voiced</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 003 PRACTICE -->
+<section class="ch" id="practice" style="background: var(--cc-cream-light);">
+  <div class="container ch-grid">
+    <div class="ch-rail"><div class="ch-rail-inner" data-pin>
+      <div class="ch-num" data-numscrub>003</div>
+      <div class="ch-lab">Practice</div>
+    </div></div>
+    <div class="ch-main">
+      <h2 class="ch-title fade-up">Three places I work, with <span class="ital">three different deliverables.</span></h2>
+      <div class="p-item fade-up">
+        <div class="no">01</div>
+        <div>
+          <h3>Brand voice <span class="ital">systems</span></h3>
+          <p>A complete voice playbook — principles, tone, vocabulary, examples across product surfaces, ending with a document the team uses for years.</p>
+          <span class="chip">6–10 Weeks</span>
+        </div>
+      </div>
+      <div class="p-item fade-up">
+        <div class="no">02</div>
+        <div>
+          <h3>Positioning &amp; <span class="ital">messaging</span></h3>
+          <p>Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture that makes campaigns hang together.</p>
+          <span class="chip">4–8 Weeks</span>
+        </div>
+      </div>
+      <div class="p-item fade-up">
+        <div class="no">03</div>
+        <div>
+          <h3>Naming &amp; identity <span class="ital">language</span></h3>
+          <p>Product names, feature names, sub-brands, taglines. Full naming engagement or sprint when an in-house team is stuck.</p>
+          <span class="chip">2–6 Weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 004 WORK -->
+<section class="ch dark" id="work">
+  <div class="container ch-grid">
+    <div class="ch-rail"><div class="ch-rail-inner" data-pin>
+      <div class="ch-num" data-numscrub>004</div>
+      <div class="ch-lab">Selected</div>
+    </div></div>
+    <div class="ch-main">
+      <h2 class="ch-title fade-up">Three recent <span class="ital">engagements.</span></h2>
+      <div class="w-item fade-up">
+        <div class="meta">Mastercard<br>Voice · 2024</div>
+        <div>
+          <h3>Rebuilding tone across seven product surfaces.</h3>
+          <p>Seven teams writing in seven registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads. Still in use 18 months later.</p>
+        </div>
+      </div>
+      <div class="w-item fade-up">
+        <div class="meta">Stripe<br>Messaging · 2023</div>
+        <div>
+          <h3>A second-person platform voice for developers.</h3>
+          <p>Refine the developer voice without losing the founder voice. The answer: a system where both could coexist. Adopted across Docs, Atlas, and Stripe Press.</p>
+        </div>
+      </div>
+      <div class="w-item fade-up">
+        <div class="meta">Patagonia<br>Editorial · 2022</div>
+        <div>
+          <h3>A long-form brand book and voice playbook.</h3>
+          <p>Codifying one of the strongest brand voices in market for an organization grown past the founder's range. Now the operating doc for editorial, marketing, and product.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 005 SAID -->
+<section class="ch" id="said" style="background: var(--cc-cream-light);">
+  <div class="container ch-grid">
+    <div class="ch-rail"><div class="ch-rail-inner" data-pin>
+      <div class="ch-num" data-numscrub>005</div>
+      <div class="ch-lab">Said</div>
+    </div></div>
+    <div class="ch-main q-block">
+      <p class="q-text fade-up">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+      <div class="attr fade-up"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+    </div>
+  </div>
+</section>
+
+<!-- 006 CONTACT -->
+<section class="ch accent" id="contact">
+  <div class="container ch-grid">
+    <div class="ch-rail"><div class="ch-rail-inner" data-pin>
+      <div class="ch-num" data-numscrub>006</div>
+      <div class="ch-lab">Contact</div>
+    </div></div>
+    <div class="ch-main">
+      <h2 class="ch-title fade-up">Reach out to the Collective about <span class="ital">Caleb's availability.</span></h2>
+      <p class="fade-up">New project inquiries route through the Collective's BD team. Usually a 48-hour response.</p>
+      <a href="#" class="cta fade-up">Contact the Collective <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="cc-mark">CC</span>
+  <span>Chameleon Profile · Exploration B3 · Kinetic Swiss</span>
+  <span class="num">006 / 006</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ── Interactive dot lattice ── */
+  (function () {
+    const canvas = document.getElementById('lattice');
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.parentElement;
+    let W, H, dots = [], mouse = { x: -9999, y: -9999 };
+    const GAP = 36, R = 1.4, PULL = 110;
+
+    function build() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = hero.offsetWidth; H = hero.offsetHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dots = [];
+      for (let x = GAP / 2; x < W; x += GAP)
+        for (let y = GAP / 2; y < H; y += GAP)
+          dots.push({ ox: x, oy: y, x, y });
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, W, H);
+      for (const d of dots) {
+        const dx = d.ox - mouse.x, dy = d.oy - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        let tx = d.ox, ty = d.oy;
+        if (dist < PULL && dist > 0.01) {
+          const f = (1 - dist / PULL) * 14;
+          tx = d.ox + (dx / dist) * f;
+          ty = d.oy + (dy / dist) * f;
+        }
+        d.x += (tx - d.x) * 0.14;
+        d.y += (ty - d.y) * 0.14;
+        const near = dist < PULL;
+        ctx.fillStyle = near ? '#EA633F' : 'rgba(18,18,18,0.22)';
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, near ? R + 0.8 : R, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+
+    hero.addEventListener('pointermove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('resize', build);
+    build();
+    if (!reduce) requestAnimationFrame(step);
+    else { // static draw
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(18,18,18,0.22)';
+      dots.forEach(d => { ctx.beginPath(); ctx.arc(d.ox, d.oy, R, 0, Math.PI * 2); ctx.fill(); });
+    }
+  })();
+
+  /* ── Custom cursor ── */
+  if (finePointer && !reduce) {
+    const cur = document.getElementById('cursor');
+    const qx = gsap.quickTo(cur, 'x', { duration: 0.18, ease: 'power2.out' });
+    const qy = gsap.quickTo(cur, 'y', { duration: 0.18, ease: 'power2.out' });
+    window.addEventListener('pointermove', e => { qx(e.clientX); qy(e.clientY); });
+  } else {
+    const cur = document.getElementById('cursor');
+    if (cur) cur.style.display = 'none';
+  }
+
+  if (!reduce) {
+    /* Hero entrance */
+    gsap.set('[data-reveal]', { yPercent: 112 });
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    tl.to('[data-reveal]', { yPercent: 0, duration: 1.15, stagger: 0.12 }, 0.15)
+      .to('#tline', { width: 32, duration: 0.6 }, 0.2)
+      .to('#ttext', { opacity: 1, duration: 0.6 }, 0.45)
+      .from('#herospec .spec-cell', { y: 30, opacity: 0, duration: 0.9, stagger: 0.1 }, 0.8);
+
+    /* Counters on scroll */
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+      const obj = { v: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 88%', once: true,
+        onEnter: () => gsap.to(obj, {
+          v: target, duration: 1.5, ease: 'power2.out',
+          onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; }
+        })
+      });
+    });
+
+    /* Fade-ups */
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.from(el, {
+        y: 36, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    /* Pin chapter numerals on desktop while their section scrolls */
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 980px)', () => {
+      gsap.utils.toArray('[data-pin]').forEach(el => {
+        const section = el.closest('section');
+        ScrollTrigger.create({
+          trigger: section, start: 'top 90px', end: 'bottom 70%',
+          pin: el, pinSpacing: false
+        });
+      });
+    });
+
+    /* Numeral scrub: slight scale as section passes */
+    gsap.utils.toArray('[data-numscrub]').forEach(el => {
+      gsap.fromTo(el, { scale: 0.92, opacity: 0.5 }, {
+        scale: 1, opacity: 1, ease: 'none',
+        scrollTrigger: { trigger: el.closest('section'), start: 'top 90%', end: 'top 30%', scrub: true }
+      });
+    });
+  } else {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      el.textContent = el.dataset.count + (el.dataset.suffix || '');
+    });
+  }
+</script>
+
+</body>
+</html>

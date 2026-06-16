@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reference Material — Project 01 · Profile Revamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+            <aside class="sidebar">
+    <div class="sb-brand-row">
+      <img src="icon-white.png" alt="CC" style="height:22px;">
+      <a class="sb-back" href="../../Framework/CC-Project-Memory.html">Memory ↗</a>
+    </div>
+
+    <div class="sb-project-id">Project 01</div>
+    <div class="sb-project-name">The Chameleon Profile, Reimagined.</div>
+    <div class="sb-status">
+      <span class="tag solid-accent">In Synthesis</span>
+      <span class="sb-stage">Stage 3 of 6</span>
+    </div>
+
+    <div class="sb-section-label">Contents</div>
+    <nav class="sb-nav">
+      <a class="sb-link" href="index.html">
+        <span class="sb-link-num">00</span>
+        <span class="sb-link-label">Cover</span>
+        <span class="sb-link-meta">Project overview</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="brief.html">
+        <span class="sb-link-num">01</span>
+        <span class="sb-link-label">The Brief</span>
+        <span class="sb-link-meta">Locked · 5 iterations</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link active" href="references.html">
+        <span class="sb-link-num">02</span>
+        <span class="sb-link-label">Reference Material</span>
+        <span class="sb-link-meta">3 sources · UX research · best practices</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="interviews.html">
+        <span class="sb-link-num">03</span>
+        <span class="sb-link-label">Interview Guide</span>
+        <span class="sb-link-meta">R1 complete · 10 of 10</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="voices.html">
+        <span class="sb-link-num">04</span>
+        <span class="sb-link-label">Voices</span>
+        <span class="sb-link-meta">10 of 10 · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="stakeholders.html">
+        <span class="sb-link-num">05</span>
+        <span class="sb-link-label">Stakeholders</span>
+        <span class="sb-link-meta">JCM + AD synthesis · weighted</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="ideas.html">
+        <span class="sb-link-num">06</span>
+        <span class="sb-link-label">Ideas</span>
+        <span class="sb-link-meta">33 scored · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="decisions.html">
+        <span class="sb-link-num">07</span>
+        <span class="sb-link-label">Decision Log</span>
+        <span class="sb-link-meta">5 entries · 5 taking shape</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="exec-summary.html">
+        <span class="sb-link-num">08</span>
+        <span class="sb-link-label">Executive Summary</span>
+        <span class="sb-link-meta">For Leadership Council</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="wireframes.html">
+        <span class="sb-link-num">09</span>
+        <span class="sb-link-label">Wireframes</span>
+        <span class="sb-link-meta">v2 · modular kits · 4 archetypes</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <div class="sb-footer-meta">
+      <div class="row"><strong>Owners</strong><span>JCM &middot; AD</span></div>
+      <div class="row"><strong>Updated</strong><span>2026-06-16</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="main-inner">
+      <div class="main-content">
+        <div class="main-section-label">Section 02 · Reference Material</div>
+        <h1>Reference Material</h1>
+        <dl class="metadata">
+          <dt>Sources</dt><dd>3 — Current state, Concept, Source material</dd>
+          <dt>Wireframes</dt><dd>Module comparison · 6 annotations</dd>
+        </dl>
+
+        <ol class="page-toc">
+          <li><a href="#three-sources">Three sources</a></li>
+          <li><a href="#wireframes">Wireframes</a></li>
+          <li><a href="#ux-research">UX research</a></li>
+          <li><a href="#platforms">11 platforms</a></li>
+          <li><a href="#dimensions">4 dimensions</a></li>
+          <li><a href="#fork">Fork in the road</a></li>
+          <li><a href="#client-needs">Client needs</a></li>
+          <li><a href="#triangulation">Triangulation table</a></li>
+          <li><a href="#adopted-rejected">Adopted / rejected</a></li>
+        </ol>
+
+        <button class="toc-hamburger" id="tocHamburger" aria-label="Open page navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="toc-overlay" id="tocOverlay" role="dialog" aria-label="Page navigation">
+          <div class="toc-overlay-label">Jump to</div>
+          <ol class="toc-overlay-list">
+            <li><a href="#three-sources">Three sources</a></li>
+            <li><a href="#wireframes">Wireframes</a></li>
+            <li><a href="#ux-research">UX research</a></li>
+            <li><a href="#platforms">11 platforms</a></li>
+            <li><a href="#dimensions">4 dimensions</a></li>
+            <li><a href="#fork">Fork in the road</a></li>
+            <li><a href="#client-needs">Client needs</a></li>
+            <li><a href="#triangulation">Triangulation table</a></li>
+            <li><a href="#adopted-rejected">Adopted / rejected</a></li>
+          </ol>
+        </div>
+
+        <p class="lede">Three sources anchor this project — the world we have, the concept that triggered it, the principle we&apos;re trying to live up to. Below the sources: a side-by-side wireframe comparison of the current state vs. the concept exploration, then the deep UX research benchmarking eleven peer platforms.</p>
+
+        <h2 id="three-sources">Three sources</h2>
+
+        <a class="ref-link" href="https://chameleoncollective.com/caleb-ludwick/" target="_blank">
+          <div class="ref-label">Current State</div>
+          <div class="ref-url">chameleoncollective.com/caleb-ludwick ↗</div>
+          <div class="ref-title">Caleb Ludwick — profile as it exists today</div>
+          <div class="ref-desc">SEO-driven. The hero is solid (orange chair shot, CTAs present), but most of the page real estate below is generic Chameleon content — industries wall, skills wall, case studies, insights, practice areas. The profile presents as his but is mostly the Collective's. This is the page we're trying to complement, not necessarily replace.</div>
+        </a>
+
+        <a class="ref-link" href="https://aesthetic-rabanadas-4cf51b.netlify.app/" target="_blank">
+          <div class="ref-label">Concept Exploration <span class="tag muted">R2 only</span></div>
+          <div class="ref-url">austindillman.chameleoncollective.com ↗</div>
+          <div class="ref-title">Austin Dillman — hand-built version</div>
+          <div class="ref-desc">Austin built this for his own outbound. Stat callouts (20+ yrs, 7+ in Collective, $1B+ managed), personal CTAs, Off Hours section, custom subdomain, anchor nav. <strong>Withhold from Round 1.</strong> Showing it in early interviews would anchor every Chameleon on Austin's reference and bias need discovery toward concept validation.</div>
+        </a>
+
+        <div class="ref-link">
+          <div class="ref-label">Source Material</div>
+          <div class="ref-title">Collective Capitalism — Chapter 7, &ldquo;Find Your People&rdquo;</div>
+          <div class="ref-desc">The chapter frames sharing your vision as foundational to collective formation. The profile is the artifact of that vision meeting the world — and currently isn't doing that job.</div>
+        </div>
+
+        <h2 id="wireframes">Module comparison · wireframes</h2>
+        <p>Two wireframes at the same scale. Caleb's page on the left, Austin's concept on the right. Numbered orange dots match the annotations below — same number, same comparison. Use this as a shared reference when talking through modules with Chameleons.</p>
+
+        <div class="wireframe-grid">
+
+          <div>
+            <div class="wf-col-label">Current</div>
+            <div class="wf-col-url">chameleoncollective.com/caleb-ludwick</div>
+            <div class="wf">
+
+              <div class="wf-block dark">
+                <div class="wf-anno-dot right-2">1</div>
+                <div class="wf-anno-dot right">2</div>
+                <div class="wf-hero">
+                  <div class="wf-hero-content">
+                    <div class="wf-name"></div>
+                    <div class="wf-line"></div><div class="wf-line"></div><div class="wf-line"></div>
+                    <div class="wf-line"></div><div class="wf-line"></div><div class="wf-line short"></div>
+                    <div class="wf-ctas">
+                      <span class="wf-cta">Chat With Us</span>
+                      <span class="wf-cta">LinkedIn</span>
+                    </div>
+                  </div>
+                  <div class="wf-hero-photo"></div>
+                </div>
+                <div class="wf-label">Hero · Bio Paragraph + Generic CTA</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">3</div>
+                <div class="wf-two-col">
+                  <div>
+                    <div class="wf-mini-label"></div>
+                    <div class="wf-line dark"></div><div class="wf-line dark"></div>
+                    <div class="wf-line dark short"></div><div class="wf-line dark"></div>
+                  </div>
+                  <div>
+                    <div class="wf-mini-label"></div>
+                    <div class="wf-wall"><span class="pill" style="width:20px"></span><span class="pill" style="width:14px"></span><span class="pill" style="width:22px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:27px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:21px"></span><span class="pill" style="width:28px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:26px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:23px"></span><span class="pill" style="width:23px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:27px"></span><span class="pill" style="width:23px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:28px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:28px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:28px"></span></div>
+                  </div>
+                </div>
+                <div class="wf-label">Additional Details + Industries Wall</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-mini-label"></div>
+                <div class="wf-wall dense"><span class="pill" style="width:17px"></span><span class="pill" style="width:14px"></span><span class="pill" style="width:8px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:8px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:21px"></span><span class="pill" style="width:10px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:14px"></span><span class="pill" style="width:10px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:21px"></span><span class="pill" style="width:18px"></span><span class="pill" style="width:10px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:18px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:19px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:8px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:15px"></span><span class="pill" style="width:18px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:14px"></span><span class="pill" style="width:20px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:15px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:22px"></span><span class="pill" style="width:15px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:20px"></span><span class="pill" style="width:10px"></span><span class="pill" style="width:19px"></span><span class="pill" style="width:20px"></span><span class="pill" style="width:11px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:16px"></span><span class="pill" style="width:15px"></span><span class="pill" style="width:22px"></span><span class="pill" style="width:13px"></span><span class="pill" style="width:19px"></span><span class="pill" style="width:15px"></span><span class="pill" style="width:12px"></span><span class="pill" style="width:17px"></span><span class="pill" style="width:9px"></span><span class="pill" style="width:9px"></span></div>
+                <div class="wf-label">Key Skills · Tag Wall (50+)</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">4</div>
+                <div class="wf-case-studies-row">
+                  <div class="wf-cs-image"></div>
+                  <div class="wf-cs-content">
+                    <div class="wf-line dark"></div>
+                    <div class="wf-line dark short"></div>
+                    <div class="wf-cs-logos">
+                      <span class="wf-cs-logo"></span><span class="wf-cs-logo"></span><span class="wf-cs-logo"></span><span class="wf-cs-logo"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="wf-label">Case Studies · Generic CC Work</div>
+              </div>
+
+              <div class="wf-block dark slim">
+                <div class="wf-line"></div>
+                <div class="wf-line short"></div>
+                <div class="wf-cs-logos">
+                  <span class="wf-cs-logo dark"></span><span class="wf-cs-logo dark"></span><span class="wf-cs-logo dark"></span><span class="wf-cs-logo dark"></span>
+                </div>
+                <div class="wf-label">Mid-page CTA + Client Logos</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-mini-label"></div>
+                <div class="wf-articles"><div class="wf-article"></div><div class="wf-article"></div></div>
+                <div class="wf-label">Insights · Generic CC Blog</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-two-col">
+                  <div><div class="wf-mini-label"></div><div class="wf-line dark short"></div></div>
+                  <div><div class="wf-mini-label"></div><div class="wf-line dark short"></div></div>
+                </div>
+                <div class="wf-label">Practice Areas + Team Nav</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <div class="wf-col-label">Concept</div>
+            <div class="wf-col-url">austindillman.chameleoncollective.com</div>
+            <div class="wf">
+
+              <div class="wf-block slim">
+                <div class="wf-nav-row">
+                  <div class="wf-nav-brand"></div>
+                  <div class="wf-nav-links">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="wf-nav-cta">Book A Call</div>
+                </div>
+                <div class="wf-label">Top Nav · Anchor Links + Personal CTA</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right-2">1</div>
+                <div class="wf-anno-dot right">2</div>
+                <div class="wf-hero">
+                  <div class="wf-hero-content">
+                    <div class="wf-mini-label"></div>
+                    <div class="wf-name dark"></div>
+                    <div class="wf-line dark short"></div>
+                    <div class="wf-stats">
+                      <div class="wf-stat"></div><div class="wf-stat"></div><div class="wf-stat"></div>
+                    </div>
+                    <div class="wf-ctas">
+                      <span class="wf-cta solid">Book Intro Call</span>
+                      <span class="wf-cta outline-dark">LinkedIn</span>
+                    </div>
+                  </div>
+                  <div class="wf-hero-photo light"></div>
+                </div>
+                <div class="wf-label">Hero · Tagline + Stat Callouts + Personal CTA</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-mini-label"></div>
+                <div class="wf-line dark"></div><div class="wf-line dark"></div>
+                <div class="wf-line dark short"></div><div class="wf-line dark"></div>
+                <div class="wf-label">About · Personal Bio</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-mini-label"></div>
+                <div class="wf-pills curated">
+                  <span style="width:58px"></span><span style="width:42px"></span>
+                  <span style="width:68px"></span><span style="width:48px"></span>
+                </div>
+                <div class="wf-label">Roles · Curated</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">3</div>
+                <div class="wf-mini-label"></div>
+                <div class="wf-pills curated">
+                  <span style="width:52px"></span><span style="width:64px"></span>
+                  <span style="width:44px"></span><span style="width:56px"></span><span style="width:50px"></span>
+                </div>
+                <div class="wf-label">Industries · Curated, Not a Wall</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">4</div>
+                <div class="wf-cs-cards">
+                  <div class="wf-cs-card"></div><div class="wf-cs-card"></div><div class="wf-cs-card"></div>
+                </div>
+                <div class="wf-label">Case Studies · His Own Work</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">5</div>
+                <div class="wf-quote">
+                  <div class="wf-line dark"></div><div class="wf-line dark"></div>
+                  <div class="wf-line dark short"></div>
+                </div>
+                <div class="wf-label">Testimonials</div>
+              </div>
+
+              <div class="wf-block">
+                <div class="wf-anno-dot right">6</div>
+                <div class="wf-off-hours">
+                  <div class="wf-off-image"></div>
+                  <div style="flex:1;">
+                    <div class="wf-line dark"></div>
+                    <div class="wf-line dark short"></div>
+                    <div class="wf-line dark"></div>
+                  </div>
+                </div>
+                <div class="wf-label">Off Hours · Personality</div>
+              </div>
+
+              <div class="wf-block dark slim">
+                <div class="wf-cta solid centered">Book An Intro Call</div>
+                <div class="wf-label">Contact</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="wf-annotations">
+          <div class="wf-anno"><span class="wf-anno-num">1</span><div><h4>Pitch density</h4><p>Caleb opens with a 100+ word bio paragraph. Austin opens with a one-line role and three stat callouts (20+ yrs, 7+ in Collective, $1B+ managed). Different signals — internal page vs. personal landing.</p></div></div>
+          <div class="wf-anno"><span class="wf-anno-num">2</span><div><h4>Primary CTA</h4><p>Caleb: &ldquo;Chat With Us&rdquo; — the Collective's CTA. Austin: &ldquo;Book An Intro Call&rdquo; — direct to him. One asks the prospect to email the Collective; the other asks them to reach the human.</p></div></div>
+          <div class="wf-anno"><span class="wf-anno-num">3</span><div><h4>Data presentation</h4><p>Caleb: industries wall + 50+ skill tags as raw lists. Great for crawlers, overwhelming for humans. Austin: industries curated to a small set with framing. Same underlying data, different audience.</p></div></div>
+          <div class="wf-anno"><span class="wf-anno-num">4</span><div><h4>Case studies</h4><p>Caleb: generic Chameleon case studies (Tesla, Wegmans, etc.) — implies he worked on them. Austin: his actual case studies. The first inflates by association; the second proves by example.</p></div></div>
+          <div class="wf-anno"><span class="wf-anno-num">5</span><div><h4>Trust signals</h4><p>Caleb: none beyond the portrait. Austin: testimonials specific to him. Trust transfers from named people, not from the Chameleon brand alone.</p></div></div>
+          <div class="wf-anno"><span class="wf-anno-num">6</span><div><h4>Personality</h4><p>Caleb: zero. Austin: Off Hours section showing wildlife photography. Humanizes the page — possibly the difference between &ldquo;competent consultant&rdquo; and &ldquo;someone I want to work with.&rdquo;</p></div></div>
+        </div>
+
+
+        <h2 id="ux-research">Profile UX research — peer platforms</h2>
+        <p>To inform our design, we benchmarked eleven peer platforms across four dimensions. The point isn't to copy any one of them — it's to triangulate. <strong>What we hear from Chameleons + what we see on the street + what we believe clients are looking for</strong> = what we should build.</p>
+
+        <div class="summary-panel">
+          <div class="summary-panel-label">The triangulation lens</div>
+          <h2 class="sum-h">Three signals meet here. Every committed decision should be defensible against all three.</h2>
+
+          <div class="sum-cols" style="grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+            <div>
+              <h3 class="sum-h">Chameleon voices</h3>
+              <p style="font-size: 14px; line-height: 1.55; margin: 0;">8 Chameleons across 3 sessions told us the page is invisible, tag walls are noise, defaults must work, every Chameleon already customizes per pitch manually, testimonials are the missing piece. See the <a href="voices.html">Voices</a> page.</p>
+            </div>
+            <div>
+              <h3 class="sum-h">Market patterns</h3>
+              <p style="font-size: 14px; line-height: 1.55; margin: 0;">11 platforms split into two camps with almost no middle. Talent networks: searchable, status-aware, contactable. Consultancies: premium, narrative, prestige-framed. Chameleon&apos;s position sits between — and the framing principle falls out of this.</p>
+            </div>
+            <div>
+              <h3 class="sum-h">What clients want</h3>
+              <p style="font-size: 14px; line-height: 1.55; margin: 0;">Jeff (S3) named it: proven results, succinctly-communicated experience, personalization. Pamela: style fit, culture, industry match. Chris: &ldquo;are you the right problem solver?&rdquo; Triangulated below.</p>
+            </div>
+          </div>
+
+          <div class="sum-voices-row">
+            <strong>Output</strong>The <em>Feel consultancy. Work talent network.</em> framing principle is the synthesis. Every adopted pattern, every rejected pattern, every scored idea ties back to one or more of these three sources.
+          </div>
+        </div>
+
+        <h3 id="platforms">The 11 platforms, at a glance</h3>
+        <p>Each platform was analyzed across four dimensions: profile anatomy + module order, identity treatment, trust signals, CTA pattern. One-line takeaway per platform; full per-platform breakdown in <a href="research-notes.md">research-notes.md</a>.</p>
+
+        <div style="margin: 24px 0 32px;">
+
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-orange); font-weight: 600; margin-bottom: 12px;">Talent networks &middot; 5</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Braintrust</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Standardized skeleton + &ldquo;Superpowers&rdquo; framing for top-3 skills, Product/Role/Contribution/Team project template. Tagline + Superpowers are the only personality levers. No direct contact — platform brokers everything.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Toptal</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">&ldquo;Top 3%&rdquo; badge dominates the identity — the brand vouches for the individual. Almost no self-presentation surface. No contact on the profile; Toptal sales matches you.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Catalant</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">&ldquo;Treat your profile like a resume.&rdquo; Heavy on work history; Industries and Project Types as top-level filters. Incomplete profiles get rejected during review. Through-platform contact only.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Upwork</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Job Success Score + Top Rated badges + total earnings shown publicly. Portfolio is dominant (published portfolios get 9&times; more hires). Marketplace listing aesthetic. Through-platform messaging only.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Working Not Working <span style="font-weight: 400; color: var(--cc-mid-gray); font-size: 11px;">— shutting down 2025</span></div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Pioneered the visible &ldquo;Working / Not Working&rdquo; availability status as the primary identity signal. Project-level collaborator tagging. Invite-only signaling.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-orange); font-weight: 600; margin-bottom: 12px;">Consultancies &middot; 4</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">McKinsey</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Institutional, prestige-framed, third-person narrative bio. <strong>No contact on profile</strong> — the firm sells, not the partner. Published insights substitute for testimonials. The firm&apos;s brand wraps every individual.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">BCG</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Same institutional pattern as McKinsey but visually warmer. Practice-area chips (more readable than text categorization). Press contact only — no biz-dev path on profile.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Pentagram</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">The most prestige-framed of all 11 platforms. <strong>The bio is a biography</strong>, not a profile. &ldquo;Recent news&rdquo; stream — talks, podcasts, press. Citizenship of the field as trust signal. New business routes to office email.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">IDEO</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Most personality-forward consultancy. Hyphenated identity titles (&ldquo;designer, doer, storyteller&rdquo;). Lifestyle/personal bio content treated as relevant, not optional. No individual contact.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-orange); font-weight: 600; margin-bottom: 12px;">Personal landing pages &middot; 2</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">About.me</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Direct contact form on every page (a rarity). New &ldquo;AI Twin&rdquo; chatbot — visitors ask questions, the trained-on-the-person bot answers 24/7. Most-active conversion mechanism we found.</div>
+              </div>
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">Bento.me <span style="font-weight: 400; color: var(--cc-mid-gray); font-size: 11px;">— shutting down Feb 2026</span></div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Modular card grid instead of linear scroll. Each card a different content type (link, image, video, product, embedded post). Drag-and-drop layout. The grid IS the brand.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-orange); font-weight: 600; margin-bottom: 12px;">Universal reference &middot; 1</div>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
+              <div style="background: var(--cc-light-gray); padding: 16px 18px; border-left: 2px solid var(--cc-orange);">
+                <div style="font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px;">LinkedIn</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--cc-ink-soft);">Strongest written-testimonial pattern in the set — Recommendations are named, mutually-visible, and rare enough to carry weight when present. Featured section is the most-underused-but-highest-impact module. Title signals to algorithm, headline sells to humans.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 id="dimensions">The four dimensions we analyzed</h3>
+        <p>Every platform was scored on these four cuts. Different platforms optimize for different ones; the patterns that recurred told us where the real choices live.</p>
+
+        <div class="rubric-grid" style="margin: 16px 0 32px;">
+          <div class="rubric-grid-row" style="grid-template-columns: 200px 1fr;">
+            <div class="r-crit">Profile anatomy + module order</div>
+            <div class="r-note">What modules are on the page, in what sequence, and which are mandatory vs optional. Surfaces what each platform <em>chose to emphasize</em>. Talent networks tend toward standardized skeletons (everyone fills the same blanks); consultancies tend toward narrative variation. The Chameleon answer: modular widget builder with strong defaults — the skeleton is shared, but each Chameleon can layer personal upgrades.</div>
+          </div>
+          <div class="rubric-grid-row" style="grid-template-columns: 200px 1fr;">
+            <div class="r-crit">Identity treatment</div>
+            <div class="r-note">How the platform centers the individual person. Toptal subsumes them under the brand (&ldquo;Top 3%&rdquo;). Pentagram lets them shine through biography. IDEO leads with personality. Upwork treats them as a marketplace listing. The choice signals what the platform thinks the visitor cares about — the firm, the platform, or the person.</div>
+          </div>
+          <div class="rubric-grid-row" style="grid-template-columns: 200px 1fr;">
+            <div class="r-crit">Trust signals</div>
+            <div class="r-note">What carries credibility on the page. Algorithmic ratings (Upwork JSS), institutional badges (Toptal Top 3%), named clients (Pentagram), peer recommendations (LinkedIn), published thought leadership (McKinsey, Pentagram), automated client testimonials (the gap — no one does this well). Every platform leans on one or two; rarely all.</div>
+          </div>
+          <div class="rubric-grid-row" style="grid-template-columns: 200px 1fr;">
+            <div class="r-crit">CTA pattern</div>
+            <div class="r-note">How visitors actually contact the person. This is where the talent-network / consultancy split is starkest. Talent networks: through-platform messaging only (no email visible). Consultancies: no individual contact at all (firm sells). Personal landing pages: direct form. <strong>Chameleon needs none of these defaults wholesale</strong> — the four-tier opt-in routing system (<a href="ideas.html#idea-14">Idea 14</a>) is the answer that respects every Chameleon&apos;s preference.</div>
+          </div>
+        </div>
+
+        <h3 id="fork">The real fork in the road — consultant vs talent network</h3>
+        <p>The platforms split into two camps with almost no middle ground. This table is the most-useful artifact from the research because it makes the choice explicit. Chameleon&apos;s position is &ldquo;neither freelance nor agency&rdquo; — which is exactly between these columns.</p>
+
+        <div style="overflow-x: auto; margin: 16px 0 28px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; font-family: var(--font-body);">
+            <thead>
+              <tr style="background: var(--cc-black); color: var(--cc-white);">
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Dimension</th>
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Talent network</th>
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Consultancy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px; font-weight: 600;">Profile structure</td><td style="padding: 10px 14px;">Standardized skeleton, fill the blanks</td><td style="padding: 10px 14px;">Narrative, rich per-person variation</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px; font-weight: 600;">Identity framing</td><td style="padding: 10px 14px;">Service provider — <em>what can you do?</em></td><td style="padding: 10px 14px;">Expert — <em>who are you?</em></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px; font-weight: 600;">Trust signals</td><td style="padding: 10px 14px;">Algorithmic — ratings, badges, completion %</td><td style="padding: 10px 14px;">Institutional — awards, named clients, publications</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px; font-weight: 600;">Work display</td><td style="padding: 10px 14px;">Portfolio gallery + project frameworks</td><td style="padding: 10px 14px;">Named clients, selected work, narrative</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px; font-weight: 600;">Skills / tagging</td><td style="padding: 10px 14px;">Heavy — search-optimized</td><td style="padding: 10px 14px;">Light — narrative-driven</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px; font-weight: 600;">CTA path</td><td style="padding: 10px 14px;">Through-platform messaging</td><td style="padding: 10px 14px;">None — firm sells, not the individual</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px; font-weight: 600;">Who manages</td><td style="padding: 10px 14px;">The talent</td><td style="padding: 10px 14px;">The firm</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px; font-weight: 600;">Discovery flow</td><td style="padding: 10px 14px;">Search / filter / match</td><td style="padding: 10px 14px;">Browse partners; no real search</td></tr>
+              <tr><td style="padding: 10px 14px; font-weight: 600;">Failure mode</td><td style="padding: 10px 14px;">Becoming a commodity in a listing</td><td style="padding: 10px 14px;">Becoming an inaccessible institution</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>What sits between them — where Chameleon actually wants to be:</strong></p>
+        <ul class="signal-list">
+          <li><strong>Consultancy-style identity</strong> — the page feels like a real person, not a listing</li>
+          <li><strong>Talent-network discoverability</strong> — search has to work; clients shouldn&apos;t need to know the name to find the Chameleon</li>
+          <li><strong>A real CTA path</strong> — neither consultancies&apos; &ldquo;no contact&rdquo; nor talent networks&apos; &ldquo;through-platform only.&rdquo; Both fail us. Variable opt-in routing per Chameleon&apos;s preference (<a href="ideas.html#idea-14">Idea 14</a>)</li>
+          <li><strong>Curated tagging, not exhaustive</strong> — light enough to read as narrative, heavy enough to power search (<a href="ideas.html#idea-23">Idea 23</a>)</li>
+          <li><strong>Trust signals borrowed from both columns</strong> — testimonials (LinkedIn / WNW pattern), named clients (Pentagram), no public star ratings (rejected — <a href="ideas.html#idea-22">Idea 22</a>)</li>
+        </ul>
+
+        <h3 id="client-needs">What we hear clients are looking for</h3>
+        <p>Triangulating with the Chameleons themselves: when Juan asked &ldquo;what do you think your clients are looking for in your materials to decide?&rdquo;, the answers cluster cleanly across roles. This is the third leg of the triangulation.</p>
+
+        <div style="margin: 16px 0 28px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+            <div style="background: var(--cc-cream); padding: 18px 20px; border-left: 3px solid var(--cc-black);">
+              <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-black); font-weight: 600; margin-bottom: 6px;">1 &middot; Proven results</div>
+              <p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5;">Concrete evidence of work that produced outcomes. Named clients, work samples, case studies, testimonials.</p>
+              <p style="margin: 0; font-size: 12.5px; color: var(--cc-ink-soft); font-style: italic;">&ldquo;Proven results&rdquo; — Jeff Blettner, S3. Pamela also: &ldquo;style of design matches what they&apos;re looking for.&rdquo;</p>
+            </div>
+            <div style="background: var(--cc-cream); padding: 18px 20px; border-left: 3px solid var(--cc-black);">
+              <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-black); font-weight: 600; margin-bottom: 6px;">2 &middot; Right-fit problem solver</div>
+              <p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5;">Industry relevance, stage relevance, the sense that this person has solved <em>this specific problem</em> before.</p>
+              <p style="margin: 0; font-size: 12.5px; color: var(--cc-ink-soft); font-style: italic;">&ldquo;Are you the right problem solver for the problem I have?&rdquo; — Chris Baccus, S3.</p>
+            </div>
+            <div style="background: var(--cc-cream); padding: 18px 20px; border-left: 3px solid var(--cc-black);">
+              <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-black); font-weight: 600; margin-bottom: 6px;">3 &middot; Personalization</div>
+              <p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5;">The sense that the materials were tailored to <em>them</em> — addressing their actual brief, not a generic capability set.</p>
+              <p style="margin: 0; font-size: 12.5px; color: var(--cc-ink-soft); font-style: italic;">&ldquo;Experience communicated succinctly and effectively + personalization&rdquo; — Jeff Blettner. Drove Ideas 25 + 26.</p>
+            </div>
+            <div style="background: var(--cc-cream); padding: 18px 20px; border-left: 3px solid var(--cc-black);">
+              <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-black); font-weight: 600; margin-bottom: 6px;">4 &middot; Culture fit</div>
+              <p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5;">A read on how this person works, communicates, and shows up — first in the materials, then sealed in conversation.</p>
+              <p style="margin: 0; font-size: 12.5px; color: var(--cc-ink-soft); font-style: italic;">&ldquo;Culture fit is a huge thing&rdquo; — Pamela Alegria, S3. First in materials, then conversation.</p>
+            </div>
+            <div style="background: var(--cc-cream); padding: 18px 20px; border-left: 3px solid var(--cc-black);">
+              <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-black); font-weight: 600; margin-bottom: 6px;">5 &middot; Credibility wrapper</div>
+              <p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5;">A sense that this person is backed by something — that they&apos;re vouched-for, not freelance-alone.</p>
+              <p style="margin: 0; font-size: 12.5px; color: var(--cc-ink-soft); font-style: italic;">&ldquo;I don&apos;t have that backup credibility of Chameleon Collective when I send my pamelagria.com&rdquo; — Pamela Alegria, S3.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 id="triangulation">Triangulation — research observation &rarr; idea</h3>
+        <p>This is where the work pays off. Every committed best-practice and every A-range scored idea ties back to at least one observed market pattern <em>and</em> at least one Chameleon voice <em>and</em> at least one client need. The mapping is explicit, not hand-wavy.</p>
+
+        <div style="overflow-x: auto; margin: 16px 0 32px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; font-family: var(--font-body);">
+            <thead>
+              <tr style="background: var(--cc-black); color: var(--cc-white);">
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Market pattern</th>
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Chameleon voice</th>
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">Client need</th>
+                <th style="text-align: left; padding: 12px 14px; font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;">&rarr; Becomes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">Pentagram narrative bio + LinkedIn Recommendations</td><td style="padding: 10px 14px;">Caleb: testimonials nowhere to put; Pamela: backup credibility</td><td style="padding: 10px 14px;">Proven results; Credibility wrapper</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-04">#04 Testimonials</a> + <a href="ideas.html#idea-29">#29 Automated collection</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px;">Pentagram named-client logos (subtle, contextualized)</td><td style="padding: 10px 14px;">All 8 voices: clients want concrete evidence</td><td style="padding: 10px 14px;">Proven results; Right-fit problem solver</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-05">#05 Auto-populated logo bar</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">Braintrust Product/Role/Contribution/Team framework</td><td style="padding: 10px 14px;">Jeff: mini case studies preferred over long; Sonia: sample work</td><td style="padding: 10px 14px;">Proven results; Right-fit problem solver</td><td style="padding: 10px 14px;">Best-practice module 4 (Work proof) + <a href="ideas.html#idea-10">#10 Sample deliverables</a></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px;">WNW visible availability status</td><td style="padding: 10px 14px;">Sonia: at 50% capacity, looking for work, no way to surface this</td><td style="padding: 10px 14px;">Right-fit problem solver (also &ldquo;available now&rdquo;)</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-17">#17 Available-now filter</a> + <a href="ideas.html#idea-18">#18 Auto triggers</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">Braintrust &ldquo;Superpowers&rdquo; + tailored top-3 skills</td><td style="padding: 10px 14px;">Chris: curates tags (&ldquo;let peers who are better get those leads&rdquo;)</td><td style="padding: 10px 14px;">Right-fit problem solver</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-23">#23 Curated skill tagging</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px;">Bento modular grid + Braintrust standardized blocks</td><td style="padding: 10px 14px;">All 8: modular widget builder + strong defaults</td><td style="padding: 10px 14px;">Personalization; Right-fit problem solver</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-01">#01 Modular builder</a> + <a href="ideas.html#idea-08">#08 Default state</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">Pentagram &ldquo;recent news&rdquo; stream (talks, podcasts, press)</td><td style="padding: 10px 14px;">Chris + Pamela: prefer Chameleon-only over external pull</td><td style="padding: 10px 14px;">Credibility wrapper</td><td style="padding: 10px 14px;">Best-practice module 6 (Activity stream) with shared-Collective fallback</td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px;">Gap — no platform has good tailored-bio per pitch</td><td style="padding: 10px 14px;">Jeff: already does this manually with AI</td><td style="padding: 10px 14px;">Personalization (the strongest driver)</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-25">#25 AI-tailored bio</a> + <a href="ideas.html#idea-26">#26 Master + children</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">Gap — no platform supports both web AND polished PDF/slide from same source</td><td style="padding: 10px 14px;">Jeff: &ldquo;I would still do the slide.&rdquo; Pamela: would use web.</td><td style="padding: 10px 14px;">Personalization</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-27">#27 Multi-format output</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray); background: var(--cc-light-gray);"><td style="padding: 10px 14px;">&ldquo;Hire your team, not your agency&rdquo; — emergent positioning, not directly from a platform</td><td style="padding: 10px 14px;">Ilan (S2): the phrase. Pamela: brand-credibility-wrapper.</td><td style="padding: 10px 14px;">Credibility wrapper; Culture fit</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-13">#13 Positioning module</a> &middot; <strong>A</strong></td></tr>
+              <tr style="border-bottom: 1px solid var(--cc-warm-gray);"><td style="padding: 10px 14px;">No platform handles routing variability — all are one-size-fits-all</td><td style="padding: 10px 14px;">S1/S2/S3 split: direct vs vetted vs centralized</td><td style="padding: 10px 14px;">Right-fit problem solver (also: client wants to reach <em>someone</em>)</td><td style="padding: 10px 14px;"><a href="ideas.html#idea-14">#14 Variable routing tiers</a> &middot; <strong>A</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="adopted-rejected">Patterns we adopted, patterns we rejected</h3>
+
+        <div class="sum-cols" style="margin-top: 16px;">
+          <div>
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-orange); font-weight: 600; margin-bottom: 12px;">Adopted</div>
+            <ul class="signal-list" style="margin: 0;">
+              <li><strong>Narrative bio</strong> (consultancies) — humanizes; aligns with &ldquo;centers people, not pages&rdquo;</li>
+              <li><strong>Featured / pinned content section</strong> (LinkedIn) — Chameleon-curated proof; gives autonomy</li>
+              <li><strong>Named clients as logos</strong> (Pentagram + WNW) — credible without listing every job</li>
+              <li><strong>Recent activity stream</strong> (Pentagram, McKinsey) — passive promotion, requires no Chameleon hustle</li>
+              <li><strong>Project framework prompting</strong> (Braintrust&apos;s P/R/C/T) — structures Chameleons&apos; stories without writing them</li>
+              <li><strong>Status / availability indicator</strong> (WNW) — solves Sonia&apos;s pain directly</li>
+              <li><strong>Written testimonials</strong> (LinkedIn) — already-validated trust signal</li>
+              <li><strong>Modular page architecture</strong> (Bento) — opt-in customization</li>
+              <li><strong>Tailored &ldquo;Superpowers&rdquo;</strong> (Braintrust) — top-3 changeable per pitch</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-mid-gray); font-weight: 600; margin-bottom: 12px;">Rejected (with rationale)</div>
+            <ul class="signal-list" style="margin: 0;">
+              <li class="muted"><strong>Algorithmic star ratings</strong> (Upwork JSS) — cuts against &ldquo;We over Me&rdquo;; refined out as <a href="ideas.html#idea-22">Idea 22</a></li>
+              <li class="muted"><strong>Brand-vouches-for-individual model</strong> (Toptal Top 3%) — over-centralizes; reduces differentiation; the badge becomes the person</li>
+              <li class="muted"><strong>Standardized skeleton with completion gating</strong> (Braintrust, Catalant) — the page becomes a form, not a story</li>
+              <li class="muted"><strong>No CTA on profile</strong> (consultancies) — fails the core thesis</li>
+              <li class="muted"><strong>Through-platform-only messaging</strong> (talent networks) — fails the &ldquo;name the contact&rdquo; mandate</li>
+              <li class="muted"><strong>Heavy keyword stuffing for SEO</strong> (Upwork) — exactly what the brief rejects</li>
+              <li class="muted"><strong>AI Twin chatbot</strong> (About.me) — high novelty, no signal prospects want this as primary CTA</li>
+              <li class="muted"><strong>Common collaborators tag</strong> — surfaced as <a href="ideas.html#idea-12">Idea 12</a>, killed by Chameleons as &ldquo;clicky&rdquo;</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Where to dig deeper</h3>
+        <p>The two source documents go further. Research-notes is the raw observations; best-practices is the curated, locked source-of-truth for the wireframe phase.</p>
+
+        <a class="ref-link" href="research-notes.md" target="_blank">
+          <div class="ref-label">Research Notes</div>
+          <div class="ref-url">research-notes.md ↗</div>
+          <div class="ref-title">Profile Page UX Research — per-platform observations + cross-cutting patterns</div>
+          <div class="ref-desc">Source notes from the eleven-platform analysis. Full per-platform breakdown across the four dimensions, cross-cutting synthesis identifying talent-network vs. consultancy signatures, side-by-side &ldquo;real fork in the road&rdquo; comparison, first-pass filter through the Chameleon Rubric (what passes, what fails, what&apos;s worth testing), and three open questions for alignment.</div>
+        </a>
+
+        <a class="ref-link" href="best-practices.md" target="_blank">
+          <div class="ref-label">Best Practices <span class="tag accent" style="margin-left:6px;">Locked</span></div>
+          <div class="ref-url">best-practices.md ↗</div>
+          <div class="ref-title">Profile Page UX — Best Practices (curated source-of-truth for wireframes)</div>
+          <div class="ref-desc">Framing principle: <strong>feel consultancy, work talent network.</strong> Module-by-module commitment on what the page is, what it shows, what we explicitly reject, and the implementation principles wireframes must hold to. Cross-references back to every scored idea on the <a href="ideas.html">Ideas page</a>. This is the document wireframes are designed against.</div>
+        </a>
+
+        
+      </div>
+      <div class="page-footer-strip">
+        <span class="pn-prev"><a href="brief.html">← Brief</a></span>
+        <span class="pn-section">Reference Material · 02 / 08</span>
+        <span class="pn-next"><a href="interviews.html">Interviews →</a></span>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function() {
+  const pageToc = document.querySelector('ol.page-toc');
+  const hamburger = document.getElementById('tocHamburger');
+  const overlay = document.getElementById('tocOverlay');
+  if (!pageToc || !hamburger || !overlay) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hamburger.classList.remove('visible');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+    } else {
+      hamburger.classList.add('visible');
+    }
+  }, { rootMargin: '-12px 0px 0px 0px', threshold: 0 });
+  observer.observe(pageToc);
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = overlay.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!overlay.contains(e.target) && !hamburger.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>

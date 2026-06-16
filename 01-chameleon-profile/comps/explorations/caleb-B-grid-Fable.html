@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration B · Swiss Modular Grid (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── DESIGN HYPOTHESIS — FABLE PASS ────────────────
+     Swiss grid made honest: the 12-column grid is drawn
+     on the page as hairlines. Registration crosses mark
+     section corners. Chapter numerals are structural,
+     not decorative. Tabular metadata everywhere. The
+     icon circles are gone — Swiss work never needed them.
+     One accent: CC orange, used as spot color.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --hairline: rgba(18,18,18,0.12);
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-white); color: var(--cc-black);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  /* ─── MOTION ─── */
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .load-rise { opacity: 0; animation: rise 0.85s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1 { animation-delay: 0.08s; } .d2 { animation-delay: 0.16s; }
+  .d3 { animation-delay: 0.26s; } .d4 { animation-delay: 0.38s; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .load-rise, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ─── CC BRAND CHROME ─── */
+  .cc-sidebar {
+    position: fixed; left: 0; top: 50%;
+    transform: rotate(180deg) translateY(50%);
+    writing-mode: vertical-rl;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 500;
+    color: var(--cc-black);
+    padding: 0 13px;
+    z-index: 60; display: none;
+    mix-blend-mode: multiply;
+  }
+  .cc-logo {
+    position: fixed; left: 16px; bottom: 16px; z-index: 60;
+    width: 28px; height: 28px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display); font-weight: 600; font-size: 10px;
+    display: none; align-items: center; justify-content: center;
+  }
+  @media (min-width: 1200px) { .cc-sidebar, .cc-logo { display: flex; } }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cc-black); color: var(--cc-white);
+    padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .topbar a { color: var(--cc-white); text-decoration: none; opacity: 0.8; transition: opacity 0.2s, color 0.2s; }
+  .topbar a:hover { color: var(--cc-orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+
+  /* Container with drawn grid */
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .gridlines {
+    position: absolute; inset: 0 24px;
+    display: none;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    pointer-events: none;
+  }
+  .gridlines span { border-left: 1px solid var(--hairline); }
+  .gridlines span:last-child { border-right: 1px solid var(--hairline); }
+
+  /* Registration cross */
+  .reg {
+    position: absolute; width: 13px; height: 13px;
+    pointer-events: none;
+  }
+  .reg::before, .reg::after { content: ''; position: absolute; background: var(--cc-black); opacity: 0.45; }
+  .reg::before { left: 6px; top: 0; width: 1px; height: 13px; }
+  .reg::after { top: 6px; left: 0; height: 1px; width: 13px; }
+  .reg.tl { top: 18px; left: 18px; } .reg.tr { top: 18px; right: 18px; }
+  .reg.bl { bottom: 18px; left: 18px; } .reg.br { bottom: 18px; right: 18px; }
+  .dark .reg::before, .dark .reg::after { background: var(--cc-white); }
+  .accent-bg .reg::before, .accent-bg .reg::after { background: var(--cc-black); }
+
+  /* ─── SHARED CHAPTER APPARATUS ─── */
+  .chapter-num {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 96px; line-height: 0.85;
+    color: var(--cc-orange);
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .chapter-label {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cc-black); font-weight: 600;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--cc-black);
+    display: inline-block;
+  }
+  .chapter-headline {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 34px; line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+  }
+  .chapter-headline .ital { font-style: italic; }
+
+  /* ─── HERO ─── */
+  .hero { padding: 64px 0 56px; border-bottom: 2px solid var(--cc-black); position: relative; }
+  .hero-index {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 500;
+    color: var(--soft);
+    display: flex; flex-wrap: wrap; gap: 6px 28px;
+    padding-bottom: 28px; margin-bottom: 48px;
+    border-bottom: 1px solid var(--rule);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-index b { color: var(--cc-orange); font-weight: 600; margin-right: 6px; }
+  .hero-tag {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(64px, 10.5vw, 150px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    margin: 0 0 28px;
+  }
+  .hero-role {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: 20px; line-height: 1.45;
+    margin: 0 0 36px;
+    letter-spacing: -0.005em;
+    max-width: 560px;
+  }
+  /* Tabular spec block */
+  .spec {
+    border-top: 1px solid var(--cc-black);
+    font-family: var(--display);
+    font-variant-numeric: tabular-nums;
+  }
+  .spec-row {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 11px;
+  }
+  .spec-row dt {
+    margin: 0;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 600; color: var(--soft);
+    font-size: 9px; padding-top: 2px;
+  }
+  .spec-row dd { margin: 0; font-weight: 400; letter-spacing: 0.02em; font-size: 13px; }
+  .spec-row dd b { color: var(--cc-orange); font-weight: 600; }
+
+  .duotone-hero {
+    aspect-ratio: 4 / 5;
+    background: var(--cc-orange);
+    position: relative; overflow: hidden;
+    margin-top: 32px;
+  }
+  .duotone-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(115%);
+    mix-blend-mode: multiply;
+  }
+  .duotone-hero-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 20px;
+    font-family: var(--display);
+    font-size: clamp(120px, 14vw, 190px);
+    font-weight: 300; line-height: 0.8; letter-spacing: -0.06em;
+    color: var(--cc-black); opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+  .duotone-fig {
+    position: absolute; top: 14px; right: 14px;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black); opacity: 0.55;
+  }
+
+  /* ─── BIO ─── */
+  .bio { padding: 72px 0; background: var(--cc-cream-light); border-bottom: 2px solid var(--cc-black); position: relative; }
+  .bio-body p { font-family: var(--body); font-size: 16px; line-height: 1.75; margin: 0 0 18px; }
+  .bio-body em { color: var(--cc-orange); font-style: italic; font-weight: 500; }
+  .bio-aside { border-top: 1px solid var(--cc-black); margin-top: 32px; font-variant-numeric: tabular-nums; }
+  .bio-aside .spec-row dd { font-family: var(--body); font-size: 13.5px; line-height: 1.55; }
+
+  /* ─── PRACTICE ─── */
+  .practice { padding: 72px 0; border-bottom: 2px solid var(--cc-black); position: relative; }
+  .practice-item {
+    padding: 30px 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .practice-item:last-child { border-bottom: 1px solid var(--rule); }
+  .practice-no {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 40px; line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .practice-name {
+    font-family: var(--display);
+    font-size: 21px; font-weight: 400;
+    line-height: 1.2; margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .practice-desc {
+    font-family: var(--body);
+    font-size: 14.5px; line-height: 1.65;
+    color: var(--soft); margin: 0;
+    max-width: 580px;
+  }
+  .practice-spec {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black);
+    margin-top: 14px;
+    display: inline-block;
+    border: 1px solid var(--cc-black);
+    padding: 6px 12px;
+  }
+
+  /* ─── WORK (dark) ─── */
+  .work { padding: 72px 0; background: var(--cc-black); color: var(--cc-white); position: relative; }
+  .work .chapter-label { color: var(--cc-white); border-top-color: var(--cc-white); }
+  .work .chapter-headline { color: var(--cc-white); }
+  .work-piece {
+    padding: 32px 0;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .work-piece:last-child { border-bottom: 1px solid rgba(255,255,255,0.18); }
+  .work-no {
+    font-family: var(--display);
+    font-weight: 300; font-size: 40px;
+    line-height: 0.9; letter-spacing: -0.04em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .work-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .work-title {
+    font-family: var(--display);
+    font-size: 22px; font-weight: 400;
+    line-height: 1.22; margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .work-body {
+    font-family: var(--body);
+    font-size: 14px; line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+    margin: 0; max-width: 580px;
+  }
+
+  /* ─── QUOTE ─── */
+  .quote { padding: 72px 0; border-bottom: 2px solid var(--cc-black); position: relative; }
+  .quote-text {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1.32; letter-spacing: -0.015em;
+    margin: 0 0 24px;
+  }
+  .quote-text::before { content: '\201C'; color: var(--cc-orange); font-style: normal; margin-right: 6px; }
+  .quote-attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft); font-weight: 600;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .quote-attr::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .quote-attr .name { color: var(--cc-black); }
+
+  /* ─── CLOSING ─── */
+  .closing { background: var(--cc-orange); padding: 72px 0; position: relative; }
+  .closing-tag {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cc-black); font-weight: 600;
+    margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .closing-tag::before { content: ''; width: 32px; height: 1px; background: var(--cc-black); }
+  .closing-headline {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    color: var(--cc-black);
+    margin: 0 0 26px;
+  }
+  .closing-headline .ital { font-style: italic; }
+  .closing-body {
+    font-family: var(--body);
+    font-size: 15px; line-height: 1.65;
+    color: var(--cc-black);
+    max-width: 520px; margin: 0 0 32px;
+  }
+  .closing-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 32px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .closing-cta:hover { gap: 22px; }
+
+  .footer {
+    padding: 22px 24px;
+    background: var(--cc-black);
+    color: rgba(255,255,255,0.45);
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    display: flex; justify-content: space-between;
+    font-variant-numeric: tabular-nums;
+  }
+  .footer .num { color: var(--cc-orange); }
+
+  /* ───── DESKTOP: 12-col Swiss grid ───── */
+  @media (min-width: 1000px) {
+    .container { padding: 0 32px; }
+    .gridlines { inset: 0 32px; display: grid; }
+
+    .hero { padding: 88px 0 72px; }
+    .hero-inner {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 24px; align-items: end;
+      position: relative; z-index: 1;
+    }
+    .hero-text { grid-column: 1 / 9; }
+    .hero-photo { grid-column: 9 / 13; }
+    .hero-name br { display: none; }
+    .duotone-hero { margin-top: 0; aspect-ratio: 3 / 4; }
+    .spec { max-width: 560px; }
+
+    .bio-inner, .practice-inner, .work-inner, .quote-inner, .closing-inner {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 24px; position: relative; z-index: 1;
+    }
+    .bio { padding: 104px 0; }
+    .bio-mark { grid-column: 1 / 3; }
+    .bio-headline-block { grid-column: 3 / 7; padding-top: 12px; }
+    .bio-headline-block .chapter-headline { font-size: 44px; }
+    .bio-body { grid-column: 8 / 13; padding-top: 12px; }
+
+    .practice { padding: 104px 0; }
+    .practice-mark { grid-column: 1 / 3; }
+    .practice-headline-block { grid-column: 3 / 7; padding-top: 12px; }
+    .practice-headline-block .chapter-headline { font-size: 44px; max-width: 420px; }
+    .practice-list { grid-column: 8 / 13; padding-top: 12px; }
+
+    .work { padding: 104px 0; }
+    .work .gridlines span { border-color: rgba(255,255,255,0.09); }
+    .work-mark { grid-column: 1 / 3; }
+    .work-headline-block { grid-column: 3 / 7; padding-top: 12px; }
+    .work-headline-block .chapter-headline { font-size: 44px; max-width: 420px; }
+    .work-list { grid-column: 8 / 13; padding-top: 12px; }
+
+    .quote { padding: 96px 0; }
+    .quote-mark-block { grid-column: 1 / 3; }
+    .quote-content { grid-column: 4 / 12; padding-top: 12px; }
+
+    .closing { padding: 104px 0; }
+    .closing .gridlines span { border-color: rgba(18,18,18,0.12); }
+    .closing-mark { grid-column: 1 / 4; }
+    .closing-content { grid-column: 5 / 12; }
+
+    .chapter-num { font-size: 130px; }
+  }
+  @media (min-width: 1400px) {
+    .hero-name { font-size: 176px; line-height: 0.9; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cc-sidebar">Chameleon Profile</div>
+<div class="cc-logo">CC</div>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration B · Swiss Modular Grid</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="reg tl"></span><span class="reg tr"></span>
+  <div class="container">
+    <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+    <div class="hero-index load-rise">
+      <span><b>001</b>Profile</span>
+      <span><b>002</b>About</span>
+      <span><b>003</b>Practice</span>
+      <span><b>004</b>Selected</span>
+      <span><b>005</b>Said</span>
+      <span><b>006</b>Contact</span>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag load-rise d1">001 · Chameleon Profile</div>
+        <h1 class="hero-name load-rise d2">Caleb<br>Ludwick</h1>
+        <p class="hero-role load-rise d3">A strategist who writes the brand into being.</p>
+        <dl class="spec load-rise d4">
+          <div class="spec-row"><dt>Base</dt><dd>Brooklyn, NY</dd></div>
+          <div class="spec-row"><dt>Tenure</dt><dd><b>7+</b> years in the Collective</dd></div>
+          <div class="spec-row"><dt>Status</dt><dd><b>Available</b> for 2026</dd></div>
+        </dl>
+      </div>
+      <div class="hero-photo load-rise d3">
+        <div class="duotone-hero">
+          <div class="duotone-fig">Fig. 01</div>
+          <div class="duotone-hero-initials">CL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIO -->
+<section class="bio">
+  <span class="reg tl"></span><span class="reg br"></span>
+  <div class="container">
+    <div class="bio-inner">
+      <div class="bio-mark reveal">
+        <div class="chapter-num">002</div>
+        <div class="chapter-label">About</div>
+      </div>
+      <div class="bio-headline-block reveal">
+        <h2 class="chapter-headline">Where strategy meets <span class="ital">the written word.</span></h2>
+      </div>
+      <div class="bio-body reveal">
+        <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it.</p>
+        <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. Sometimes it's a complete voice overhaul. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+        <dl class="bio-aside spec">
+          <div class="spec-row"><dt>Engagement</dt><dd>6–12 weeks for voice systems. 4–8 weeks for positioning sprints.</dd></div>
+          <div class="spec-row"><dt>Currently</dt><dd>Engaged through Q2 2026. Accepting two engagements for Q3.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE -->
+<section class="practice">
+  <span class="reg tl"></span><span class="reg br"></span>
+  <div class="container">
+    <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="practice-inner">
+      <div class="practice-mark reveal">
+        <div class="chapter-num">003</div>
+        <div class="chapter-label">Practice</div>
+      </div>
+      <div class="practice-headline-block reveal">
+        <h2 class="chapter-headline">Three places I work, with <span class="ital">three different deliverables.</span></h2>
+      </div>
+      <div class="practice-list">
+        <div class="practice-item reveal">
+          <div class="practice-no">01</div>
+          <div>
+            <h3 class="practice-name">Brand voice systems</h3>
+            <p class="practice-desc">A complete voice playbook — principles, tone, vocabulary, examples across product surfaces, ending with a document the team uses for years.</p>
+            <span class="practice-spec">6–10 Weeks</span>
+          </div>
+        </div>
+        <div class="practice-item reveal">
+          <div class="practice-no">02</div>
+          <div>
+            <h3 class="practice-name">Positioning &amp; messaging</h3>
+            <p class="practice-desc">Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture that makes campaigns hang together.</p>
+            <span class="practice-spec">4–8 Weeks</span>
+          </div>
+        </div>
+        <div class="practice-item reveal">
+          <div class="practice-no">03</div>
+          <div>
+            <h3 class="practice-name">Naming &amp; identity language</h3>
+            <p class="practice-desc">Product names, feature names, sub-brands, taglines. Full naming engagement or sprint when an in-house team is stuck.</p>
+            <span class="practice-spec">2–6 Weeks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work dark">
+  <span class="reg tl"></span><span class="reg br"></span>
+  <div class="container">
+    <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="work-inner">
+      <div class="work-mark reveal">
+        <div class="chapter-num">004</div>
+        <div class="chapter-label">Selected</div>
+      </div>
+      <div class="work-headline-block reveal">
+        <h2 class="chapter-headline">Three recent <span class="ital">engagements.</span></h2>
+      </div>
+      <div class="work-list">
+        <div class="work-piece reveal">
+          <div class="work-no">A</div>
+          <div>
+            <div class="work-meta">Mastercard · Voice Strategy · 2024</div>
+            <h3 class="work-title">Rebuilding tone across seven product surfaces.</h3>
+            <p class="work-body">Seven different teams were writing about the same product in seven different registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads.</p>
+          </div>
+        </div>
+        <div class="work-piece reveal">
+          <div class="work-no">B</div>
+          <div>
+            <div class="work-meta">Stripe · Brand Messaging · 2023</div>
+            <h3 class="work-title">A second-person platform voice for developers.</h3>
+            <p class="work-body">Stripe asked us to refine the way they speak to developers without losing the way they speak to founders. The answer was build a system where both could coexist.</p>
+          </div>
+        </div>
+        <div class="work-piece reveal">
+          <div class="work-no">C</div>
+          <div>
+            <div class="work-meta">Patagonia · Editorial Language · 2022</div>
+            <h3 class="work-title">A long-form brand book and voice playbook.</h3>
+            <p class="work-body">Codifying one of the strongest brand voices in market for an organization that had grown past the founder's range. Currently the operating doc for editorial, marketing, and product content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <span class="reg tl"></span><span class="reg br"></span>
+  <div class="container">
+    <div class="quote-inner">
+      <div class="quote-mark-block reveal">
+        <div class="chapter-num">005</div>
+        <div class="chapter-label">Said</div>
+      </div>
+      <div class="quote-content reveal">
+        <p class="quote-text">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+        <div class="quote-attr"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing accent-bg">
+  <span class="reg tl"></span><span class="reg br"></span>
+  <div class="container">
+    <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="closing-inner">
+      <div class="closing-mark reveal">
+        <div class="closing-tag">006 · Contact</div>
+      </div>
+      <div class="closing-content reveal">
+        <h2 class="closing-headline">Reach out to the Collective about <span class="ital">Caleb's availability.</span></h2>
+        <p class="closing-body">New project inquiries route through the Collective's BD team. They'll find out if Caleb is the right fit and whether the timing works. Usually a 48-hour response.</p>
+        <a href="#" class="closing-cta">Contact the Collective <span>&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>Chameleon Profile · Exploration B · Swiss Modular Grid</span>
+  <span class="num">006 / 006</span>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

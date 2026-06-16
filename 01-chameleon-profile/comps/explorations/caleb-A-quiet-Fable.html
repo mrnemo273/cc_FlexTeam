@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration A · Editorial Quiet (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── DESIGN HYPOTHESIS — FABLE PASS ────────────────
+     "Editorial Quiet" taken seriously: a literary
+     magazine spread, not a website. Light-300 Plex
+     display set very large, hairline rules as the only
+     ornament, marginalia instead of icon circles, a
+     running folio, and a fixed rotated CC section label.
+     One accent (orange), used like a printer's spot color.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --cc-warm-gray: #E8E8E8;
+    --cc-mid-gray: #666666;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-white); color: var(--cc-black);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  /* ─── ENTRY + SCROLL MOTION ─── */
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .load-rise { opacity: 0; animation: rise 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1 { animation-delay: 0.08s; } .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.28s; } .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.54s; }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .load-rise, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ─── CC BRAND CHROME ─── */
+  .cc-sidebar {
+    position: fixed; left: 0; top: 50%;
+    transform: rotate(180deg) translateY(50%);
+    writing-mode: vertical-rl;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 500;
+    color: var(--cc-black);
+    padding: 0 14px;
+    z-index: 60;
+    display: none;
+    mix-blend-mode: multiply;
+  }
+  .cc-logo {
+    position: fixed; left: 16px; bottom: 16px; z-index: 60;
+    width: 28px; height: 28px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display); font-weight: 600; font-size: 10px;
+    letter-spacing: 0.02em;
+    display: none; align-items: center; justify-content: center;
+  }
+  @media (min-width: 1100px) {
+    .cc-sidebar, .cc-logo { display: flex; }
+  }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--soft); font-weight: 500;
+  }
+  .topbar a { color: var(--soft); text-decoration: none; transition: color 0.2s; }
+  .topbar a:hover { color: var(--cc-orange); }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+
+  .wide { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+  /* ─── FOLIO RULE (recurring footer of each spread) ─── */
+  .folio {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--rule);
+    padding-top: 12px; margin-top: 72px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500;
+    color: var(--soft);
+  }
+  .folio .num { color: var(--cc-orange); }
+
+  /* ─── HERO ─── */
+  .hero { padding: 88px 0 56px; }
+  .hero-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--soft); font-weight: 500;
+    margin-bottom: 64px;
+    display: flex; gap: 18px; align-items: center;
+  }
+  .hero-meta::before, .hero-meta::after {
+    content: ''; flex: 1; height: 1px; background: var(--rule);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: end;
+  }
+  .hero-pretitle {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .hero-pretitle::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    margin: 0 0 28px;
+  }
+  .hero-name .ital { font-style: italic; font-weight: 300; color: var(--cc-orange); }
+  .hero-role {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: 21px; line-height: 1.5;
+    max-width: 480px;
+    margin: 0 0 36px;
+    letter-spacing: -0.005em;
+  }
+  .hero-meta-row {
+    display: flex; flex-wrap: wrap; gap: 0;
+    border-top: 1px solid var(--cc-black);
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .hero-meta-row span {
+    padding: 18px 28px 0 0;
+    margin-right: 28px;
+    border-right: 1px solid var(--rule);
+    padding-right: 28px;
+  }
+  .hero-meta-row span:last-child { border-right: none; }
+  .hero-meta-row b { display: block; font-size: 17px; font-weight: 400; letter-spacing: -0.01em; text-transform: none; margin-top: 6px; }
+
+  /* Duotone portrait — offset, overlapping its caption rule */
+  .portrait-block { position: relative; }
+  .duotone {
+    position: relative;
+    background: var(--cc-orange);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .duotone img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(115%);
+    mix-blend-mode: multiply;
+  }
+  .duotone-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 24px;
+    font-family: var(--display);
+    font-size: clamp(120px, 16vw, 200px);
+    font-weight: 300; line-height: 0.8;
+    letter-spacing: -0.05em;
+    color: var(--cc-black); opacity: 0.32;
+    mix-blend-mode: multiply;
+  }
+  .duotone-frame-note {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black); opacity: 0.55;
+    writing-mode: vertical-rl;
+  }
+  .duotone-caption {
+    display: flex; justify-content: space-between;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--soft); margin-top: 14px; font-weight: 500;
+  }
+
+  /* ─── BIO — literary spread with marginalia ─── */
+  .bio { padding: 80px 0 64px; }
+  .bio-grid {
+    display: grid; grid-template-columns: 1fr; gap: 48px;
+    max-width: 1080px; margin: 0 auto; padding: 0 32px;
+  }
+  .bio-margin {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 500;
+    color: var(--soft);
+  }
+  .bio-margin .no { display: block; font-size: 44px; font-weight: 300; letter-spacing: -0.03em; color: var(--cc-orange); margin-bottom: 10px; }
+  .bio-text p {
+    font-family: var(--body);
+    font-size: 17px; line-height: 1.8;
+    margin: 0 0 26px;
+  }
+  .bio-text p:first-of-type {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 24px; line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .bio-text p:first-of-type::first-letter {
+    font-family: var(--display); font-weight: 300;
+    font-size: 102px; line-height: 0.8;
+    float: left; margin: 10px 18px 0 0;
+    color: var(--cc-orange);
+  }
+  .bio-text em { font-style: italic; font-weight: 500; }
+
+  .ornament {
+    text-align: center; padding: 64px 0 0;
+    color: var(--cc-orange);
+    font-family: var(--display); font-weight: 300;
+    font-size: 18px; letter-spacing: 1.2em;
+  }
+
+  /* ─── PRACTICE — index entries, not cards ─── */
+  .practice { background: var(--cc-cream-light); padding: 96px 0; }
+  .section-head {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 14px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .section-head::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .section-title {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(34px, 4.4vw, 52px);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin: 0 0 64px; max-width: 680px;
+  }
+  .section-title .ital { font-style: italic; }
+
+  .practice-row {
+    display: grid; grid-template-columns: 1fr; gap: 20px;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .practice-row:last-of-type { border-bottom: 1px solid var(--rule); }
+  .practice-no {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 52px; line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--cc-orange);
+  }
+  .practice-name {
+    font-family: var(--display);
+    font-size: 26px; font-weight: 400;
+    line-height: 1.15; letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .practice-name .ital { font-style: italic; font-weight: 300; }
+  .practice-desc {
+    font-family: var(--body);
+    font-size: 15px; line-height: 1.7;
+    color: var(--soft); margin: 0;
+  }
+  .practice-deliv {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black);
+    align-self: start;
+    border: 1px solid var(--cc-black);
+    padding: 8px 14px;
+    display: inline-block;
+    justify-self: start;
+    white-space: nowrap;
+  }
+
+  /* ─── WORK — editorial plates ─── */
+  .work { padding: 104px 0; }
+  .work-grid { display: grid; grid-template-columns: 1fr; gap: 88px; }
+  .work-piece { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .work-cover {
+    aspect-ratio: 4 / 3;
+    background: var(--cc-cream);
+    position: relative; overflow: hidden;
+  }
+  .work-cover-word {
+    position: absolute; left: 28px; bottom: 18px;
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.9; letter-spacing: -0.04em;
+    color: var(--cc-orange);
+  }
+  .work-cover-plate {
+    position: absolute; top: 22px; left: 28px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black); opacity: 0.55;
+  }
+  .work-cover-year {
+    position: absolute; top: 22px; right: 24px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-black); opacity: 0.55;
+    writing-mode: vertical-rl;
+  }
+  .work-cover-rule {
+    position: absolute; left: 28px; right: 28px; top: 44px;
+    height: 1px; background: var(--cc-black); opacity: 0.18;
+  }
+  .work-meta {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .work-title {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.12; letter-spacing: -0.015em;
+    margin: 0 0 18px;
+  }
+  .work-body {
+    font-family: var(--body);
+    font-size: 16px; line-height: 1.75;
+    margin: 0 0 18px;
+  }
+  .work-outcome {
+    font-family: var(--body);
+    font-size: 13.5px; line-height: 1.6;
+    color: var(--soft); font-style: italic;
+    border-left: 2px solid var(--cc-orange);
+    padding-left: 16px;
+  }
+  .work-outcome strong { color: var(--cc-black); font-style: normal; font-weight: 500; }
+
+  /* ─── QUOTE ─── */
+  .quote { background: var(--cc-cream-light); padding: 112px 0; }
+  .quote-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; position: relative; }
+  .quote-mark {
+    font-family: var(--display); font-weight: 300;
+    font-size: 150px; line-height: 0.6;
+    color: var(--cc-orange);
+    position: absolute; top: -36px; left: 0;
+    opacity: 0.9;
+  }
+  .quote-text {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: clamp(26px, 3.4vw, 38px);
+    line-height: 1.4; letter-spacing: -0.012em;
+    margin: 0 0 36px;
+    padding-top: 48px;
+  }
+  .quote-attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--soft); font-weight: 600;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .quote-attr::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .quote-attr .name { color: var(--cc-black); }
+
+  /* ─── CLOSING ─── */
+  .closing { background: var(--cc-black); color: var(--cc-white); padding: 120px 0 96px; }
+  .closing-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  .closing-label {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+    margin-bottom: 24px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .closing-label::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .closing h2 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin: 0 0 28px; max-width: 640px;
+  }
+  .closing h2 .ital { font-style: italic; color: var(--cc-orange); }
+  .closing p {
+    font-family: var(--body);
+    font-size: 15px; line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 440px; margin: 0 0 44px;
+  }
+  .closing-cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 18px 36px;
+    background: var(--cc-orange); color: var(--cc-black);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .closing-cta:hover { gap: 24px; }
+  .closing-folio {
+    display: flex; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 88px; padding-top: 14px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500;
+    color: rgba(255,255,255,0.4);
+  }
+  .closing-folio .num { color: var(--cc-orange); }
+
+  /* ─── DESKTOP ─── */
+  @media (min-width: 760px) {
+    .hero { padding: 112px 0 72px; }
+    .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 88px; align-items: center; }
+    .bio-grid { grid-template-columns: 180px 1fr; gap: 64px; }
+    .practice-row { grid-template-columns: 90px 1.1fr 1.3fr auto; gap: 40px; align-items: start; }
+    .work-piece { grid-template-columns: 1.15fr 1fr; gap: 64px; align-items: center; }
+    .work-piece:nth-child(even) .work-cover { order: 2; }
+    .work-piece:nth-child(even) .work-content { order: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cc-sidebar">Chameleon Profile</div>
+<div class="cc-logo">CC</div>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration A · Editorial Quiet</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wide">
+    <div class="hero-meta load-rise">
+      <span>Chameleon Profile · No. 001</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-pretitle load-rise d1">Strategy + Voice</div>
+        <h1 class="hero-name load-rise d2">Caleb<br><span class="ital">Ludwick</span></h1>
+        <p class="hero-role load-rise d3">A strategist who writes the brand into being. Voice systems, positioning, naming — across financial services, fashion, hospitality, and SaaS.</p>
+        <div class="hero-meta-row load-rise d4">
+          <span>Based in<b>Brooklyn, NY</b></span>
+          <span>Writing for<b>17 Years</b></span>
+          <span>Availability<b>Open Q3</b></span>
+        </div>
+      </div>
+      <div class="portrait-block load-rise d4">
+        <div class="duotone">
+          <div class="duotone-initials">CL</div>
+          <div class="duotone-frame-note">Plate I</div>
+        </div>
+        <div class="duotone-caption">
+          <span>Brooklyn · 2025</span>
+          <span>Duotone</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="folio load-rise d5">
+      <span>Chameleon Profile</span>
+      <span class="num">001 — 006</span>
+    </div>
+  </div>
+</section>
+
+<!-- BIO -->
+<section class="bio">
+  <div class="bio-grid">
+    <div class="bio-margin reveal">
+      <span class="no">002</span>
+      About<br>The Writer
+    </div>
+    <div class="bio-text reveal">
+      <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it — in voice playbooks, naming systems, manifestos, anthems, packaging, ads, and the boring 200-word product descriptions that most brands fumble.</p>
+      <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. I get on the call, listen, then come back with the language. Sometimes it's a complete voice overhaul. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+    </div>
+  </div>
+  <div class="ornament reveal">···</div>
+</section>
+
+<!-- PRACTICE -->
+<section class="practice">
+  <div class="wide">
+    <div class="section-head reveal">003 · Practice Areas</div>
+    <h2 class="section-title reveal">Three places I work, with <span class="ital">three different deliverables.</span></h2>
+
+    <div class="practice-row reveal">
+      <div class="practice-no">01</div>
+      <h3 class="practice-name">Brand voice <span class="ital">systems</span></h3>
+      <p class="practice-desc">A complete voice playbook — principles, tone, vocabulary, do's and don'ts, examples across product surfaces.</p>
+      <span class="practice-deliv">6–10 Week Engagement</span>
+    </div>
+    <div class="practice-row reveal">
+      <div class="practice-no">02</div>
+      <h3 class="practice-name">Positioning &amp; <span class="ital">messaging</span></h3>
+      <p class="practice-desc">Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture that makes campaigns hang together.</p>
+      <span class="practice-deliv">4–8 Week Sprint</span>
+    </div>
+    <div class="practice-row reveal">
+      <div class="practice-no">03</div>
+      <h3 class="practice-name">Naming &amp; identity <span class="ital">language</span></h3>
+      <p class="practice-desc">Product names, feature names, sub-brands, taglines. Full naming engagement or sprint when an in-house team is stuck.</p>
+      <span class="practice-deliv">2–6 Week Sprint</span>
+    </div>
+
+    <div class="folio reveal">
+      <span>Practice</span>
+      <span class="num">003 — 006</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work">
+  <div class="wide">
+    <div class="section-head reveal">004 · Selected Work</div>
+    <h2 class="section-title reveal">Three recent engagements, <span class="ital">in long-form.</span></h2>
+
+    <div class="work-grid">
+      <div class="work-piece reveal">
+        <div class="work-cover">
+          <div class="work-cover-plate">Plate II · Voice Strategy</div>
+          <div class="work-cover-year">MMXXIV</div>
+          <div class="work-cover-rule"></div>
+          <div class="work-cover-word">Master—<br>card</div>
+        </div>
+        <div class="work-content">
+          <div class="work-meta">Mastercard · 2024</div>
+          <h3 class="work-title">Rebuilding tone across seven product surfaces.</h3>
+          <p class="work-body">Mastercard's product organization had grown faster than its voice. Seven different teams were writing in seven different registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads.</p>
+          <p class="work-outcome"><strong>Outcome:</strong> Voice document still in use 18 months later; measurable lift on card-comparison flows.</p>
+        </div>
+      </div>
+
+      <div class="work-piece reveal">
+        <div class="work-cover">
+          <div class="work-cover-plate">Plate III · Brand Messaging</div>
+          <div class="work-cover-year">MMXXIII</div>
+          <div class="work-cover-rule"></div>
+          <div class="work-cover-word">Stripe</div>
+        </div>
+        <div class="work-content">
+          <div class="work-meta">Stripe · 2023</div>
+          <h3 class="work-title">A second-person platform voice for developers.</h3>
+          <p class="work-body">Stripe asked us to refine the way they speak to developers without losing the way they speak to founders. The answer wasn't pick one — it was build a system where both could coexist in the same surface.</p>
+          <p class="work-outcome"><strong>Outcome:</strong> Adopted across Docs, Atlas, and Stripe Press.</p>
+        </div>
+      </div>
+
+      <div class="work-piece reveal">
+        <div class="work-cover">
+          <div class="work-cover-plate">Plate IV · Editorial Language</div>
+          <div class="work-cover-year">MMXXII</div>
+          <div class="work-cover-rule"></div>
+          <div class="work-cover-word">Pata—<br>gonia</div>
+        </div>
+        <div class="work-content">
+          <div class="work-meta">Patagonia · 2022</div>
+          <h3 class="work-title">A long-form brand book and voice playbook.</h3>
+          <p class="work-body">Patagonia has one of the strongest brand voices in market. The challenge wasn't to invent it — it was to codify it for an organization that had grown past the founder's range.</p>
+          <p class="work-outcome"><strong>Outcome:</strong> Currently the operating doc for editorial, marketing, and product content.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="folio reveal">
+      <span>Selected Work</span>
+      <span class="num">004 — 006</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="quote-inner reveal">
+    <span class="quote-mark">&ldquo;</span>
+    <p class="quote-text">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+    <div class="quote-attr"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="closing-inner">
+    <div class="closing-label reveal">006 · Contact</div>
+    <h2 class="reveal">Reach out to the Collective about <span class="ital">Caleb's availability.</span></h2>
+    <p class="reveal">New project inquiries route through the Collective's BD team. Usually a 48-hour response.</p>
+    <a href="#" class="closing-cta reveal">Contact the Collective <span>&rarr;</span></a>
+    <div class="closing-folio reveal">
+      <span>Chameleon Profile · Exploration A · Editorial Quiet</span>
+      <span class="num">006 — 006</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

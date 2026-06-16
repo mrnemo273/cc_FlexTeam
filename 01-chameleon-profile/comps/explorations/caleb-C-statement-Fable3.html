@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration C3 · Statement, Dimensional (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── UX HYPOTHESIS — FABLE 3 ───────────────────────
+     STATEMENT, DIMENSIONAL. The cover statement gains
+     a third dimension: a slow-turning wireframe form
+     in CC orange floats behind viewport-scale type on
+     ink black, reacting to the cursor and scrubbing
+     with scroll. The rest of the page wipes over it in
+     flat CC surfaces. three.js + GSAP ScrollTrigger.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    background: var(--cc-black); color: var(--cc-white);
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .topbar a { color: var(--cc-white); text-decoration: none; opacity: 0.8; }
+  .topbar a:hover { color: var(--cc-orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+  @media (max-width: 640px) { .topbar .right span:not(.tag) { display: none; } }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+  /* ─── HERO: WebGL statement ─── */
+  .hero {
+    height: 100svh;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero-ui { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; }
+  .hero-top {
+    display: flex; justify-content: space-between;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    padding-top: 60px;
+  }
+  .hero-center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .hero-name {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(60px, 14vw, 210px);
+    line-height: 0.87; letter-spacing: -0.05em;
+    color: var(--cc-white);
+    margin: 0 0 26px;
+    mix-blend-mode: normal;
+  }
+  .hero-name .line { display: block; overflow: hidden; }
+  .hero-name .inner { display: inline-block; will-change: transform; }
+  .hero-name .ital { font-style: italic; color: var(--cc-orange); }
+  .hero-role {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(16px, 1.9vw, 23px);
+    line-height: 1.45;
+    color: rgba(255,255,255,0.85);
+    max-width: 440px; margin: 0;
+  }
+  .hero-foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 26px;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 600;
+    color: rgba(255,255,255,0.55);
+  }
+  .hero-foot .stats { display: flex; gap: 32px; font-variant-numeric: tabular-nums; }
+  .hero-foot b { display: block; font-size: 22px; font-weight: 300; letter-spacing: -0.02em; color: var(--cc-white); margin-bottom: 4px; }
+
+  /* ─── PANELS that wipe over the hero ─── */
+  .panel { position: relative; z-index: 10; }
+  .ch-head {
+    display: flex; align-items: baseline; gap: 16px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    margin-bottom: 36px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ch-head .num { font-size: 36px; font-weight: 300; letter-spacing: -0.03em; color: var(--cc-orange); line-height: 0.9; }
+  .ch-head .line { flex: 1; height: 1px; background: var(--rule); align-self: center; transform-origin: left; }
+  .ch-title {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(30px, 4.4vw, 58px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin: 0 0 36px;
+  }
+  .ch-title .ital { font-style: italic; }
+  .fade-up { will-change: transform, opacity; }
+
+  .p-cream { background: var(--cc-cream-light); color: var(--cc-black); padding: 110px 0; }
+  .p-white { background: var(--cc-white); color: var(--cc-black); padding: 110px 0; }
+  .p-dark { background: var(--cc-black); color: var(--cc-white); padding: 110px 0; }
+  .p-dark .ch-head { color: rgba(255,255,255,0.5); }
+  .p-dark .ch-head .line { background: rgba(255,255,255,0.18); }
+  .p-dark .ch-title { color: var(--cc-white); }
+  .p-dark .ch-title .ital { color: var(--cc-orange); }
+
+  /* About */
+  .prose { max-width: 720px; }
+  .prose p { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.8; margin: 0 0 22px; }
+  .prose p:first-of-type::first-letter {
+    font-family: var(--display); font-weight: 300;
+    font-size: 80px; line-height: 0.84;
+    float: left; margin: 8px 15px 0 0;
+    color: var(--cc-orange);
+  }
+  .prose em { color: var(--cc-orange); font-style: italic; font-weight: 500; }
+
+  /* Practice — oversized hover list */
+  .p-list { border-top: 1px solid var(--cc-black); }
+  .p-li {
+    display: grid; grid-template-columns: 1fr; gap: 8px 32px;
+    padding: 34px 0; border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  @media (min-width: 900px) { .p-li { grid-template-columns: 88px 1fr auto; align-items: center; } }
+  .p-li .no {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(34px, 3.6vw, 56px);
+    line-height: 0.85; letter-spacing: -0.05em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .p-li h3 {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(24px, 3.4vw, 48px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin: 0;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), color 0.3s;
+  }
+  .p-li:hover h3 { transform: translateX(14px); color: var(--cc-orange); }
+  .p-li h3 .ital { font-style: italic; }
+  .p-li .desc { font-size: 13.5px; line-height: 1.6; color: var(--soft); max-width: 540px; margin: 0; }
+  @media (min-width: 900px) { .p-li .desc { grid-column: 2; } }
+  .p-li .chip {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid var(--cc-black);
+    padding: 8px 13px;
+    justify-self: start; white-space: nowrap;
+  }
+  @media (min-width: 900px) { .p-li .chip { grid-row: 1; grid-column: 3; justify-self: end; } }
+
+  /* Work — large stroked plates */
+  .w-li { padding: 44px 0; border-top: 1px solid rgba(255,255,255,0.16); }
+  .w-li:last-child { border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .w-name {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(44px, 8vw, 120px);
+    line-height: 0.9; letter-spacing: -0.045em;
+    margin: 0 0 18px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.45);
+    transition: color 0.45s, -webkit-text-stroke-color 0.45s;
+    will-change: transform;
+  }
+  .w-li:hover .w-name { color: var(--cc-orange); -webkit-text-stroke-color: var(--cc-orange); }
+  .w-grid { display: grid; grid-template-columns: 1fr; gap: 10px 40px; }
+  @media (min-width: 860px) { .w-grid { grid-template-columns: 220px 1fr; } }
+  .w-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+  }
+  .w-grid h3 { font-family: var(--display); font-weight: 400; font-size: clamp(18px, 1.8vw, 25px); line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 10px; color: var(--cc-white); }
+  .w-grid p { font-size: 14px; line-height: 1.68; color: rgba(255,255,255,0.7); margin: 0; max-width: 640px; }
+
+  /* Quote */
+  .q-text {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(26px, 4vw, 54px);
+    line-height: 1.28; letter-spacing: -0.018em;
+    margin: 0 0 36px; max-width: 960px;
+  }
+  .q-text::before { content: '\201C'; color: var(--cc-orange); font-style: normal; margin-right: 6px; }
+  .attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .attr::before { content: ''; width: 40px; height: 1px; background: var(--cc-orange); }
+  .attr .name { color: var(--cc-black); }
+
+  /* Contact */
+  .p-contact { background: var(--cc-orange); color: var(--cc-black); padding: 120px 0 60px; position: relative; z-index: 10; }
+  .p-contact .big {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(46px, 10vw, 150px);
+    line-height: 0.9; letter-spacing: -0.05em;
+    margin: 0 0 30px;
+  }
+  .p-contact .big .ital { font-style: italic; }
+  .p-contact p { font-size: 15px; line-height: 1.7; max-width: 460px; margin: 0 0 40px; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 18px 36px;
+    background: var(--cc-black); color: var(--cc-white);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cta:hover { gap: 24px; }
+  .colophon {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 90px; padding-top: 16px;
+    border-top: 1px solid rgba(18,18,18,0.35);
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .cc-mark {
+    width: 26px; height: 26px;
+    background: var(--cc-black); color: var(--cc-orange);
+    font-family: var(--display); font-weight: 600; font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration C3 · Statement, Dimensional</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="container hero-ui">
+    <div class="hero-top">
+      <span>Chameleon Profile · 001 / 006</span>
+      <span>Brooklyn · 2026</span>
+    </div>
+    <div class="hero-center">
+      <h1 class="hero-name">
+        <span class="line"><span class="inner" data-reveal>Caleb</span></span>
+        <span class="line ital"><span class="inner" data-reveal>Ludwick</span></span>
+      </h1>
+      <p class="hero-role" id="herorole">A strategist who writes the brand into being. Voice systems, positioning, naming.</p>
+    </div>
+    <div class="hero-foot" id="herofoot">
+      <div class="stats">
+        <span><b>17</b>Years of voice</span>
+        <span><b>7+</b>Years in CC</span>
+        <span><b>40+</b>Brands voiced</span>
+      </div>
+      <span>Scroll &darr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- 002 ABOUT -->
+<section class="panel p-cream">
+  <div class="container">
+    <div class="ch-head"><span class="num fade-up">002</span><span class="fade-up">About</span><span class="line draw"></span></div>
+    <h2 class="ch-title fade-up">Where strategy meets <span class="ital">the written word.</span></h2>
+    <div class="prose fade-up">
+      <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it — in voice playbooks, naming systems, manifestos, anthems, packaging, ads, and the boring 200-word product descriptions that most brands fumble.</p>
+      <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 003 PRACTICE -->
+<section class="panel p-white">
+  <div class="container">
+    <div class="ch-head"><span class="num fade-up">003</span><span class="fade-up">Practice</span><span class="line draw"></span></div>
+    <h2 class="ch-title fade-up">What I do, in <span class="ital">three areas.</span></h2>
+    <div class="p-list">
+      <div class="p-li fade-up">
+        <div class="no">01</div>
+        <h3>Brand voice <span class="ital">systems</span></h3>
+        <p class="desc">A complete voice playbook — principles, tone, vocabulary, examples across product surfaces.</p>
+        <span class="chip">6–10 Weeks</span>
+      </div>
+      <div class="p-li fade-up">
+        <div class="no">02</div>
+        <h3>Positioning &amp; <span class="ital">messaging</span></h3>
+        <p class="desc">Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture.</p>
+        <span class="chip">4–8 Weeks</span>
+      </div>
+      <div class="p-li fade-up">
+        <div class="no">03</div>
+        <h3>Naming &amp; identity <span class="ital">language</span></h3>
+        <p class="desc">Product names, feature names, sub-brands, taglines. Engagement or sprint.</p>
+        <span class="chip">2–6 Weeks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 004 WORK -->
+<section class="panel p-dark">
+  <div class="container">
+    <div class="ch-head"><span class="num fade-up">004</span><span class="fade-up">Selected Work</span><span class="line draw"></span></div>
+    <div class="w-li fade-up">
+      <h3 class="w-name" data-drift>Mastercard</h3>
+      <div class="w-grid">
+        <div class="w-meta">Voice Strategy · 2024</div>
+        <div>
+          <h3>Rebuilding tone across seven product surfaces.</h3>
+          <p>Seven teams writing in seven registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads. Still in use 18 months later.</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-li fade-up">
+      <h3 class="w-name" data-drift>Stripe</h3>
+      <div class="w-grid">
+        <div class="w-meta">Brand Messaging · 2023</div>
+        <div>
+          <h3>A second-person platform voice for developers.</h3>
+          <p>Refine the developer voice without losing the founder voice. The answer: a system where both could coexist in the same surface. Adopted across Docs, Atlas, and Stripe Press.</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-li fade-up">
+      <h3 class="w-name" data-drift>Patagonia</h3>
+      <div class="w-grid">
+        <div class="w-meta">Editorial Language · 2022</div>
+        <div>
+          <h3>A long-form brand book and voice playbook.</h3>
+          <p>Codifying one of the strongest brand voices in market for an organization grown past the founder's range. Now the operating doc for editorial, marketing, and product.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 005 SAID -->
+<section class="panel p-cream">
+  <div class="container">
+    <div class="ch-head"><span class="num fade-up">005</span><span class="fade-up">Said</span><span class="line draw"></span></div>
+    <p class="q-text fade-up">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+    <div class="attr fade-up"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+  </div>
+</section>
+
+<!-- 006 CONTACT -->
+<section class="p-contact">
+  <div class="container">
+    <div class="ch-head" style="color: rgba(18,18,18,0.6);"><span class="num fade-up" style="color: var(--cc-black);">006</span><span class="fade-up">Contact</span><span class="line draw" style="background: rgba(18,18,18,0.3);"></span></div>
+    <h2 class="big fade-up">Let's <span class="ital">talk.</span></h2>
+    <p class="fade-up">New project inquiries route through the Collective's BD team. They'll find out if Caleb is the right fit and whether the timing works. Usually a 48-hour response.</p>
+    <a href="#" class="cta fade-up">Contact the Collective <span>&rarr;</span></a>
+    <div class="colophon">
+      <span class="cc-mark">CC</span>
+      <span>Chameleon Profile · Exploration C3 · Statement, Dimensional</span>
+      <span>006 / 006</span>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+
+  /* ── three.js scene ── */
+  let knot, points;
+  (function () {
+    const canvas = document.getElementById('gl');
+    const hero = document.getElementById('hero');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.z = 7;
+
+    // Wireframe torus knot — the "voice thread"
+    const knotGeo = new THREE.TorusKnotGeometry(1.1, 0.26, isMobile ? 90 : 150, isMobile ? 10 : 16, 2, 3);
+    const knotMat = new THREE.MeshBasicMaterial({ color: 0xEA633F, wireframe: true, transparent: true, opacity: isMobile ? 0.28 : 0.38 });
+    knot = new THREE.Mesh(knotGeo, knotMat);
+    scene.add(knot);
+
+    // Sparse particle field
+    const N = isMobile ? 220 : 520;
+    const pos = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 16;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const pMat = new THREE.PointsMaterial({ color: 0xF5F2E8, size: 0.02, transparent: true, opacity: 0.55 });
+    points = new THREE.Points(pGeo, pMat);
+    scene.add(points);
+
+    function size() {
+      const w = hero.offsetWidth, h = hero.offsetHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    size();
+    window.addEventListener('resize', size);
+
+    // Offset the form right of center on desktop; below the type on mobile
+    knot.position.x = isMobile ? 0.6 : 2.4;
+    knot.position.y = isMobile ? -1.6 : 0;
+    points.position.x = isMobile ? 0 : 0.8;
+
+    // Mouse parallax
+    const target = { x: 0, y: 0 };
+    if (!isMobile) {
+      window.addEventListener('pointermove', e => {
+        target.x = (e.clientX / window.innerWidth - 0.5) * 2;
+        target.y = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+    }
+
+    let visible = true;
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(hero);
+
+    const clock = new THREE.Clock();
+    function loop() {
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      const t = clock.getElapsedTime();
+      if (!reduce) {
+        knot.rotation.y = t * 0.12 + target.x * 0.3;
+        knot.rotation.x = t * 0.07 + target.y * 0.2;
+        points.rotation.y = t * 0.015;
+        camera.position.x = target.x * 0.25;
+        camera.position.y = -target.y * 0.2;
+        camera.lookAt(isMobile ? 0 : 1.2, 0, 0);
+      }
+      renderer.render(scene, camera);
+    }
+    loop();
+  })();
+
+  if (!reduce) {
+    /* Hero type entrance */
+    gsap.set('[data-reveal]', { yPercent: 112 });
+    gsap.timeline({ defaults: { ease: 'power4.out' } })
+      .to('[data-reveal]', { yPercent: 0, duration: 1.2, stagger: 0.14 }, 0.2)
+      .from('#herorole', { y: 26, opacity: 0, duration: 0.9 }, 0.9)
+      .from('#herofoot', { y: 20, opacity: 0, duration: 0.9 }, 1.05);
+
+    /* Scroll scrub: knot reacts as you leave the cover */
+    ScrollTrigger.create({
+      trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true,
+      onUpdate: self => {
+        if (knot) {
+          knot.rotation.z = self.progress * 1.4;
+          knot.scale.setScalar(1 + self.progress * 0.5);
+          knot.material.opacity = (isMobile ? 0.28 : 0.38) * (1 - self.progress * 0.8);
+        }
+      }
+    });
+
+    /* Hero type drifts up faster than scroll (parallax) */
+    gsap.to('.hero-center', {
+      yPercent: -18, opacity: 0.25, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    /* Fade-ups */
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.from(el, {
+        y: 36, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+
+    /* Rules draw in */
+    gsap.utils.toArray('.line.draw').forEach(el => {
+      gsap.from(el, {
+        scaleX: 0, duration: 1.2, ease: 'power3.inOut',
+        scrollTrigger: { trigger: el, start: 'top 90%' }
+      });
+    });
+
+    /* Stroked work names drift horizontally on scrub */
+    gsap.utils.toArray('[data-drift]').forEach((el, i) => {
+      gsap.fromTo(el, { x: i % 2 ? 60 : -60 }, {
+        x: 0, ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 45%', scrub: true }
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

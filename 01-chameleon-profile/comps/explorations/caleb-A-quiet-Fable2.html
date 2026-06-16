@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caleb Ludwick — Exploration A2 · Dossier (Fable)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── UX HYPOTHESIS — FABLE 2 ───────────────────────
+     THE DOSSIER. Not a scrolling brochure: a fixed
+     cover panel (left) that never moves — portrait,
+     name, and a live index that tracks your position —
+     paired with a quiet reading column (right). The
+     reader always knows where they are; the brand
+     never leaves the screen. On mobile the cover
+     collapses to a sticky index strip.
+     ─────────────────────────────────────────────────── */
+  :root {
+    --cc-orange: #EA633F;
+    --cc-black: #121212;
+    --cc-white: #FFFFFF;
+    --cc-cream-light: #F5F2E8;
+    --cc-cream: #E8E4D4;
+    --rule: #DAD5C6;
+    --soft: #6F6A5F;
+    --display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cc-cream-light); color: var(--cc-black);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--cc-orange); color: var(--cc-black); }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .load-rise { opacity: 0; animation: rise 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.32s; } .d4 { animation-delay: 0.46s; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .load-rise, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+  }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--cc-black); color: var(--cc-white);
+    padding: 10px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--display); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .topbar a { color: var(--cc-white); text-decoration: none; opacity: 0.8; }
+  .topbar a:hover { color: var(--cc-orange); opacity: 1; }
+  .topbar .right { display: flex; gap: 14px; align-items: center; }
+  .topbar .tag { background: var(--cc-orange); color: var(--cc-black); padding: 3px 10px; font-weight: 600; }
+
+  .layout { display: grid; grid-template-columns: 1fr; }
+
+  /* ─── COVER PANEL (fixed on desktop) ─── */
+  .cover {
+    background: var(--cc-orange);
+    color: var(--cc-black);
+    padding: 76px 28px 28px;
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-kicker {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    margin-bottom: 26px;
+    display: flex; justify-content: space-between;
+  }
+  .cover-name {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(52px, 9vw, 76px);
+    line-height: 0.92; letter-spacing: -0.04em;
+    margin: 0 0 18px;
+  }
+  .cover-name .ital { font-style: italic; }
+  .cover-role {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: 16px; line-height: 1.5;
+    margin: 0 0 28px; max-width: 320px;
+  }
+  .cover-portrait {
+    background: var(--cc-black);
+    aspect-ratio: 16 / 9;
+    position: relative; overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .cover-portrait-initials {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end;
+    padding: 16px 20px;
+    font-family: var(--display);
+    font-weight: 300; font-size: 96px;
+    line-height: 0.8; letter-spacing: -0.06em;
+    color: var(--cc-orange); opacity: 0.8;
+  }
+  .cover-portrait-fig {
+    position: absolute; top: 12px; right: 12px;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange); opacity: 0.7;
+  }
+
+  /* Live index */
+  .index { margin-top: auto; }
+  .index-title {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 600;
+    opacity: 0.6; margin-bottom: 10px;
+  }
+  .index a {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 12px; align-items: baseline;
+    padding: 11px 0;
+    border-top: 1px solid rgba(18,18,18,0.3);
+    text-decoration: none; color: var(--cc-black);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 500;
+    transition: padding-left 0.3s cubic-bezier(0.22,1,0.36,1);
+    font-variant-numeric: tabular-nums;
+  }
+  .index a:last-child { border-bottom: 1px solid rgba(18,18,18,0.3); }
+  .index a .no { font-weight: 300; font-size: 16px; letter-spacing: -0.02em; }
+  .index a .dot { width: 7px; height: 7px; background: var(--cc-black); opacity: 0; transition: opacity 0.3s; align-self: center; }
+  .index a:hover { padding-left: 8px; }
+  .index a.active { font-weight: 600; padding-left: 8px; }
+  .index a.active .dot { opacity: 1; }
+
+  .cover-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 26px;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .cc-mark {
+    width: 26px; height: 26px;
+    background: var(--cc-black); color: var(--cc-orange);
+    font-family: var(--display); font-weight: 600; font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── READING COLUMN ─── */
+  .reading { background: var(--cc-cream-light); min-height: 100vh; }
+  .pad { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+  .chapter { padding: 88px 0 64px; }
+  .chapter + .chapter { border-top: 1px solid var(--rule); }
+  .ch-head {
+    display: flex; align-items: baseline; gap: 16px;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    margin-bottom: 36px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ch-head .num { font-size: 34px; font-weight: 300; letter-spacing: -0.03em; color: var(--cc-orange); line-height: 0.9; }
+  .ch-head .line { flex: 1; height: 1px; background: var(--rule); align-self: center; }
+
+  .ch-title {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin: 0 0 32px;
+  }
+  .ch-title .ital { font-style: italic; }
+
+  .prose p { font-size: 16.5px; line-height: 1.8; margin: 0 0 22px; }
+  .prose p:first-of-type::first-letter {
+    font-family: var(--display); font-weight: 300;
+    font-size: 76px; line-height: 0.84;
+    float: left; margin: 7px 14px 0 0;
+    color: var(--cc-orange);
+  }
+  .prose em { font-style: italic; font-weight: 500; }
+
+  /* Practice entries */
+  .entry {
+    display: grid; grid-template-columns: 64px 1fr; gap: 20px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .entry:last-child { border-bottom: 1px solid var(--rule); }
+  .entry-no {
+    font-family: var(--display); font-weight: 300;
+    font-size: 36px; line-height: 0.9; letter-spacing: -0.04em;
+    color: var(--cc-orange);
+    font-variant-numeric: tabular-nums;
+  }
+  .entry h3 {
+    font-family: var(--display);
+    font-size: 21px; font-weight: 400;
+    line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em;
+  }
+  .entry h3 .ital { font-style: italic; font-weight: 300; }
+  .entry p { font-size: 14.5px; line-height: 1.7; color: var(--soft); margin: 0 0 14px; }
+  .entry .chip {
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid var(--cc-black);
+    padding: 7px 12px; display: inline-block;
+  }
+
+  /* Work cards */
+  .case { padding: 32px 0; border-top: 1px solid var(--rule); }
+  .case:last-child { border-bottom: 1px solid var(--rule); }
+  .case-meta {
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cc-orange); margin-bottom: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .case h3 {
+    font-family: var(--display);
+    font-weight: 300; font-size: 26px;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin: 0 0 14px;
+  }
+  .case p { font-size: 15px; line-height: 1.75; margin: 0 0 14px; }
+  .case .outcome {
+    font-size: 13px; line-height: 1.6; font-style: italic; color: var(--soft);
+    border-left: 2px solid var(--cc-orange); padding-left: 14px;
+  }
+  .case .outcome strong { color: var(--cc-black); font-style: normal; font-weight: 500; }
+
+  /* Quote */
+  .pull {
+    font-family: var(--display);
+    font-weight: 300; font-style: italic;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.38; letter-spacing: -0.012em;
+    margin: 0 0 28px;
+  }
+  .pull::before { content: '\201C'; color: var(--cc-orange); font-style: normal; margin-right: 4px; }
+  .attr {
+    font-family: var(--display);
+    font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--soft);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .attr::before { content: ''; width: 32px; height: 1px; background: var(--cc-orange); }
+  .attr .name { color: var(--cc-black); }
+
+  /* Contact */
+  .contact { background: var(--cc-black); color: var(--cc-white); padding: 88px 0; }
+  .contact .ch-head { color: rgba(255,255,255,0.55); }
+  .contact .ch-head .line { background: rgba(255,255,255,0.18); }
+  .contact .ch-title { color: var(--cc-white); }
+  .contact .ch-title .ital { color: var(--cc-orange); }
+  .contact p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.65); max-width: 420px; margin: 0 0 36px; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 17px 34px;
+    background: var(--cc-orange); color: var(--cc-black);
+    font-family: var(--display);
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cta:hover { gap: 24px; }
+  .contact-foot {
+    margin-top: 72px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex; justify-content: space-between;
+    font-family: var(--display);
+    font-size: 8px; letter-spacing: 0.28em;
+    text-transform: uppercase; font-weight: 500;
+    color: rgba(255,255,255,0.4);
+  }
+  .contact-foot .num { color: var(--cc-orange); }
+
+  /* ─── MOBILE: cover collapses, index becomes sticky strip ─── */
+  .mobile-index {
+    position: sticky; top: 37px; z-index: 90;
+    background: var(--cc-black);
+    display: flex; overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .mobile-index::-webkit-scrollbar { display: none; }
+  .mobile-index a {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-family: var(--display);
+    font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 600;
+    border-bottom: 2px solid transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .mobile-index a.active { color: var(--cc-orange); border-bottom-color: var(--cc-orange); }
+
+  /* ─── DESKTOP SPLIT ─── */
+  @media (min-width: 980px) {
+    .layout { grid-template-columns: minmax(380px, 44%) 1fr; }
+    .cover {
+      position: sticky; top: 0;
+      height: 100vh;
+      padding: 72px 44px 28px;
+    }
+    .mobile-index { display: none; }
+    .pad { padding: 0 56px; }
+    .chapter { padding: 104px 0 72px; }
+    .cover-portrait { aspect-ratio: 16 / 8; }
+  }
+  @media (max-width: 979px) {
+    .cover { min-height: auto; }
+    .index { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../../wireframes.html">&larr; Back</a>
+  <div class="right">
+    <span>Exploration A2 · Dossier</span>
+    <span class="tag">Caleb · Strategy + Voice</span>
+  </div>
+</div>
+
+<div class="layout" style="padding-top:37px;">
+
+  <!-- FIXED COVER PANEL -->
+  <aside class="cover">
+    <div class="cover-kicker load-rise">
+      <span>Chameleon Profile</span>
+      <span>No. 001</span>
+    </div>
+    <h1 class="cover-name load-rise d1">Caleb<br><span class="ital">Ludwick</span></h1>
+    <p class="cover-role load-rise d2">A strategist who writes the brand into being. Voice systems, positioning, naming.</p>
+    <div class="cover-portrait load-rise d3">
+      <span class="cover-portrait-fig">Duotone · Brooklyn 2025</span>
+      <span class="cover-portrait-initials">CL</span>
+    </div>
+
+    <nav class="index load-rise d4" id="index">
+      <div class="index-title">Index</div>
+      <a href="#about" data-ch="about"><span class="no">002</span><span>About</span><span class="dot"></span></a>
+      <a href="#practice" data-ch="practice"><span class="no">003</span><span>Practice</span><span class="dot"></span></a>
+      <a href="#work" data-ch="work"><span class="no">004</span><span>Selected Work</span><span class="dot"></span></a>
+      <a href="#said" data-ch="said"><span class="no">005</span><span>Said</span><span class="dot"></span></a>
+      <a href="#contact" data-ch="contact"><span class="no">006</span><span>Contact</span><span class="dot"></span></a>
+    </nav>
+
+    <div class="cover-foot load-rise d4">
+      <span class="cc-mark">CC</span>
+      <span>Brooklyn · 17 Years · Open Q3</span>
+    </div>
+  </aside>
+
+  <!-- READING COLUMN -->
+  <main class="reading">
+
+    <nav class="mobile-index" id="mindex">
+      <a href="#about" data-ch="about">002 About</a>
+      <a href="#practice" data-ch="practice">003 Practice</a>
+      <a href="#work" data-ch="work">004 Work</a>
+      <a href="#said" data-ch="said">005 Said</a>
+      <a href="#contact" data-ch="contact">006 Contact</a>
+    </nav>
+
+    <section class="chapter" id="about" data-ch="about">
+      <div class="pad">
+        <div class="ch-head reveal"><span class="num">002</span><span>About</span><span class="line"></span></div>
+        <h2 class="ch-title reveal">Where strategy meets <span class="ital">the written word.</span></h2>
+        <div class="prose reveal">
+          <p>I work at the intersection of <em>brand strategy and the written word</em>. For seventeen years I've helped companies figure out what they're really trying to say, then helped them say it — in voice playbooks, naming systems, manifestos, anthems, packaging, ads, and the boring 200-word product descriptions that most brands fumble.</p>
+          <p>The work usually starts the same way. A leadership team that knows the brand has drifted but can't quite articulate why. I get on the call, listen, then come back with the language. Sometimes it's a complete voice overhaul. Sometimes it's just one sentence that lets everyone breathe out and say <em>that's the one</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="practice" data-ch="practice">
+      <div class="pad">
+        <div class="ch-head reveal"><span class="num">003</span><span>Practice</span><span class="line"></span></div>
+        <h2 class="ch-title reveal">Three places I work, with <span class="ital">three different deliverables.</span></h2>
+
+        <div class="entry reveal">
+          <div class="entry-no">01</div>
+          <div>
+            <h3>Brand voice <span class="ital">systems</span></h3>
+            <p>A complete voice playbook — principles, tone, vocabulary, do's and don'ts, examples across product surfaces.</p>
+            <span class="chip">6–10 Week Engagement</span>
+          </div>
+        </div>
+        <div class="entry reveal">
+          <div class="entry-no">02</div>
+          <div>
+            <h3>Positioning &amp; <span class="ital">messaging</span></h3>
+            <p>Positioning thesis, elevator pitch, value-proposition hierarchy, messaging architecture that makes campaigns hang together.</p>
+            <span class="chip">4–8 Week Sprint</span>
+          </div>
+        </div>
+        <div class="entry reveal">
+          <div class="entry-no">03</div>
+          <div>
+            <h3>Naming &amp; identity <span class="ital">language</span></h3>
+            <p>Product names, feature names, sub-brands, taglines. Full naming engagement or sprint when an in-house team is stuck.</p>
+            <span class="chip">2–6 Week Sprint</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="work" data-ch="work">
+      <div class="pad">
+        <div class="ch-head reveal"><span class="num">004</span><span>Selected Work</span><span class="line"></span></div>
+        <h2 class="ch-title reveal">Three recent engagements, <span class="ital">in long-form.</span></h2>
+
+        <div class="case reveal">
+          <div class="case-meta">Mastercard · Voice Strategy · 2024</div>
+          <h3>Rebuilding tone across seven product surfaces.</h3>
+          <p>Mastercard's product organization had grown faster than its voice. Seven different teams were writing in seven different registers. We wrote the unifying voice document, then ran a six-week embed where I rewrote alongside their copy leads.</p>
+          <p class="outcome"><strong>Outcome:</strong> Voice document still in use 18 months later; measurable lift on card-comparison flows.</p>
+        </div>
+        <div class="case reveal">
+          <div class="case-meta">Stripe · Brand Messaging · 2023</div>
+          <h3>A second-person platform voice for developers.</h3>
+          <p>Stripe asked us to refine the way they speak to developers without losing the way they speak to founders. The answer wasn't pick one — it was build a system where both could coexist in the same surface.</p>
+          <p class="outcome"><strong>Outcome:</strong> Adopted across Docs, Atlas, and Stripe Press.</p>
+        </div>
+        <div class="case reveal">
+          <div class="case-meta">Patagonia · Editorial Language · 2022</div>
+          <h3>A long-form brand book and voice playbook.</h3>
+          <p>Patagonia has one of the strongest brand voices in market. The challenge wasn't to invent it — it was to codify it for an organization that had grown past the founder's range.</p>
+          <p class="outcome"><strong>Outcome:</strong> Currently the operating doc for editorial, marketing, and product content.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="said" data-ch="said">
+      <div class="pad">
+        <div class="ch-head reveal"><span class="num">005</span><span>Said</span><span class="line"></span></div>
+        <p class="pull reveal">There's a difference between a copywriter and a brand voice strategist. Caleb is the latter, and the work shows it.</p>
+        <div class="attr reveal"><span class="name">CMO</span>&nbsp;· Patagonia</div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" data-ch="contact">
+      <div class="pad">
+        <div class="ch-head reveal"><span class="num">006</span><span>Contact</span><span class="line"></span></div>
+        <h2 class="ch-title reveal">Reach out to the Collective about <span class="ital">Caleb's availability.</span></h2>
+        <p class="reveal">New project inquiries route through the Collective's BD team. Usually a 48-hour response.</p>
+        <a href="#" class="cta reveal">Contact the Collective <span>&rarr;</span></a>
+        <div class="contact-foot reveal">
+          <span>Chameleon Profile · Exploration A2 · Dossier</span>
+          <span class="num">006 / 006</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Scrollspy → live index
+  const links = document.querySelectorAll('#index a, #mindex a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const ch = e.target.dataset.ch;
+        links.forEach(a => a.classList.toggle('active', a.dataset.ch === ch));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  document.querySelectorAll('[data-ch].chapter, [data-ch].contact').forEach(s => spy.observe(s));
+</script>
+
+</body>
+</html>
