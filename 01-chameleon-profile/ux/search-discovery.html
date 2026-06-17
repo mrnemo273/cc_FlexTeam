@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search &amp; Discovery — Project 01</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .ux-detail-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--cc-ink); color: var(--cc-paper);
+    padding: 12px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 500; border-bottom: 1px solid var(--cc-ink);
+  }
+  .ux-detail-bar a { color: var(--cc-paper); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+  .ux-detail-bar a:hover { opacity: 1; }
+  .ux-detail-bar .ux-detail-tag { background: var(--cc-orange); color: var(--cc-ink); padding: 4px 10px; font-weight: 600; }
+  .ux-detail-bar .right { display: flex; gap: 20px; align-items: center; }
+
+  .ux-detail-main { max-width: 1240px; margin: 0 auto; padding: 56px 40px 120px; }
+  .ux-detail-hero { border-bottom: 1px solid var(--cc-ink); padding-bottom: 36px; margin-bottom: 56px; }
+  .ux-detail-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cc-ink-soft); font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .ux-detail-hero h1 {
+    font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 52px;
+    line-height: 1.05; letter-spacing: -0.02em; font-weight: 400;
+    color: var(--cc-ink); margin: 0 0 18px; max-width: 880px;
+  }
+  .ux-detail-hero h1 .accent { color: var(--cc-orange); }
+  .ux-detail-hero p.lede {
+    font-family: 'Inter', Arial, sans-serif; font-size: 17px; line-height: 1.5;
+    color: var(--cc-ink-soft); margin: 0; max-width: 760px;
+  }
+
+  .expr-section { margin: 0 0 96px; }
+  .expr-header {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 28px; align-items: baseline;
+    margin-bottom: 28px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--cc-warm-gray);
+  }
+  .expr-num { font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 400; line-height: 1; color: var(--cc-orange); letter-spacing: -0.04em; }
+  .expr-head-meta { display: flex; flex-direction: column; gap: 6px; }
+  .expr-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500; }
+  .expr-name { font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 32px; font-weight: 500; color: var(--cc-ink); margin: 0; letter-spacing: -0.015em; line-height: 1.1; }
+  .expr-desc { font-family: 'Inter', Arial, sans-serif; font-size: 15px; line-height: 1.55; color: var(--cc-ink-soft); margin: 6px 0 0; max-width: 720px; }
+
+  .expr-spec { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+  .spec-cell { border-top: 1px solid var(--cc-ink); padding-top: 12px; }
+  .spec-label { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-ink-soft); font-weight: 500; margin-bottom: 8px; }
+  .spec-value { font-family: 'Inter', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: var(--cc-ink); }
+
+  .wf-canvas { background: var(--cc-cream-light); border: 1px solid var(--cc-warm-gray); padding: 40px; margin: 0; }
+  .wf-canvas svg { width: 100%; height: auto; display: block; }
+  .wf-canvas + .wf-canvas { margin-top: 18px; }
+
+  .lineage {
+    background: var(--cc-cream-light); border: 1px solid var(--cc-warm-gray);
+    padding: 36px 32px 28px; margin: 0 0 72px;
+  }
+  .lineage-title {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cc-ink-soft); font-weight: 500; margin-bottom: 14px;
+  }
+  .lineage svg { width: 100%; height: auto; display: block; }
+
+  @media (max-width: 760px) {
+    .ux-detail-main { padding: 32px 20px 80px; }
+    .ux-detail-hero h1 { font-size: 36px; }
+    .expr-header { grid-template-columns: 60px 1fr; gap: 14px; }
+    .expr-num { font-size: 32px; }
+    .expr-name { font-size: 24px; }
+    .expr-spec { grid-template-columns: 1fr 1fr; }
+    .wf-canvas { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ux-detail-bar">
+  <a href="../ux.html">← Back to UX Architecture</a>
+  <span class="ux-detail-tag">UX · DETAIL 03</span>
+  <div class="right">
+    <span style="opacity: 0.6;">v1 working draft</span>
+    <a href="../index.html">Project 01 ↗</a>
+  </div>
+</div>
+
+<main class="ux-detail-main">
+
+  <header class="ux-detail-hero">
+    <div class="ux-detail-eyebrow">UX Architecture · Detail 03</div>
+    <h1><span class="accent">Search &amp; Discovery.</span><br>The cold-inbound front door.</h1>
+    <p class="lede">If <a href="smart-deliverable.html">Smart Deliverable</a> is how BD warm-pitches a known client, <strong>Search &amp; Discovery</strong> is how an unknown client finds a Chameleon for the first time. Four entry modes &mdash; conversational AI search, traditional filter UI, external SEO/GEO surfaces, and Chameleon-controlled curation &mdash; all funnel into the same Profile. This page wireframes each mode and shows how the four interact.</p>
+  </header>
+
+
+  <!-- ─── Lineage / discovery flow ─── -->
+  <div class="lineage">
+    <div class="lineage-title">Flow &mdash; four front doors, one destination</div>
+    <svg viewBox="0 0 1160 700" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Caption row -->
+      <text x="180" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.22em" font-weight="500">FRONT DOORS</text>
+      <text x="580" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#EA633F" letter-spacing="0.22em" font-weight="500">DISCOVERY INDEX</text>
+      <text x="980" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.22em" font-weight="500">DESTINATION</text>
+
+      <!-- ====== 4 entry modes (left, stacked) ====== -->
+
+      <!-- 4 entry modes (converted to foreignObject for proper text containment) -->
+      <foreignObject x="20" y="60" width="360" height="112">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="
+          box-sizing: border-box; width: 100%; height: 100%;
+          background: #FFFFFF; border: 1px solid #121212; border-radius: 3px;
+          display: grid; grid-template-columns: 46px 1fr; overflow: hidden;
+        ">
+          <div style="background: #EA633F; display: flex; align-items: center; justify-content: center;
+            font-family: 'DM Mono', monospace; font-size: 14px; color: #121212; font-weight: 600;">01</div>
+          <div style="padding: 16px; overflow: hidden;">
+            <div style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #EA633F; font-weight: 600;">CONVERSATIONAL</div>
+            <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 500; margin-top: 4px; line-height: 1.2;">&ldquo;I need a fractional CMO for a healthcare brand&rdquo;</div>
+            <div style="font-family: 'Inter', Arial, sans-serif; font-size: 10.5px; color: #6F6A5F; font-style: italic; margin-top: 4px; line-height: 1.3;">AI chat &middot; natural language &middot; returns ranked profiles with reasoning</div>
+          </div>
+        </div>
+      </foreignObject>
+
+      <foreignObject x="20" y="188" width="360" height="112">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="
+          box-sizing: border-box; width: 100%; height: 100%;
+          background: #FFFFFF; border: 1px solid #121212; border-radius: 3px;
+          display: grid; grid-template-columns: 46px 1fr; overflow: hidden;
+        ">
+          <div style="background: #121212; display: flex; align-items: center; justify-content: center;
+            font-family: 'DM Mono', monospace; font-size: 14px; color: #F5F2E8; font-weight: 600;">02</div>
+          <div style="padding: 16px; overflow: hidden;">
+            <div style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #EA633F; font-weight: 600;">TRADITIONAL &middot; FILTERS</div>
+            <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 500; margin-top: 4px; line-height: 1.2;">capability + industry + availability + tenure</div>
+            <div style="font-family: 'Inter', Arial, sans-serif; font-size: 10.5px; color: #6F6A5F; font-style: italic; margin-top: 4px; line-height: 1.3;">structured filter UI &middot; for clients who know what they&apos;re looking for</div>
+          </div>
+        </div>
+      </foreignObject>
+
+      <foreignObject x="20" y="316" width="360" height="112">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="
+          box-sizing: border-box; width: 100%; height: 100%;
+          background: #FFFFFF; border: 1px solid #121212; border-radius: 3px;
+          display: grid; grid-template-columns: 46px 1fr; overflow: hidden;
+        ">
+          <div style="background: #121212; display: flex; align-items: center; justify-content: center;
+            font-family: 'DM Mono', monospace; font-size: 14px; color: #F5F2E8; font-weight: 600;">03</div>
+          <div style="padding: 16px; overflow: hidden;">
+            <div style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #EA633F; font-weight: 600;">SEO + GEO</div>
+            <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 500; margin-top: 4px; line-height: 1.2;">Google &middot; Perplexity &middot; ChatGPT &middot; AI Overviews</div>
+            <div style="font-family: 'Inter', Arial, sans-serif; font-size: 10.5px; color: #6F6A5F; font-style: italic; margin-top: 4px; line-height: 1.3;">external surfaces &middot; schema markup &middot; structured data feeds AI engines</div>
+          </div>
+        </div>
+      </foreignObject>
+
+      <foreignObject x="20" y="444" width="360" height="112">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="
+          box-sizing: border-box; width: 100%; height: 100%;
+          background: #FFFFFF; border: 1px solid #121212; border-radius: 3px;
+          display: grid; grid-template-columns: 46px 1fr; overflow: hidden;
+        ">
+          <div style="background: #121212; display: flex; align-items: center; justify-content: center;
+            font-family: 'DM Mono', monospace; font-size: 14px; color: #F5F2E8; font-weight: 600;">04</div>
+          <div style="padding: 16px; overflow: hidden;">
+            <div style="font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; color: #EA633F; font-weight: 600;">CHAMELEON &middot; CURATED</div>
+            <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 500; margin-top: 4px; line-height: 1.2;">tags + bio framing + content + capability emphasis</div>
+            <div style="font-family: 'Inter', Arial, sans-serif; font-size: 10.5px; color: #6F6A5F; font-style: italic; margin-top: 4px; line-height: 1.3;">what each Chameleon controls about their own findability</div>
+          </div>
+        </div>
+      </foreignObject>
+
+      <!-- Arrows from entry modes to discovery index midpoint at (460, 310) -->
+      <g stroke="#121212" stroke-width="0.75" opacity="0.4" fill="none">
+        <path d="M 380 116 Q 420 130 460 310"/>
+        <path d="M 380 244 Q 420 270 460 310"/>
+        <path d="M 380 372 Q 420 340 460 310"/>
+        <path d="M 380 500 Q 420 400 460 310"/>
+      </g>
+
+      <!-- ====== DISCOVERY INDEX (center, taller to match card stack) ====== -->
+      <g transform="translate(460, 80)">
+        <!-- Cylinder body, taller -->
+        <rect x="0" y="22" width="240" height="440" fill="#EA633F"/>
+        <path d="M 0 462 Q 0 484 120 484 Q 240 484 240 462 L 240 462" fill="#EA633F" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="22" x2="0" y2="462" stroke="#121212" stroke-width="0.75"/>
+        <line x1="240" y1="22" x2="240" y2="462" stroke="#121212" stroke-width="0.75"/>
+        <ellipse cx="120" cy="22" rx="120" ry="20" fill="#EA633F" stroke="#121212" stroke-width="0.75"/>
+        <ellipse cx="120" cy="22" rx="102" ry="12" fill="none" stroke="#121212" stroke-width="0.3" opacity="0.35"/>
+
+        <foreignObject x="20" y="56" width="200" height="400">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="
+            box-sizing: border-box; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 16px; gap: 14px;
+            font-family: 'Inter', Arial, sans-serif; color: #121212;
+          ">
+            <div style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.16em; font-weight: 600;">DISCOVERY INDEX</div>
+            <div style="height: 0.5px; width: 80%; background: #121212; opacity: 0.4;"></div>
+            <div style="font-size: 12px; line-height: 1.5;">Curated tags &middot; semantic embeddings &middot; structured schema &middot; activity signals</div>
+            <div style="height: 0.5px; width: 80%; background: #121212; opacity: 0.3;"></div>
+            <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; font-weight: 600; opacity: 0.75;">QUERY-READY</div>
+            <div style="font-size: 11px; line-height: 1.5; opacity: 0.75;">conversational &middot; faceted &middot; structured &middot; external</div>
+          </div>
+        </foreignObject>
+      </g>
+
+      <!-- Arrow from index to profile -->
+      <line x1="704" y1="308" x2="836" y2="308" stroke="#121212" stroke-width="1"/>
+      <polygon points="832,304 840,308 832,312" fill="#121212"/>
+      <text x="770" y="300" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.12em" font-weight="600">RANKS + ROUTES</text>
+
+      <!-- ====== PROFILE (destination, vertically centered) ====== -->
+      <g transform="translate(840, 180)">
+        <rect x="0" y="0" width="280" height="250" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="1"/>
+        <line x1="0" y1="22" x2="280" y2="22" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="10" cy="11" r="2.5" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="20" cy="11" r="2.5" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="30" cy="11" r="2.5" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="44" y="6" width="200" height="10" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="54" y="14" font-family="DM Mono, monospace" font-size="6.5" fill="#6F6A5F">cc.com/[name]</text>
+
+        <!-- Mini Profile hero -->
+        <rect x="14" y="34" width="252" height="56" rx="2" fill="#EA633F" opacity="0.12"/>
+        <rect x="22" y="42" width="40" height="40" rx="1" fill="#121212"/>
+        <rect x="70" y="46" width="80" height="6" rx="1" fill="#121212"/>
+        <rect x="70" y="58" width="100" height="3" rx="1" fill="#6F6A5F"/>
+        <rect x="70" y="68" width="32" height="8" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="106" y="68" width="32" height="8" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="142" y="68" width="32" height="8" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+
+        <!-- Section bars -->
+        <line x1="14" y1="106" x2="266" y2="106" stroke="#121212" stroke-width="0.3" opacity="0.3"/>
+        <rect x="14" y="114" width="50" height="3" rx="1" fill="#EA633F"/>
+        <rect x="14" y="122" width="180" height="3" rx="1" fill="#121212"/>
+        <rect x="14" y="132" width="240" height="2" rx="1" fill="#D6D2C5"/>
+        <rect x="14" y="138" width="220" height="2" rx="1" fill="#D6D2C5"/>
+
+        <line x1="14" y1="158" x2="266" y2="158" stroke="#121212" stroke-width="0.3" opacity="0.3"/>
+        <rect x="14" y="166" width="50" height="3" rx="1" fill="#EA633F"/>
+        <rect x="14" y="174" width="160" height="3" rx="1" fill="#121212"/>
+        <g transform="translate(14, 184)">
+          <rect x="0" y="0" width="78" height="48" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+          <rect x="86" y="0" width="78" height="48" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+          <rect x="172" y="0" width="78" height="48" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+        </g>
+      </g>
+
+      <!-- Analytics return loop (rerouted to stay below cards) -->
+      <g>
+        <text x="580" y="612" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.18em" font-weight="600">SEARCH SIGNALS RETURN</text>
+        <path d="M 980 440 Q 980 600 580 620 Q 200 640 200 590 L 200 560" stroke="#EA633F" stroke-width="1.25" stroke-dasharray="5,4" fill="none" opacity="0.7"/>
+        <polygon points="196,564 200,556 204,564" fill="#EA633F" opacity="0.7"/>
+        <text x="800" y="596" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F" font-style="italic">opens, clicks, dwell — all feed back to the index</text>
+        <text x="380" y="660" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F" font-style="italic">index learns what each entry mode actually returns</text>
+      </g>
+    </svg>
+  </div>
+
+
+  <!-- ─── SECTION 01 · CONVERSATIONAL AI SEARCH ─── -->
+  <section class="expr-section" id="conversational">
+    <header class="expr-header">
+      <div class="expr-num">01</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">FRONT DOOR · ON-SITE · CONVERSATIONAL · MOBILE-FIRST</div>
+        <h2 class="expr-name">"Describe what you need."</h2>
+        <p class="expr-desc">A chat-style front door that <strong>lives on the Chameleon Collective website</strong> &mdash; not a separate app, not a separate page. A floating prompt sits at the bottom of the homepage; when a client taps it, the chat takes over the viewport, but the CC logo and website framing stay on top (close &times; returns home at any time). The client types or speaks a brief in plain English; CC Find replies with a short answer and emits interactive match cards <em>inside the thread</em> &mdash; a hybrid between a conversation and a search result. Refinements happen as tappable chips or follow-up questions. Mobile-first, because clients live on their phones. This is how Round 1 voices kept describing what they wanted &mdash; <a href="../ideas.html#idea-15">Idea 15</a>.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-50 -20 1260 800" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Top framing label -->
+        <text x="0" y="-2" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">ON CHAMELEONCOLLECTIVE.COM · FROM FLOATING PROMPT TO TAKEOVER</text>
+        <line x1="0" y1="8" x2="1160" y2="8" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+
+        <!-- ─── PHONE 1: HOMEPAGE + FLOATING CHAT DOCK ─── -->
+        <g transform="translate(0, 24)">
+          <rect x="0" y="0" width="360" height="720" rx="36" fill="#FFFFFF" stroke="#121212" stroke-width="1.25"/>
+          <rect x="135" y="10" width="90" height="22" rx="11" fill="#121212"/>
+          <text x="22" y="56" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">9:41</text>
+          <text x="338" y="56" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">5G ▪▪▪</text>
+
+          <!-- Mobile browser URL bar -->
+          <foreignObject x="0" y="66" width="360" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #EFEAD9; padding: 6px 16px; display: flex; align-items: center; justify-content: center;
+              font-family: 'DM Mono', monospace;
+            ">
+              <div style="background: #FFFFFF; border-radius: 10px; padding: 4px 12px; font-size: 9px; color: #6F6A5F;
+                display: flex; align-items: center; gap: 6px; min-width: 200px; justify-content: center;">
+                <span style="font-weight: 700; color: #121212;">&#128274;</span>
+                <span>chameleoncollective.com</span>
+              </div>
+            </div>
+          </foreignObject>
+
+          <!-- Website header (CC logo + hamburger) -->
+          <foreignObject x="0" y="98" width="360" height="48">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #FFFFFF; border-bottom: 0.5px solid #121212;
+              padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+              font-family: 'IBM Plex Sans', Arial, sans-serif;
+            ">
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: #121212;">
+                <span style="color: #EA633F;">●</span> CHAMELEON <span style="color: #6F6A5F; font-weight: 400;">COLLECTIVE</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <div style="width: 20px; height: 1.5px; background: #121212;"></div>
+                <div style="width: 20px; height: 1.5px; background: #121212;"></div>
+                <div style="width: 20px; height: 1.5px; background: #121212;"></div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <!-- Homepage content -->
+          <foreignObject x="0" y="146" width="360" height="450">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              padding: 22px 18px 0;
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.22em; color: #EA633F; font-weight: 600;">SENIOR FRACTIONAL TALENT</div>
+              <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 28px; line-height: 1.0; letter-spacing: -0.025em; color: #121212; font-weight: 400; margin-top: 12px;">
+                Built for the moments that <em style="font-style: italic; color: #EA633F;">matter.</em>
+              </div>
+              <div style="font-size: 12px; line-height: 1.5; color: #6F6A5F; margin-top: 14px;">
+                A collective of executive-level operators &mdash; brand, marketing, growth, ops &mdash; matched to your brief in days, not months.
+              </div>
+              <div style="display: inline-block; background: #121212; color: #F5F2E8; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em; font-weight: 700;
+                padding: 10px 16px; border-radius: 2px; margin-top: 18px;">SEE OUR WORK &#8594;</div>
+
+              <div style="font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.22em; color: #6F6A5F; font-weight: 600; margin-top: 32px;">TRUSTED BY</div>
+              <div style="display: flex; gap: 14px; margin-top: 12px; align-items: center;">
+                <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 600; letter-spacing: -0.02em;">Patagonia</div>
+                <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 600; letter-spacing: -0.02em;">Revlon</div>
+                <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 600; letter-spacing: -0.02em;">PWC</div>
+                <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; color: #121212; font-weight: 600; letter-spacing: -0.02em;">Mastercard</div>
+              </div>
+
+              <div style="border-top: 0.5px solid #6F6A5F; margin-top: 26px; padding-top: 18px;">
+                <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.22em; color: #EA633F; font-weight: 600;">RECENT WORK</div>
+                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                  <div style="flex: 1; height: 70px; background: #F5F2E8; border: 0.5px solid #121212;"></div>
+                  <div style="flex: 1; height: 70px; background: #EFEAD9; border: 0.5px solid #121212;"></div>
+                  <div style="flex: 1; height: 70px; background: #F5F2E8; border: 0.5px solid #121212;"></div>
+                </div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <!-- Fade overlay above floating dock to suggest "page continues below" -->
+          <rect x="1" y="568" width="358" height="44" fill="url(#fadeWhite)"/>
+
+          <!-- FLOATING CHAT DOCK (the headline element) -->
+          <foreignObject x="14" y="608" width="332" height="72">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #F5F2E8; border: 1.5px solid #EA633F; border-radius: 16px;
+              padding: 11px 12px; display: flex; gap: 10px; align-items: center;
+              box-shadow: 0 6px 18px rgba(18,18,18,0.18), 0 1px 3px rgba(18,18,18,0.10);
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                display: flex; align-items: center; justify-content: center;
+                font-family: 'DM Mono', monospace; font-size: 10px; color: #121212; font-weight: 700;
+                position: relative;">
+                CC
+                <div style="position: absolute; top: -2px; right: -2px; width: 9px; height: 9px; background: #121212; border-radius: 50%; border: 1.5px solid #F5F2E8;"></div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; color: #EA633F; font-weight: 700;">CC FIND</div>
+                <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 14px; color: #121212; font-weight: 500; line-height: 1.15; margin-top: 2px;">Tell us what you need.</div>
+                <div style="font-size: 10.5px; color: #6F6A5F; margin-top: 2px;">Voice or text &middot; we'll match you</div>
+              </div>
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                display: flex; align-items: center; justify-content: center; color: #121212; font-weight: 700; font-size: 17px; line-height: 1;">&#8593;</div>
+            </div>
+          </foreignObject>
+
+          <!-- iOS home indicator -->
+          <rect x="120" y="700" width="120" height="3.5" rx="2" fill="#121212"/>
+
+          <text x="180" y="754" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.2em" font-weight="600">HOMEPAGE &middot; FLOATING CHAT DOCK</text>
+        </g>
+
+        <!-- Gradient defs for fade -->
+        <defs>
+          <linearGradient id="fadeWhite" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.92"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ─── PHONE 2: TAKEOVER · BRIEF + INLINE MATCH CARDS ─── -->
+        <g transform="translate(400, 24)">
+          <rect x="0" y="0" width="360" height="720" rx="36" fill="#FFFFFF" stroke="#121212" stroke-width="1.25"/>
+          <rect x="135" y="10" width="90" height="22" rx="11" fill="#121212"/>
+          <text x="22" y="56" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">9:42</text>
+          <text x="338" y="56" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">5G ▪▪▪</text>
+
+          <!-- Mobile browser URL bar -->
+          <foreignObject x="0" y="66" width="360" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #EFEAD9; padding: 6px 16px; display: flex; align-items: center; justify-content: center;
+              font-family: 'DM Mono', monospace;
+            ">
+              <div style="background: #FFFFFF; border-radius: 10px; padding: 4px 12px; font-size: 9px; color: #6F6A5F;
+                display: flex; align-items: center; gap: 6px; min-width: 200px; justify-content: center;">
+                <span style="font-weight: 700; color: #121212;">&#128274;</span>
+                <span>chameleoncollective.com<span style="color: #EA633F; font-weight: 700;">/find</span></span>
+              </div>
+            </div>
+          </foreignObject>
+
+          <!-- Website header — CC logo + close X (KEY: this stays put) -->
+          <foreignObject x="0" y="98" width="360" height="48">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #FFFFFF; border-bottom: 0.5px solid #121212;
+              padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+              font-family: 'IBM Plex Sans', Arial, sans-serif;
+            ">
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: #121212;">
+                <span style="color: #EA633F;">●</span> CHAMELEON <span style="color: #6F6A5F; font-weight: 400;">COLLECTIVE</span>
+              </div>
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #6F6A5F; font-weight: 700;">4 MATCHES</div>
+                <div style="width: 26px; height: 26px; border: 0.75px solid #121212; border-radius: 50%;
+                  display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; color: #121212; font-weight: 500;">&times;</div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <foreignObject x="0" y="146" width="360" height="510">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              padding: 14px 14px;
+              display: flex; flex-direction: column; gap: 10px;
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <!-- User brief bubble -->
+              <div style="align-self: flex-end; max-width: 84%;">
+                <div style="background: #121212; color: #F5F2E8; border-radius: 14px 14px 4px 14px; padding: 10px 13px;
+                  font-size: 12.5px; line-height: 1.4;">
+                  Fractional CMO for a Series B healthcare brand. Available Q3, comfortable with regulated industries.
+                </div>
+              </div>
+
+              <!-- AI bubble -->
+              <div style="display: flex; gap: 8px; align-items: flex-start; max-width: 86%;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                  display: flex; align-items: center; justify-content: center;
+                  font-family: 'DM Mono', monospace; font-size: 8px; color: #121212; font-weight: 700;">CC</div>
+                <div style="background: #F5F2E8; border-radius: 14px 14px 14px 4px; padding: 10px 13px;
+                  font-size: 12.5px; line-height: 1.4; color: #121212;">
+                  Four match. Top fit first.
+                </div>
+              </div>
+
+              <!-- INLINE MATCH CARD -->
+              <div style="margin-left: 30px; background: rgba(234,99,63,0.10); border: 1px solid #EA633F; border-radius: 12px; padding: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px;">
+                  <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.18em; color: #EA633F; font-weight: 700;">01 &middot; 94% MATCH</div>
+                  <div style="font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.16em; color: #6F6A5F; font-weight: 600;">OPEN &#8599;</div>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: flex-start;">
+                  <div style="width: 44px; height: 44px; background: #121212; border-radius: 2px; flex-shrink: 0;"></div>
+                  <div style="flex: 1;">
+                    <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 15px; color: #121212; font-weight: 500; line-height: 1.1;">Nemo Morales</div>
+                    <div style="font-size: 11px; color: #6F6A5F; font-style: italic; margin-top: 2px;">Exec Creative Director &middot; 15 yrs &middot; NYC</div>
+                    <div style="font-size: 11px; color: #121212; margin-top: 7px; line-height: 1.4;"><strong>Why:</strong> PWC Health 2019&ndash;22 &middot; 8 healthcare clients &middot; Q3 open</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px; margin-top: 10px;">
+                  <div style="background: #EA633F; color: #121212; font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; font-weight: 700;
+                    padding: 7px 12px; border-radius: 3px;">VIEW PROFILE</div>
+                  <div style="background: #FFFFFF; color: #121212; border: 0.75px solid #121212; font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; font-weight: 700;
+                    padding: 6px 12px; border-radius: 3px;">ASK FOLLOW-UP</div>
+                </div>
+              </div>
+
+              <!-- Compact stack: + 3 more -->
+              <div style="margin-left: 30px; background: #FFFFFF; border: 0.75px solid #121212; border-radius: 12px; padding: 10px 12px;
+                display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="display: flex;">
+                    <div style="width: 22px; height: 22px; background: #121212; border-radius: 50%; border: 1.5px solid #FFFFFF;"></div>
+                    <div style="width: 22px; height: 22px; background: #6F6A5F; border-radius: 50%; border: 1.5px solid #FFFFFF; margin-left: -8px;"></div>
+                    <div style="width: 22px; height: 22px; background: #121212; border-radius: 50%; border: 1.5px solid #FFFFFF; margin-left: -8px;"></div>
+                  </div>
+                  <div style="font-size: 11.5px; color: #121212; font-weight: 500;">+ 3 more matches</div>
+                </div>
+                <div style="font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.16em; color: #EA633F; font-weight: 700;">EXPAND &#8595;</div>
+              </div>
+
+              <!-- AI follow-up bubble -->
+              <div style="display: flex; gap: 8px; align-items: flex-start; max-width: 86%; margin-top: 2px;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                  display: flex; align-items: center; justify-content: center;
+                  font-family: 'DM Mono', monospace; font-size: 8px; color: #121212; font-weight: 700;">CC</div>
+                <div style="background: #F5F2E8; border-radius: 14px 14px 14px 4px; padding: 10px 13px;
+                  font-size: 12.5px; line-height: 1.4; color: #121212;">
+                  Want to narrow it down?
+                </div>
+              </div>
+
+              <!-- Refinement chips -->
+              <div style="margin-left: 30px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <div style="background: #FFFFFF; border: 0.75px solid #121212; border-radius: 16px; padding: 7px 12px; font-size: 11px; color: #121212; font-weight: 500;">Available now</div>
+                <div style="background: #FFFFFF; border: 0.75px solid #121212; border-radius: 16px; padding: 7px 12px; font-size: 11px; color: #121212; font-weight: 500;">10+ yrs</div>
+                <div style="background: #FFFFFF; border: 0.75px solid #121212; border-radius: 16px; padding: 7px 12px; font-size: 11px; color: #121212; font-weight: 500;">Show me a team</div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <foreignObject x="0" y="656" width="360" height="64">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #FFFFFF; border-top: 0.5px solid #121212;
+              padding: 12px 16px; display: flex; gap: 8px; align-items: center;
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <div style="flex: 1; background: #F5F2E8; border: 0.5px solid #121212; border-radius: 20px; padding: 10px 14px;
+                font-size: 12px; color: #6F6A5F; display: flex; justify-content: space-between; align-items: center;">
+                <span>Ask a follow-up&hellip;</span>
+                <span style="font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; font-weight: 700; color: #121212;">MIC</span>
+              </div>
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #EA633F;
+                display: flex; align-items: center; justify-content: center; color: #121212; font-weight: 700; font-size: 16px; line-height: 1;">&#8593;</div>
+            </div>
+          </foreignObject>
+
+          <text x="180" y="754" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.2em" font-weight="600">TAKEOVER &middot; CHROME PERSISTS &middot; INLINE CARDS</text>
+        </g>
+
+        <!-- ─── PHONE 3: TAKEOVER · REFINEMENT IN-THREAD ─── -->
+        <g transform="translate(800, 24)">
+          <rect x="0" y="0" width="360" height="720" rx="36" fill="#FFFFFF" stroke="#121212" stroke-width="1.25"/>
+          <rect x="135" y="10" width="90" height="22" rx="11" fill="#121212"/>
+          <text x="22" y="56" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">9:43</text>
+          <text x="338" y="56" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">5G ▪▪▪</text>
+
+          <!-- Mobile browser URL bar -->
+          <foreignObject x="0" y="66" width="360" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #EFEAD9; padding: 6px 16px; display: flex; align-items: center; justify-content: center;
+              font-family: 'DM Mono', monospace;
+            ">
+              <div style="background: #FFFFFF; border-radius: 10px; padding: 4px 12px; font-size: 9px; color: #6F6A5F;
+                display: flex; align-items: center; gap: 6px; min-width: 200px; justify-content: center;">
+                <span style="font-weight: 700; color: #121212;">&#128274;</span>
+                <span>chameleoncollective.com<span style="color: #EA633F; font-weight: 700;">/find</span></span>
+              </div>
+            </div>
+          </foreignObject>
+
+          <!-- Website header — CC logo + close X persists -->
+          <foreignObject x="0" y="98" width="360" height="48">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #FFFFFF; border-bottom: 0.5px solid #121212;
+              padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+              font-family: 'IBM Plex Sans', Arial, sans-serif;
+            ">
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: #121212;">
+                <span style="color: #EA633F;">●</span> CHAMELEON <span style="color: #6F6A5F; font-weight: 400;">COLLECTIVE</span>
+              </div>
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #6F6A5F; font-weight: 700;">3 MATCHES</div>
+                <div style="width: 26px; height: 26px; border: 0.75px solid #121212; border-radius: 50%;
+                  display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; color: #121212; font-weight: 500;">&times;</div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <foreignObject x="0" y="146" width="360" height="510">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              padding: 14px 14px;
+              display: flex; flex-direction: column; gap: 10px;
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <!-- Faded scrolled context -->
+              <div style="opacity: 0.4; display: flex; flex-direction: column; gap: 6px;">
+                <div style="align-self: flex-end; max-width: 80%;">
+                  <div style="background: #121212; color: #F5F2E8; border-radius: 14px 14px 4px 14px; padding: 7px 12px; font-size: 11px;">&hellip;earlier brief</div>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <div style="width: 18px; height: 18px; border-radius: 50%; background: #EA633F; flex-shrink: 0;"></div>
+                  <div style="background: #F5F2E8; border-radius: 12px; padding: 6px 11px; font-size: 11px; color: #121212;">&hellip;4 matches returned</div>
+                </div>
+              </div>
+              <div style="border-top: 0.5px dashed #121212; opacity: 0.35; margin: 2px 0;"></div>
+
+              <!-- User chip-tap as message -->
+              <div style="align-self: flex-end; max-width: 84%;">
+                <div style="background: #121212; color: #F5F2E8; border-radius: 14px 14px 4px 14px; padding: 9px 13px;
+                  font-size: 12.5px; line-height: 1.3; display: inline-flex; gap: 6px; align-items: baseline;">
+                  <span style="font-family: 'DM Mono', monospace; font-size: 7.5px; letter-spacing: 0.16em; opacity: 0.6; font-weight: 700;">CHIP &middot;</span>
+                  <span>Only available now</span>
+                </div>
+              </div>
+
+              <!-- AI reply -->
+              <div style="display: flex; gap: 8px; align-items: flex-start; max-width: 86%;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                  display: flex; align-items: center; justify-content: center;
+                  font-family: 'DM Mono', monospace; font-size: 8px; color: #121212; font-weight: 700;">CC</div>
+                <div style="background: #F5F2E8; border-radius: 14px 14px 14px 4px; padding: 10px 13px;
+                  font-size: 12.5px; line-height: 1.4; color: #121212;">
+                  Three of the four. Nemo still leads.
+                </div>
+              </div>
+
+              <!-- Updated card with check rows -->
+              <div style="margin-left: 30px; background: rgba(234,99,63,0.10); border: 1px solid #EA633F; border-radius: 12px; padding: 12px;">
+                <div style="font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.18em; color: #EA633F; font-weight: 700; margin-bottom: 9px;">01 &middot; 94% &middot; STILL #1</div>
+                <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
+                  <div style="width: 38px; height: 38px; background: #121212; border-radius: 2px; flex-shrink: 0;"></div>
+                  <div style="flex: 1;">
+                    <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 14px; color: #121212; font-weight: 500;">Nemo Morales</div>
+                    <div style="font-size: 11px; color: #6F6A5F; font-style: italic; margin-top: 2px;">Exec Creative Director &middot; 15 yrs &middot; NYC</div>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <div style="display: flex; gap: 7px; align-items: center; font-size: 11.5px; color: #121212;"><span style="color: #EA633F; font-weight: 700;">&#10003;</span> Available Q3</div>
+                  <div style="display: flex; gap: 7px; align-items: center; font-size: 11.5px; color: #121212;"><span style="color: #EA633F; font-weight: 700;">&#10003;</span> Healthcare &middot; regulated</div>
+                  <div style="display: flex; gap: 7px; align-items: center; font-size: 11.5px; color: #121212;"><span style="color: #EA633F; font-weight: 700;">&#10003;</span> Scaled marketing before</div>
+                </div>
+                <div style="background: #EA633F; color: #121212; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; font-weight: 700;
+                  padding: 9px 12px; border-radius: 3px; margin-top: 11px; text-align: center;">VIEW PROFILE</div>
+              </div>
+
+              <!-- AI: next-step prompt -->
+              <div style="display: flex; gap: 8px; align-items: flex-start; max-width: 86%; margin-top: 2px;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EA633F; flex-shrink: 0;
+                  display: flex; align-items: center; justify-content: center;
+                  font-family: 'DM Mono', monospace; font-size: 8px; color: #121212; font-weight: 700;">CC</div>
+                <div style="background: #F5F2E8; border-radius: 14px 14px 14px 4px; padding: 10px 13px;
+                  font-size: 12.5px; line-height: 1.4; color: #121212;">
+                  Want me to ask Nemo to weigh in on your brief?
+                </div>
+              </div>
+
+              <!-- Big inline action -->
+              <div style="margin-left: 30px; background: #121212; color: #F5F2E8; border-radius: 12px; padding: 13px;
+                display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; color: #EA633F; font-weight: 700;">NEXT STEP</div>
+                  <div style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 13px; font-weight: 500; margin-top: 3px;">Ask Nemo to respond</div>
+                </div>
+                <div style="font-size: 18px; font-weight: 700; color: #EA633F;">&#8599;</div>
+              </div>
+            </div>
+          </foreignObject>
+
+          <foreignObject x="0" y="656" width="360" height="64">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              background: #FFFFFF; border-top: 0.5px solid #121212;
+              padding: 12px 16px; display: flex; gap: 8px; align-items: center;
+              font-family: 'Inter', Arial, sans-serif;
+            ">
+              <div style="flex: 1; background: #F5F2E8; border: 0.5px solid #121212; border-radius: 20px; padding: 10px 14px;
+                font-size: 12px; color: #6F6A5F; display: flex; justify-content: space-between; align-items: center;">
+                <span>Keep going&hellip;</span>
+                <span style="font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; font-weight: 700; color: #121212;">MIC</span>
+              </div>
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #EA633F;
+                display: flex; align-items: center; justify-content: center; color: #121212; font-weight: 700; font-size: 16px; line-height: 1;">&#8593;</div>
+            </div>
+          </foreignObject>
+
+          <text x="180" y="754" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.2em" font-weight="600">REFINEMENT IN-THREAD &middot; INLINE NEXT STEP</text>
+        </g>
+
+        <!-- ─── UNIFIED ANNOTATIONS · off-wire on the tan canvas ─── -->
+        <g>
+          <!-- 1 — Floating chat dock (Phone 1) -->
+          <line x1="369" y1="668" x2="350" y2="668" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 356 665 L 350 668 L 356 671 z" fill="#EA633F"/>
+          <circle cx="380" cy="668" r="11" fill="#EA633F"/>
+          <text x="380" y="672" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">1</text>
+
+          <!-- 2 — Website framing (Phone 1 header) -->
+          <line x1="-19" y1="146" x2="0" y2="146" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M -6 143 L 0 146 L -6 149 z" fill="#EA633F"/>
+          <circle cx="-30" cy="146" r="11" fill="#EA633F"/>
+          <text x="-30" y="150" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">2</text>
+
+          <!-- 3 — Close × always there (Phone 2 close X) -->
+          <line x1="769" y1="146" x2="740" y2="146" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 746 143 L 740 146 L 746 149 z" fill="#EA633F"/>
+          <circle cx="780" cy="146" r="11" fill="#EA633F"/>
+          <text x="780" y="150" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">3</text>
+
+          <!-- 4 — Free-form brief (Phone 2 user msg) -->
+          <line x1="769" y1="204" x2="744" y2="204" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 750 201 L 744 204 L 750 207 z" fill="#EA633F"/>
+          <circle cx="780" cy="204" r="11" fill="#EA633F"/>
+          <text x="780" y="208" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">4</text>
+
+          <!-- 5 — Inline match card (Phone 2 card) -->
+          <line x1="391" y1="320" x2="430" y2="320" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 424 317 L 430 320 L 424 323 z" fill="#EA633F"/>
+          <circle cx="380" cy="320" r="11" fill="#EA633F"/>
+          <text x="380" y="324" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">5</text>
+
+          <!-- 6 — Refine chips (Phone 2 chips) -->
+          <line x1="391" y1="638" x2="430" y2="638" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 424 635 L 430 638 L 424 641 z" fill="#EA633F"/>
+          <circle cx="380" cy="638" r="11" fill="#EA633F"/>
+          <text x="380" y="642" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">6</text>
+
+          <!-- 7 — Next-step inline (Phone 3 CTA) -->
+          <line x1="791" y1="606" x2="830" y2="606" stroke="#EA633F" stroke-width="0.75"/>
+          <path d="M 824 603 L 830 606 L 824 609 z" fill="#EA633F"/>
+          <circle cx="780" cy="606" r="11" fill="#EA633F"/>
+          <text x="780" y="610" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">7</text>
+        </g>
+      </svg>
+
+      <!-- Legend -->
+      <svg viewBox="0 0 1160 150" xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;">
+        <line x1="0" y1="0" x2="1160" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="22" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">CONVERSATIONAL ANATOMY &middot; KEY</text>
+
+        <g transform="translate(0, 48)">
+          <g>
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">1</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">FLOATING CHAT DOCK</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Lives on the homepage &middot; one tap to expand</text>
+          </g>
+          <g transform="translate(290, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">WEBSITE FRAMING</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Browser URL + CC logo &middot; clearly a page</text>
+          </g>
+          <g transform="translate(580, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">CLOSE × ALWAYS THERE</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Site chrome persists &middot; never feels captive</text>
+          </g>
+          <g transform="translate(870, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">4</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">FREE-FORM BRIEF</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Type or voice &middot; no required fields</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 102)">
+          <g>
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">5</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">INLINE MATCH CARDS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">AI emits cards IN the thread &middot; no results page</text>
+          </g>
+          <g transform="translate(380, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">6</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">REFINE CHIPS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Tap a chip &mdash; it becomes your next message</text>
+          </g>
+          <g transform="translate(760, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">7</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">NEXT STEP INLINE</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Actions appear in-thread &middot; never leave the chat</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Used by</div>
+        <div class="spec-value">Cold inbound clients · clients who&apos;ve described what they need before knowing CC&apos;s structure</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Index inputs</div>
+        <div class="spec-value">Curated tags · semantic embeddings of bios &amp; case studies · industry crossover · availability</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Replaces</div>
+        <div class="spec-value">The Leaders / Delivery Specialists / Recruiters filter chips that don&apos;t match how clients actually search.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Learns from</div>
+        <div class="spec-value">Which result the client clicked &middot; which refine chip they tapped &middot; which Chameleon they ended up booking with</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SECTION 02 · TRADITIONAL SEARCH + FILTERS ─── -->
+  <section class="expr-section" id="traditional">
+    <header class="expr-header">
+      <div class="expr-num">02</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">FRONT DOOR · STRUCTURED FILTERS</div>
+        <h2 class="expr-name">For clients who know what they want.</h2>
+        <p class="expr-desc">Structured filter UI for the two scenarios Round 1 surfaced &mdash; <strong>practice area browse</strong> (client lands on a practice page and wants to see who&apos;s available there) and <strong>industry-specific deep search</strong> (client searches at the intersection of capability + industry). Filters are sortable, multi-select, persist in URL so results are shareable. Replaces the current category chips that don&apos;t match how clients actually search.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1060 800" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="790" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">chameleoncollective.com/practice/brand-strategy?industry=healthcare</text>
+
+        <!-- Page header -->
+        <g transform="translate(40, 50)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">PRACTICE · BRAND STRATEGY</text>
+          <text x="0" y="46" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" fill="#121212" font-weight="500" letter-spacing="-0.015em">Brand strategy for healthcare.</text>
+          <text x="0" y="68" font-family="Inter, Arial, sans-serif" font-size="13" fill="#6F6A5F">7 Chameleons match. Sorted by relevance to your filters.</text>
+        </g>
+
+        <line x1="40" y1="140" x2="960" y2="140" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- Two-column layout: Filter sidebar + Results grid -->
+
+        <!-- Left sidebar: Filters -->
+        <g transform="translate(40, 160)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">FILTERS</text>
+          <text x="200" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em">CLEAR ALL</text>
+
+          <!-- Capability -->
+          <g transform="translate(0, 22)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">CAPABILITY</text>
+            <rect x="0" y="10" width="14" height="14" rx="2" fill="#EA633F"/>
+            <text x="8" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">✓</text>
+            <text x="22" y="22" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Brand strategy</text>
+            <text x="190" y="22" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">12</text>
+
+            <rect x="0" y="30" width="14" height="14" rx="2" fill="#EA633F"/>
+            <text x="8" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">✓</text>
+            <text x="22" y="42" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Naming + positioning</text>
+            <text x="190" y="42" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">8</text>
+
+            <rect x="0" y="50" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="62" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Brand voice</text>
+            <text x="190" y="62" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">14</text>
+
+            <rect x="0" y="70" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="82" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Content strategy</text>
+            <text x="190" y="82" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">9</text>
+          </g>
+
+          <!-- Industry -->
+          <g transform="translate(0, 130)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">INDUSTRY</text>
+            <rect x="0" y="10" width="14" height="14" rx="2" fill="#EA633F"/>
+            <text x="8" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">✓</text>
+            <text x="22" y="22" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Healthcare</text>
+            <text x="190" y="22" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">7</text>
+
+            <rect x="0" y="30" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="42" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Fintech</text>
+            <text x="190" y="42" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">5</text>
+
+            <rect x="0" y="50" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="62" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">CPG / beauty</text>
+            <text x="190" y="62" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">8</text>
+
+            <rect x="0" y="70" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="82" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Travel / hospitality</text>
+            <text x="190" y="82" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">3</text>
+          </g>
+
+          <!-- Availability -->
+          <g transform="translate(0, 238)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">AVAILABILITY</text>
+            <rect x="0" y="10" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="22" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Now</text>
+            <text x="190" y="22" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">3</text>
+
+            <rect x="0" y="30" width="14" height="14" rx="2" fill="#EA633F"/>
+            <text x="8" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">✓</text>
+            <text x="22" y="42" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Q3</text>
+            <text x="190" y="42" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">5</text>
+
+            <rect x="0" y="50" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="62" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Q4 + later</text>
+            <text x="190" y="62" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F">4</text>
+          </g>
+
+          <!-- Tenure -->
+          <g transform="translate(0, 326)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">TENURE</text>
+            <rect x="0" y="10" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="22" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">Under 5 yrs</text>
+            <rect x="0" y="30" width="14" height="14" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="22" y="42" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">5&ndash;10 yrs</text>
+            <rect x="0" y="50" width="14" height="14" rx="2" fill="#EA633F"/>
+            <text x="8" y="60" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" font-weight="700">✓</text>
+            <text x="22" y="62" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">10+ yrs</text>
+          </g>
+        </g>
+
+        <!-- Vertical divider -->
+        <line x1="270" y1="160" x2="270" y2="660" stroke="#121212" stroke-width="0.3" opacity="0.3"/>
+
+        <!-- Right: Results grid + sort bar -->
+        <g transform="translate(310, 160)">
+          <!-- Sort bar -->
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">7 RESULTS</text>
+          <text x="200" y="0" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">SORT BY</text>
+          <text x="260" y="0" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">RELEVANCE ▾</text>
+
+          <text x="650" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">↗ SHARE FILTERS</text>
+
+          <!-- 6 cards in grid (3x2) -->
+          <g transform="translate(0, 18)">
+            <!-- Card 1 -->
+            <g>
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="160" y="18" width="32" height="14" rx="7" fill="#EA633F"/>
+              <text x="176" y="28" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#121212" font-weight="600">AVAIL</text>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">STRAT + VOICE</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <rect x="10" y="160" width="100" height="3" rx="1" fill="#6F6A5F"/>
+              <rect x="10" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="54" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="98" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="10" y="196" width="120" height="2.5" rx="1" fill="#121212"/>
+              <rect x="10" y="204" width="100" height="2" rx="1" fill="#6F6A5F"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+            <!-- Card 2 -->
+            <g transform="translate(220, 0)">
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CREATIVE + VIS</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <rect x="10" y="160" width="100" height="3" rx="1" fill="#6F6A5F"/>
+              <rect x="10" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="54" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="98" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="10" y="196" width="120" height="2.5" rx="1" fill="#121212"/>
+              <rect x="10" y="204" width="100" height="2" rx="1" fill="#6F6A5F"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+            <!-- Card 3 -->
+            <g transform="translate(440, 0)">
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="160" y="18" width="32" height="14" rx="7" fill="#EA633F"/>
+              <text x="176" y="28" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#121212" font-weight="600">AVAIL</text>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">STRAT + VOICE</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <rect x="10" y="160" width="100" height="3" rx="1" fill="#6F6A5F"/>
+              <rect x="10" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="54" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="98" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="10" y="196" width="120" height="2.5" rx="1" fill="#121212"/>
+              <rect x="10" y="204" width="100" height="2" rx="1" fill="#6F6A5F"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+            <!-- Card 4 -->
+            <g transform="translate(0, 256)">
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CREATIVE + VIS</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <rect x="10" y="160" width="100" height="3" rx="1" fill="#6F6A5F"/>
+              <rect x="10" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="54" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="98" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="10" y="196" width="120" height="2.5" rx="1" fill="#121212"/>
+              <rect x="10" y="204" width="100" height="2" rx="1" fill="#6F6A5F"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+            <!-- Card 5 -->
+            <g transform="translate(220, 256)">
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="160" y="18" width="32" height="14" rx="7" fill="#EA633F"/>
+              <text x="176" y="28" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#121212" font-weight="600">AVAIL</text>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">OPERATOR</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <rect x="10" y="160" width="100" height="3" rx="1" fill="#6F6A5F"/>
+              <rect x="10" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="54" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="98" y="174" width="40" height="9" rx="4" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <rect x="10" y="196" width="120" height="2.5" rx="1" fill="#121212"/>
+              <rect x="10" y="204" width="100" height="2" rx="1" fill="#6F6A5F"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+            <!-- Card 6 (partial - fade) -->
+            <g transform="translate(440, 256)" opacity="0.7">
+              <rect x="0" y="0" width="200" height="240" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+              <rect x="10" y="10" width="180" height="120" rx="1" fill="#121212"/>
+              <rect x="10" y="138" width="60" height="2.5" fill="#EA633F"/>
+              <text x="76" y="141" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">LEADER</text>
+              <rect x="10" y="148" width="120" height="6" rx="1" fill="#121212"/>
+              <text x="186" y="226" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">VIEW →</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- ── Numbered callouts ── -->
+        <g>
+          <line x1="-32" y1="86" x2="-12" y2="86" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="86" r="11" fill="#EA633F"/>
+          <text x="-46" y="90" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <line x1="-32" y1="200" x2="-12" y2="200" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="200" r="11" fill="#EA633F"/>
+          <text x="-46" y="204" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <line x1="-32" y1="160" x2="-12" y2="160" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="160" r="11" fill="#EA633F"/>
+          <text x="-46" y="164" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+
+          <line x1="-32" y1="380" x2="-12" y2="380" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="380" r="11" fill="#EA633F"/>
+          <text x="-46" y="384" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+        </g>
+      </svg>
+
+      <svg viewBox="0 0 1060 80" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="1000" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">FILTER UI · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">PRACTICE HEADER</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Page context · count of matches · URL preserves filters</text>
+
+          <g transform="translate(280, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">MULTI-FACET FILTERS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Capability · industry · availability · tenure</text>
+          </g>
+
+          <g transform="translate(560, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">SORT + SHARE</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Relevance default · share filter set as URL</text>
+          </g>
+
+          <g transform="translate(820, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">RESULTS · CARDS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">3-col grid · Profile · Card expression</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Two flows</div>
+        <div class="spec-value">Practice browse (start on a practice page) &middot; deep search (start with capability + industry filters)</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Filters</div>
+        <div class="spec-value">Capability &middot; Industry &middot; Availability &middot; Tenure &middot; Location (collapsed) &middot; Archetype (collapsed)</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">URL behavior</div>
+        <div class="spec-value">All filters persist in URL · shareable · bookmarkable · BD can send a pre-filtered link</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Results format</div>
+        <div class="spec-value">Profile · Card expression (3-column grid by default) · 6-9 visible · load more on scroll</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SECTION 03 · SEO + GEO ─── -->
+  <section class="expr-section" id="seo-geo">
+    <header class="expr-header">
+      <div class="expr-num">03</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">EXTERNAL · SEO + GEO</div>
+        <h2 class="expr-name">Findable from outside the site.</h2>
+        <p class="expr-desc">Most cold inbound starts on Google or in an AI chat &mdash; not on chameleoncollective.com. So every Profile needs to be readable by both search engines (SEO) and generative engines (GEO). The structured data the system already holds becomes <code>Person</code> + <code>FAQPage</code> + <code>Article</code> schema; AI engines pull from those schemas to answer questions like "best fractional CMOs for healthcare." Wireframe shows the same Profile rendered three ways: as Google search result, as Perplexity citation, as Google AI Overview snippet.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1060 660" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Three external surfaces, each in its own frame -->
+
+        <!-- Surface 1: Google Search Result -->
+        <g transform="translate(0, 20)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">SURFACE 01 · GOOGLE SEARCH</text>
+          <rect x="0" y="14" width="1000" height="190" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+          <rect x="0" y="14" width="1000" height="30" rx="3" fill="#F5F2E8"/>
+          <text x="20" y="34" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">google.com/search?q=fractional+cmo+healthcare+brand+strategy</text>
+
+          <g transform="translate(20, 60)">
+            <!-- Result entry (rich) -->
+            <text x="0" y="14" font-family="Inter, Arial, sans-serif" font-size="11" fill="#1a0dab">chameleoncollective.com › nemo-morales</text>
+            <text x="0" y="38" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18" fill="#1a0dab" font-weight="500" letter-spacing="-0.005em">Nemo Morales — Fractional CMO | Chameleon Collective</text>
+            <text x="0" y="58" font-family="Inter, Arial, sans-serif" font-size="12" fill="#4d5156">Executive Creative Director with 15 years bridging brand strategy and</text>
+            <text x="0" y="74" font-family="Inter, Arial, sans-serif" font-size="12" fill="#4d5156">execution across PWC Health, Theory, Publicis Sapient. Healthcare brand</text>
+            <text x="0" y="90" font-family="Inter, Arial, sans-serif" font-size="12" fill="#4d5156">specialist · available Q3 · NYC.</text>
+
+            <!-- Schema-driven rich elements -->
+            <line x1="0" y1="106" x2="800" y2="106" stroke="#121212" stroke-width="0.3" opacity="0.4"/>
+            <text x="0" y="120" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.14em" font-weight="600">★ ★ ★ ★ ★ &nbsp; 47 PROJECTS</text>
+            <text x="0" y="134" font-family="Inter, Arial, sans-serif" font-size="11" fill="#4d5156">People also ask · "Is Nemo available for fractional CMO work?"</text>
+          </g>
+
+          <text x="980" y="80" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.16em" font-weight="600" opacity="0.7">↑ PULLED FROM SCHEMA</text>
+        </g>
+
+        <!-- Surface 2: Perplexity citation -->
+        <g transform="translate(0, 240)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">SURFACE 02 · PERPLEXITY · CHATGPT · GOOGLE AI OVERVIEWS</text>
+          <rect x="0" y="14" width="1000" height="190" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+          <rect x="0" y="14" width="1000" height="30" rx="3" fill="#121212"/>
+          <text x="20" y="34" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.08em">Q: Best fractional CMO for a Series B healthcare brand?</text>
+
+          <g transform="translate(20, 60)">
+            <text x="0" y="14" font-family="Inter, Arial, sans-serif" font-size="13" fill="#121212">For a Series B healthcare brand needing fractional CMO support, three options consistently surface</text>
+            <text x="0" y="32" font-family="Inter, Arial, sans-serif" font-size="13" fill="#121212">in industry coverage. <tspan fill="#EA633F" font-weight="600">Nemo Morales</tspan> at Chameleon Collective is frequently cited &mdash; 15 years</text>
+            <text x="0" y="50" font-family="Inter, Arial, sans-serif" font-size="13" fill="#121212">creative direction experience including PWC Health, Theory, with documented availability</text>
+            <text x="0" y="68" font-family="Inter, Arial, sans-serif" font-size="13" fill="#121212">starting Q3 <tspan fill="#6F6A5F">[1]</tspan>. Reviews from past CMO engagements emphasize the bridging of brand</text>
+            <text x="0" y="86" font-family="Inter, Arial, sans-serif" font-size="13" fill="#121212">strategy and creative execution <tspan fill="#6F6A5F">[1]</tspan>.</text>
+
+            <!-- Citation footer -->
+            <line x1="0" y1="104" x2="800" y2="104" stroke="#121212" stroke-width="0.3" opacity="0.4"/>
+            <text x="0" y="120" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">SOURCES</text>
+            <rect x="0" y="128" width="280" height="14" rx="7" fill="none" stroke="#EA633F" stroke-width="0.75"/>
+            <text x="10" y="138" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.08em">[1] chameleoncollective.com/nemo-morales</text>
+          </g>
+
+          <text x="980" y="80" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.16em" font-weight="600" opacity="0.7">↑ AI CITES PROFILE</text>
+        </g>
+
+        <!-- Surface 3: Schema visibility (what makes it work) -->
+        <g transform="translate(0, 460)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">WHAT THE PROFILE EXPOSES TO CRAWLERS + AI</text>
+          <rect x="0" y="14" width="1000" height="160" rx="3" fill="#121212"/>
+
+          <g transform="translate(20, 36)">
+            <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.18em" font-weight="600">schema.org/Person</text>
+            <text x="0" y="32" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">"name": "Nemo Morales"</text>
+            <text x="0" y="48" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">"jobTitle": "Executive Creative Director"</text>
+            <text x="0" y="64" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">"worksFor": ["PWC", "Publicis Sapient", "..."]</text>
+            <text x="0" y="80" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">"knowsAbout": ["Brand strategy", "Healthcare"]</text>
+            <text x="0" y="96" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">"availability": "Q3 2026"</text>
+          </g>
+
+          <g transform="translate(340, 36)">
+            <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.18em" font-weight="600">schema.org/FAQPage</text>
+            <text x="0" y="32" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">Q: Is Nemo available?</text>
+            <text x="0" y="48" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">A: Yes, starting Q3 2026.</text>
+            <text x="0" y="68" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">Q: Industries?</text>
+            <text x="0" y="84" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">A: Healthcare, fintech, CPG...</text>
+          </g>
+
+          <g transform="translate(680, 36)">
+            <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.18em" font-weight="600">schema.org/Article × N</text>
+            <text x="0" y="32" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">All case studies, articles,</text>
+            <text x="0" y="48" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">testimonials marked up as</text>
+            <text x="0" y="64" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">individual Article nodes</text>
+            <text x="0" y="80" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" opacity="0.85">linked to the Person node.</text>
+          </g>
+
+          <line x1="20" y1="146" x2="980" y2="146" stroke="#F5F2E8" stroke-width="0.3" opacity="0.3"/>
+          <text x="20" y="164" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.14em" opacity="0.7">EVERYTHING THE PROFILE HOLDS · BECOMES A STRUCTURED FACT GENERATIVE ENGINES CAN CITE</text>
+        </g>
+
+        <!-- Callouts -->
+        <g>
+          <line x1="-32" y1="118" x2="-12" y2="118" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="118" r="11" fill="#EA633F"/>
+          <text x="-46" y="122" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <line x1="-32" y1="332" x2="-12" y2="332" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="332" r="11" fill="#EA633F"/>
+          <text x="-46" y="336" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <line x1="-32" y1="546" x2="-12" y2="546" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="546" r="11" fill="#EA633F"/>
+          <text x="-46" y="550" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+        </g>
+      </svg>
+
+      <svg viewBox="0 0 1060 80" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="1000" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">EXTERNAL VISIBILITY · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">GOOGLE RICH RESULT</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Rating stars · project count · "People also ask"</text>
+
+          <g transform="translate(340, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">AI ENGINE CITATION</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Cited inline · source pill links back to Profile</text>
+          </g>
+
+          <g transform="translate(680, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">STRUCTURED SCHEMA</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Person + FAQPage + Article × N</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Why this matters</div>
+        <div class="spec-value">~60% of cold inbound now starts with an AI engine query, not Google search. GEO is the new SEO.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Auto-generated from</div>
+        <div class="spec-value">Every field in the Profile repository → corresponding schema property. No manual SEO work per Chameleon.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Updates</div>
+        <div class="spec-value">Real-time. Availability change → schema updates → next crawl reflects new state.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Measured by</div>
+        <div class="spec-value">Impressions, click-through, AI-engine citation events, attribution back to bookings.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SECTION 04 · ADMIN / CURATED ─── -->
+  <section class="expr-section" id="curated">
+    <header class="expr-header">
+      <div class="expr-num">04</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">CHAMELEON-CONTROLLED · CURATION</div>
+        <h2 class="expr-name">You shape your own findability.</h2>
+        <p class="expr-desc">What the Chameleon controls in their own admin panel about how findable they are. Curated skill tagging (<a href="../ideas.html#idea-23">Idea 23</a>) replaces tag walls with 3&ndash;7 hand-picked tags that read as confidence, not padding. Each Chameleon also gets a real-time <strong>Findability Score</strong> showing how their Profile reads to each entry mode, and AI-suggested tags pulled from their actual project history.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1060 580" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="560" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">admin.chameleoncollective.com/me/findability</text>
+
+        <rect x="0" y="28" width="1000" height="32" fill="#121212"/>
+        <text x="20" y="48" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.16em" font-weight="600">MY CHAMELEON · FINDABILITY</text>
+        <text x="980" y="48" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.14em" opacity="0.7">NEMO MORALES</text>
+
+        <!-- Findability Score -->
+        <g transform="translate(40, 80)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">FINDABILITY SCORE</text>
+
+          <g transform="translate(0, 26)">
+            <rect x="0" y="0" width="216" height="120" rx="3" fill="#EA633F" opacity="0.12" stroke="#EA633F" stroke-width="1"/>
+            <text x="14" y="24" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">OVERALL</text>
+            <text x="14" y="74" font-family="IBM Plex Sans, Arial, sans-serif" font-size="56" font-weight="500" fill="#121212" letter-spacing="-0.03em">87</text>
+            <text x="14" y="96" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">strong &middot; trending up 4 pts this month</text>
+
+            <!-- Per-mode breakdown -->
+            <g transform="translate(232, 0)">
+              <text x="0" y="20" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.14em" font-weight="600">CONVERSATIONAL</text>
+              <rect x="0" y="26" width="320" height="10" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+              <rect x="0" y="26" width="294" height="10" rx="2" fill="#EA633F"/>
+              <text x="336" y="34" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">92</text>
+
+              <text x="0" y="56" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.14em" font-weight="600">TRADITIONAL FILTERS</text>
+              <rect x="0" y="62" width="320" height="10" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+              <rect x="0" y="62" width="280" height="10" rx="2" fill="#EA633F" opacity="0.85"/>
+              <text x="336" y="70" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">88</text>
+
+              <text x="0" y="92" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.14em" font-weight="600">SEO + GEO</text>
+              <rect x="0" y="98" width="320" height="10" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+              <rect x="0" y="98" width="240" height="10" rx="2" fill="#EA633F" opacity="0.7"/>
+              <text x="336" y="106" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">75</text>
+            </g>
+
+            <g transform="translate(640, 0)">
+              <text x="0" y="20" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">→ TO IMPROVE SEO+GEO</text>
+              <text x="0" y="40" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">Add 1 case study with healthcare</text>
+              <text x="0" y="56" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">brand strategy keywords (+8 pts)</text>
+              <text x="0" y="80" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">Approve the FAQ schema suggestion</text>
+              <text x="0" y="96" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">below (+4 pts)</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Curated tagging -->
+        <g transform="translate(40, 248)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">CURATED TAGS · 5 OF 7 MAX</text>
+
+          <foreignObject x="0" y="26" width="920" height="40">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              box-sizing: border-box; width: 100%; height: 100%;
+              display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+            ">
+              <div style="display: inline-flex; align-items: center; gap: 10px;
+                background: #121212; color: #F5F2E8;
+                border-radius: 16px; padding: 8px 16px;
+                font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+                white-space: nowrap;">
+                BRAND STRATEGY <span style="opacity: 0.7;">×</span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 10px;
+                background: #121212; color: #F5F2E8;
+                border-radius: 16px; padding: 8px 16px;
+                font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+                white-space: nowrap;">
+                CREATIVE DIRECTION <span style="opacity: 0.7;">×</span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 10px;
+                background: #121212; color: #F5F2E8;
+                border-radius: 16px; padding: 8px 16px;
+                font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+                white-space: nowrap;">
+                HEALTHCARE <span style="opacity: 0.7;">×</span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 10px;
+                background: #121212; color: #F5F2E8;
+                border-radius: 16px; padding: 8px 16px;
+                font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+                white-space: nowrap;">
+                DESIGN SYSTEMS <span style="opacity: 0.7;">×</span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 10px;
+                background: #121212; color: #F5F2E8;
+                border-radius: 16px; padding: 8px 16px;
+                font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+                white-space: nowrap;">
+                FRACTIONAL CMO <span style="opacity: 0.7;">×</span>
+              </div>
+              <div style="display: inline-flex; align-items: center; justify-content: center;
+                border: 0.75px dashed #121212;
+                border-radius: 16px; width: 32px; height: 32px;
+                font-family: 'DM Mono', monospace; font-size: 14px; color: #121212;">+</div>
+            </div>
+          </foreignObject>
+
+          <!-- AI suggestions -->
+          <g transform="translate(0, 78)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em">AI-SUGGESTED · BASED ON YOUR PROJECTS</text>
+
+            <foreignObject x="0" y="14" width="920" height="34">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="
+                box-sizing: border-box; width: 100%; height: 100%;
+                display: flex; gap: 10px; flex-wrap: wrap;
+              ">
+                <div style="display: inline-flex; align-items: center; gap: 8px;
+                  border: 0.75px solid #EA633F; border-radius: 14px; padding: 6px 14px;
+                  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #121212; font-weight: 500;
+                  background: #FFFFFF; white-space: nowrap;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #EA633F;"></span>
+                  + AI-driven products
+                </div>
+                <div style="display: inline-flex; align-items: center; gap: 8px;
+                  border: 0.75px solid #EA633F; border-radius: 14px; padding: 6px 14px;
+                  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #121212; font-weight: 500;
+                  background: #FFFFFF; white-space: nowrap;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #EA633F;"></span>
+                  + Series B scaling
+                </div>
+                <div style="display: inline-flex; align-items: center; gap: 8px;
+                  border: 0.75px solid #EA633F; border-radius: 14px; padding: 6px 14px;
+                  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #121212; font-weight: 500;
+                  background: #FFFFFF; white-space: nowrap;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #EA633F;"></span>
+                  + Brand voice systems
+                </div>
+                <div style="display: inline-flex; align-items: center; gap: 8px;
+                  border: 0.75px solid #EA633F; border-radius: 14px; padding: 6px 14px;
+                  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #121212; font-weight: 500;
+                  background: #FFFFFF; white-space: nowrap;">
+                  <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #EA633F;"></span>
+                  + Direct-to-patient
+                </div>
+              </div>
+            </foreignObject>
+
+            <text x="0" y="62" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F" font-style="italic">Pulled from your PWC Health work + last 6 LinkedIn posts. Tap to add.</text>
+          </g>
+        </g>
+
+        <!-- Routing tier -->
+        <g transform="translate(40, 408)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">ROUTING TIER · WHEN A SEARCH FINDS YOU</text>
+          <g transform="translate(0, 26)">
+            <rect x="0" y="0" width="220" height="80" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+            <text x="14" y="24" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">DIRECT</text>
+            <text x="14" y="48" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Client books direct on profile</text>
+            <text x="14" y="64" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">— no BD in middle</text>
+
+            <rect x="234" y="0" width="220" height="80" rx="3" fill="#EA633F" opacity="0.18" stroke="#EA633F" stroke-width="1"/>
+            <text x="248" y="24" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">VETTED ✓ ACTIVE</text>
+            <text x="248" y="48" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">BD pre-qualifies, then connects</text>
+            <text x="248" y="64" font-family="Inter, Arial, sans-serif" font-size="11" fill="#121212">— good for spam filtering</text>
+
+            <rect x="468" y="0" width="220" height="80" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+            <text x="482" y="24" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">CENTRALIZED</text>
+            <text x="482" y="48" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">All searches go to BD,</text>
+            <text x="482" y="64" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">BD routes from there</text>
+          </g>
+        </g>
+
+        <!-- Callouts -->
+        <g>
+          <line x1="-32" y1="170" x2="-12" y2="170" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="170" r="11" fill="#EA633F"/>
+          <text x="-46" y="174" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <line x1="-32" y1="290" x2="-12" y2="290" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="290" r="11" fill="#EA633F"/>
+          <text x="-46" y="294" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <line x1="-32" y1="350" x2="-12" y2="350" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="350" r="11" fill="#EA633F"/>
+          <text x="-46" y="354" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+
+          <line x1="-32" y1="460" x2="-12" y2="460" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="460" r="11" fill="#EA633F"/>
+          <text x="-46" y="464" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+        </g>
+      </svg>
+
+      <svg viewBox="0 0 1060 80" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="1000" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">CURATION ADMIN · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">FINDABILITY SCORE</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Overall + per-mode breakdown + improvement tips</text>
+
+          <g transform="translate(280, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">CURATED TAGS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">3&ndash;7 max · "We over Me" act</text>
+          </g>
+
+          <g transform="translate(560, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">AI SUGGESTIONS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Pulled from project + content history</text>
+          </g>
+
+          <g transform="translate(820, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">ROUTING TIER</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Per-Chameleon choice (Idea 14)</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Lives at</div>
+        <div class="spec-value"><code>admin.chameleoncollective.com/me/findability</code></div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Updates from</div>
+        <div class="spec-value">Tag edits · project additions · content claims · LinkedIn pulls · BD-side activity</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Replaces</div>
+        <div class="spec-value">The 50-tag wall in COS that signals padding, not specificity</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Connects to</div>
+        <div class="spec-value">All four entry modes · Routing tier from <a href="../ideas.html#idea-14">Idea 14</a> · Curated tagging from <a href="../ideas.html#idea-23">Idea 23</a></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Closing -->
+  <div class="lineage" style="margin-top: 32px;">
+    <div class="lineage-title">What this enables · what&apos;s next</div>
+    <div style="font-family: Inter, sans-serif; font-size: 14px; line-height: 1.6; color: var(--cc-ink);">
+      <p style="margin: 0 0 14px;">With <a href="profile-expressions.html">the Profile and its expressions</a>, <a href="smart-deliverable.html">the warm-pitch flow</a>, and the cold-inbound front doors all in place, the system has both inbound paths covered. <strong>Decision 002</strong> (search re-architecture) and <strong>Ideas 15, 16, 23</strong> all converge here. The Chameleon&apos;s findability is now controllable, measurable, and present across every channel a client could plausibly start from.</p>
+      <p style="margin: 0;"><strong>Next detail page:</strong> The Chameleon Admin &mdash; the full editor for everything a Chameleon controls about their own Profile (data they add, content they contribute, tagging, routing, analytics they see). Will live at <code>ux/chameleon-admin.html</code> when ready. This closes the loop on Task #40 from the project memory.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 56px; text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-ink-soft);">
+    <a href="../ux.html" style="color: var(--cc-orange); text-decoration: none;">← Return to UX Architecture overview</a>
+  </p>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UX Architecture — Project 01 · Profile Revamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-brand-row">
+      <img src="icon-white.png" alt="CC" style="height:22px;">
+      <a class="sb-back" href="../../Framework/CC-Project-Memory.html">Memory ↗</a>
+    </div>
+
+    <div class="sb-project-id">Project 01</div>
+    <div class="sb-project-name">The Chameleon Profile, Reimagined.</div>
+    <div class="sb-status">
+      <span class="tag solid-accent">In Synthesis</span>
+      <span class="sb-stage">Stage 3 of 6</span>
+    </div>
+
+    <div class="sb-section-label">Contents</div>
+    <nav class="sb-nav">
+      <a class="sb-link" href="index.html">
+        <span class="sb-link-num">00</span>
+        <span class="sb-link-label">Cover</span>
+        <span class="sb-link-meta">Project overview</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="brief.html">
+        <span class="sb-link-num">01</span>
+        <span class="sb-link-label">The Brief</span>
+        <span class="sb-link-meta">Locked · 5 iterations</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="references.html">
+        <span class="sb-link-num">02</span>
+        <span class="sb-link-label">Reference Material</span>
+        <span class="sb-link-meta">3 sources · UX research · best practices</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="interviews.html">
+        <span class="sb-link-num">03</span>
+        <span class="sb-link-label">Interview Guide</span>
+        <span class="sb-link-meta">R1 complete · 10 of 10</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="voices.html">
+        <span class="sb-link-num">04</span>
+        <span class="sb-link-label">Voices</span>
+        <span class="sb-link-meta">10 of 10 · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="stakeholders.html">
+        <span class="sb-link-num">05</span>
+        <span class="sb-link-label">Stakeholders</span>
+        <span class="sb-link-meta">JCM + AD synthesis · weighted</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="ideas.html">
+        <span class="sb-link-num">06</span>
+        <span class="sb-link-label">Ideas</span>
+        <span class="sb-link-meta">33 scored · 4 sessions</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="decisions.html">
+        <span class="sb-link-num">07</span>
+        <span class="sb-link-label">Decision Log</span>
+        <span class="sb-link-meta">5 entries · 5 taking shape</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="exec-summary.html">
+        <span class="sb-link-num">08</span>
+        <span class="sb-link-label">Executive Summary</span>
+        <span class="sb-link-meta">For Leadership Council</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link active" href="ux.html">
+        <span class="sb-link-num">09</span>
+        <span class="sb-link-label">UX</span>
+        <span class="sb-link-meta">4 sitemaps · 4 journeys · data model</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+      <a class="sb-link" href="wireframes.html">
+        <span class="sb-link-num">10</span>
+        <span class="sb-link-label">Wireframes</span>
+        <span class="sb-link-meta">v2 · modular kits · 4 archetypes</span>
+        <span class="sb-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <div class="sb-footer-meta">
+      <div class="row"><strong>Owners</strong><span>JCM &middot; AD</span></div>
+      <div class="row"><strong>Updated</strong><span>2026-06-16</span></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="main-inner">
+      <div class="main-content">
+        <div class="main-section-label">Section 09 · UX Architecture</div>
+        <h1>UX Architecture</h1>
+        <dl class="metadata">
+          <dt>Stage</dt><dd>3 of 6 &mdash; In Synthesis &middot; <strong>UX architecture (v1)</strong></dd>
+          <dt>Translates</dt><dd>Stakeholder commitments (section 05) + Round 1 voices (section 04) into experience flows</dd>
+          <dt>What this is</dt><dd>Architecture &mdash; sitemaps, journeys, data model. Not visual design (that&apos;s section 10).</dd>
+          <dt>What this clarifies</dt><dd>What we build first &middot; what data we need from COS &middot; what content Chameleons input vs what gets generated for them</dd>
+        </dl>
+
+        <ol class="page-toc">
+          <li><a href="#at-a-glance">At a glance</a></li>
+          <li><a href="#shapes">The three shapes</a></li>
+          <li><a href="#profile-hub">Profile as hub</a></li>
+          <li><a href="#sitemap-public">Public site map</a></li>
+          <li><a href="#sitemap-admin">Chameleon admin</a></li>
+          <li><a href="#data-flow">Data flow</a></li>
+          <li><a href="#journeys">User journeys</a></li>
+          <li><a href="#data-inventory">Data inventory</a></li>
+          <li><a href="#implications">Implications</a></li>
+        </ol>
+
+        <button class="toc-hamburger" id="tocHamburger" aria-label="Open page navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="toc-overlay" id="tocOverlay" role="dialog" aria-label="Page navigation">
+          <div class="toc-overlay-label">Jump to</div>
+          <ol class="toc-overlay-list">
+            <li><a href="#at-a-glance">At a glance</a></li>
+            <li><a href="#shapes">The three shapes</a></li>
+            <li><a href="#profile-hub">Profile as hub</a></li>
+            <li><a href="#sitemap-public">Public site map</a></li>
+            <li><a href="#sitemap-admin">Chameleon admin</a></li>
+            <li><a href="#data-flow">Data flow</a></li>
+            <li><a href="#journeys">User journeys</a></li>
+            <li><a href="#data-inventory">Data inventory</a></li>
+            <li><a href="#implications">Implications</a></li>
+          </ol>
+        </div>
+
+        <p class="lede">This page translates the <a href="stakeholders.html#commitments">six stakeholder commitments</a> into experience architecture. The profile became a hub. The hub feeds search, deliverables, content, team pages, and the brand. Mapping the flow is how we decide what to build, in what order, and what data the system needs to hold for any of it to work. The diagrams here are for alignment with the broader team &mdash; designers, BD, marketing, leadership. The next layer (visual design) lives in <a href="wireframes.html">Wireframes (section 10)</a>.</p>
+
+        <div id="at-a-glance" class="summary-panel">
+          <div class="summary-panel-label">At a glance</div>
+          <h2 class="sum-h">Four expressions. Four sitemaps. Four journeys. One data model.</h2>
+
+          <div class="sum-cols">
+            <div>
+              <h3 class="sum-h">What this page resolves</h3>
+              <ol>
+                <li><strong>The profile is not one thing.</strong> It&apos;s four named expressions &mdash; Profile, Card, Bio Module, Pill &mdash; all sourced from the same data. <a href="ux/profile-expressions.html">Detail 01 wireframes each one</a>; <a href="ux/smart-deliverable.html">Detail 02</a> shows how the Bio Module gets assembled into a tracked deliverable; <a href="ux/search-discovery.html">Detail 03</a> shows the four cold-inbound front doors that bring clients to a Profile. Naming clears confusion that&apos;s been quietly tripping every other discussion.</li>
+                <li><strong>The profile is intimately connected to search.</strong> Conversational, traditional, and SEO/GEO. Every diagram here treats search as the front door, not a back-end concern.</li>
+                <li><strong>The data model splits cleanly.</strong> Roughly 14 fields the Chameleon writes; ~18 fields the system derives or saves for them. The inventory below makes the split concrete.</li>
+                <li><strong>Build order falls out of the architecture.</strong> Phase 1 ships when the data repository + the public page + the Smart Deliverable Creator are in place. Everything else (Content Opportunities, Build-a-Team, who&apos;s-available) is downstream of those three.</li>
+              </ol>
+            </div>
+            <div>
+              <h3 class="sum-h">What stays unresolved (for now)</h3>
+              <ol>
+                <li><strong>Privacy boundaries inside the radical-transparency layer.</strong> Can peer Chameleons see &ldquo;currently named on 7 SOWs&rdquo;? BD yes; peers TBD.</li>
+                <li><strong>What COS gives us today vs what it needs to give us.</strong> Inventory below flags every field where current COS data is insufficient.</li>
+                <li><strong>How conversational search hands off to traditional search.</strong> Does the AI chatbot live alongside the search bar or replace it? Diagrams here show both as front doors; the choice between them is pending.</li>
+                <li><strong>Where the &ldquo;who&apos;s available&rdquo; page lives.</strong> Public, internal, or scarcity-framed (per stakeholder open question). Sitemap places it tentatively as a public node with the caveat that this is unresolved.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="sum-voices-row">
+            <strong>Scope</strong>Public site structure &middot; Chameleon admin tools &middot; Profile-as-source diagram &middot; Data flow &middot; 4 user journeys &middot; data inventory split &nbsp;&middot;&nbsp; for internal alignment before Round 2
+          </div>
+        </div>
+
+        <!-- ====== THE THREE SHAPES ====== -->
+        <h2 id="shapes">The four expressions the profile takes</h2>
+        <p>One data set. Four named expressions. Each is wireframed and specified in the <a href="ux/profile-expressions.html"><strong>Profile · Expressions detail page</strong> &rarr;</a> &mdash; click through for the full breakdown. Summary below.</p>
+
+        <div class="shapes-row" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="shape-card">
+            <div class="shape-num">Expression 01</div>
+            <div class="shape-tag">The full page</div>
+            <h4>Profile</h4>
+            <p>The full page. SEO-indexed destination, cold-inbound landing. Pulls every field in the repository, arranged per the archetype default kit. <a href="ux/profile-expressions.html#profile" style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500;">Wireframe &rarr;</a></p>
+          </div>
+          <div class="shape-card">
+            <div class="shape-num">Expression 02</div>
+            <div class="shape-tag">Browse unit</div>
+            <h4>Profile · Card</h4>
+            <p>The browse expression. Search results, team pages, who&apos;s-available, build-a-team. Portrait + name + role + 3 capabilities + availability badge. <a href="ux/profile-expressions.html#card" style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500;">Wireframe &rarr;</a></p>
+          </div>
+          <div class="shape-card">
+            <div class="shape-num">Expression 03</div>
+            <div class="shape-tag">Tailorable one-page bio</div>
+            <h4>Profile · Bio Module</h4>
+            <p>The modern replacement for the bio slide. A tailorable one-page bio per client engagement &mdash; portrait, identity, long-form bio, three signature experience blocks, capability tags. Lives online with analytics and per-pitch overrides. <a href="ux/profile-expressions.html#module" style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500;">Wireframe &rarr;</a></p>
+          </div>
+          <div class="shape-card">
+            <div class="shape-num">Expression 04</div>
+            <div class="shape-tag">Inline credit</div>
+            <h4>Profile · Pill</h4>
+            <p>The smallest expression. Inline byline credit under articles, in case-study contributor lists, in body copy. The most embedded unit of attribution. <a href="ux/profile-expressions.html#pill" style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500;">Wireframe &rarr;</a></p>
+          </div>
+        </div>
+
+        <!-- ====== PROFILE AS HUB ====== -->
+        <h2 id="profile-hub">The profile is the source, not the destination</h2>
+        <p>Stakeholder commitment #1 made visual. The profile data feeds nine downstream surfaces. Designing the profile in isolation is the old model; every content block has to be portable.</p>
+
+        <div class="diagram-wrap">
+          <div class="diagram-bar">Profile as Source <em>Radial hub &middot; 10 downstream surfaces</em></div>
+          <div class="diagram-body">
+            <div class="svg-wrap">
+            <svg viewBox="0 0 820 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="profile-hub-title">
+              <title id="profile-hub-title">Profile as source node</title>
+
+              <!-- Hairline connectors radiating from center -->
+              <g stroke="#121212" stroke-width="0.75" fill="none">
+                <line x1="410" y1="280" x2="140" y2="80" />
+                <line x1="410" y1="280" x2="410" y2="78" />
+                <line x1="410" y1="280" x2="680" y2="80" />
+                <line x1="410" y1="280" x2="100" y2="220" />
+                <line x1="410" y1="280" x2="720" y2="220" />
+                <line x1="410" y1="280" x2="100" y2="340" />
+                <line x1="410" y1="280" x2="720" y2="340" />
+                <line x1="410" y1="280" x2="140" y2="478" />
+                <line x1="410" y1="280" x2="410" y2="478" />
+                <line x1="410" y1="280" x2="680" y2="478" />
+              </g>
+
+              <!-- Center: profile repository (accent fill) -->
+              <rect x="334" y="244" width="152" height="72" rx="2" fill="#EA633F"/>
+              <text x="410" y="268" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.14em" font-weight="500">PROFILE DATA</text>
+              <text x="410" y="285" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.14em" font-weight="500">REPOSITORY</text>
+              <text x="410" y="304" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.08em" opacity="0.7">SOURCE NODE</text>
+
+              <!-- TOP ROW: 3 destinations -->
+              <rect x="60" y="56" width="160" height="42" rx="2" fill="#121212"/>
+              <text x="140" y="76" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">SEARCH RESULTS</text>
+              <text x="140" y="90" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">conversational + SEO</text>
+
+              <rect x="330" y="56" width="160" height="42" rx="2" fill="#121212"/>
+              <text x="410" y="76" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">PUBLIC PROFILE</text>
+              <text x="410" y="90" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">SEO destination &middot; full page</text>
+
+              <rect x="600" y="56" width="160" height="42" rx="2" fill="#121212"/>
+              <text x="680" y="76" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">SMART DELIVERABLE</text>
+              <text x="680" y="90" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">live link &middot; warm pitches</text>
+
+              <!-- MIDDLE ROW LEFT -->
+              <rect x="20" y="200" width="160" height="40" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="100" y="218" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">TEAM PAGES</text>
+              <text x="100" y="232" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">bio cards by team</text>
+
+              <!-- MIDDLE ROW RIGHT -->
+              <rect x="640" y="200" width="160" height="40" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="720" y="218" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">PRACTICE PAGES</text>
+              <text x="720" y="232" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">pills by capability</text>
+
+              <!-- MIDDLE-LOWER LEFT -->
+              <rect x="20" y="320" width="160" height="40" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="100" y="338" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">CONTENT BYLINES</text>
+              <text x="100" y="352" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">pills on every article</text>
+
+              <!-- MIDDLE-LOWER RIGHT -->
+              <rect x="640" y="320" width="160" height="40" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="720" y="338" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">BUILD-A-TEAM</text>
+              <text x="720" y="352" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">cards in assemble flow</text>
+
+              <!-- BOTTOM ROW -->
+              <rect x="60" y="456" width="160" height="42" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="140" y="476" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">WHO&apos;S AVAILABLE</text>
+              <text x="140" y="490" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">page or scarcity view</text>
+
+              <rect x="330" y="456" width="160" height="42" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="410" y="476" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">CONTENT REPO</text>
+              <text x="410" y="490" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">searchable activity index</text>
+
+              <rect x="600" y="456" width="160" height="42" rx="2" fill="none" stroke="#121212" stroke-width="1"/>
+              <text x="680" y="476" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="500">STAFFING DASHBOARD</text>
+              <text x="680" y="490" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.06em">BD match queue</text>
+
+              <!-- Legend / annotation -->
+              <text x="60" y="538" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">FILLED ACCENT &middot; source &nbsp;&nbsp;&middot;&nbsp;&nbsp; FILLED DARK &middot; primary destinations &nbsp;&nbsp;&middot;&nbsp;&nbsp; OUTLINED &middot; embedded surfaces</text>
+            </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== SITEMAP PUBLIC ====== -->
+        <h2 id="sitemap-public">Sitemap &mdash; the public site</h2>
+        <p>How profiles plug into <code>chameleoncollective.com</code>. The profile lives in two modes: as its own page (cold inbound, SEO destination) and as a content block (cards, pills, bylines) embedded elsewhere. Search is the front door &mdash; conversational and traditional both routes that lead into this map.</p>
+
+        <div class="diagram-wrap">
+          <div class="diagram-bar">Public Site Sitemap <em>chameleoncollective.com &middot; 3-level hierarchy</em></div>
+          <div class="diagram-body">
+            <div class="svg-wrap">
+            <svg viewBox="0 0 920 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="public-sitemap-title">
+              <title id="public-sitemap-title">Public site sitemap</title>
+
+              <!-- Root -->
+              <rect x="370" y="20" width="180" height="38" rx="2" fill="#121212"/>
+              <text x="460" y="44" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">CHAMELEONCOLLECTIVE.COM</text>
+
+              <!-- Stem down from root -->
+              <line x1="460" y1="58" x2="460" y2="84" stroke="#121212" stroke-width="1"/>
+              <!-- L2 horizontal bar -->
+              <line x1="100" y1="84" x2="820" y2="84" stroke="#121212" stroke-width="0.75"/>
+              <!-- L2 drops -->
+              <line x1="100" y1="84" x2="100" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="280" y1="84" x2="280" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="460" y1="84" x2="460" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="640" y1="84" x2="640" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="820" y1="84" x2="820" y2="104" stroke="#121212" stroke-width="0.75"/>
+
+              <!-- L2 nodes (5 top-level + profile featured) -->
+              <rect x="40" y="104" width="120" height="32" rx="2" fill="#121212"/>
+              <text x="100" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">HOME</text>
+
+              <rect x="220" y="104" width="120" height="32" rx="2" fill="#121212" opacity="0.7"/>
+              <text x="280" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">PRACTICE</text>
+
+              <rect x="400" y="104" width="120" height="32" rx="2" fill="#EA633F"/>
+              <text x="460" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em" font-weight="500">PROFILES</text>
+
+              <rect x="580" y="104" width="120" height="32" rx="2" fill="#121212" opacity="0.7"/>
+              <text x="640" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">CONTENT HUB</text>
+
+              <rect x="760" y="104" width="120" height="32" rx="2" fill="#121212" opacity="0.7"/>
+              <text x="820" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">SEARCH</text>
+
+              <!-- L3 under Home -->
+              <line x1="100" y1="136" x2="100" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="40" y1="174" x2="160" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="40" y1="174" x2="40" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="160" y1="174" x2="160" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <rect x="10" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="40" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">FEATURED</text>
+              <rect x="130" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="160" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">ABOUT</text>
+
+              <!-- L3 under Practice -->
+              <line x1="280" y1="136" x2="280" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="220" y1="174" x2="340" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="220" y1="174" x2="220" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="280" y1="174" x2="280" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="340" y1="174" x2="340" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <rect x="190" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="220" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">CREATIVE</text>
+              <rect x="250" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="280" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">STRATEGY</text>
+              <rect x="310" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="340" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">GROWTH</text>
+
+              <!-- L3 under Profiles (the central hub) -->
+              <line x1="460" y1="136" x2="460" y2="174" stroke="#121212" stroke-width="0.75"/>
+              <line x1="400" y1="174" x2="520" y2="174" stroke="#121212" stroke-width="0.75"/>
+              <line x1="400" y1="174" x2="400" y2="190" stroke="#121212" stroke-width="0.75"/>
+              <line x1="460" y1="174" x2="460" y2="190" stroke="#121212" stroke-width="0.75"/>
+              <line x1="520" y1="174" x2="520" y2="190" stroke="#121212" stroke-width="0.75"/>
+              <rect x="370" y="190" width="60" height="26" rx="2" fill="none" stroke="#EA633F" stroke-width="1.25"/>
+              <text x="400" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.06em">/NAME</text>
+              <rect x="430" y="190" width="60" height="26" rx="2" fill="none" stroke="#EA633F" stroke-width="1.25"/>
+              <text x="460" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.06em">TEAMS</text>
+              <rect x="490" y="190" width="60" height="26" rx="2" fill="none" stroke="#EA633F" stroke-width="1.25"/>
+              <text x="520" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.06em">AVAILABLE</text>
+
+              <!-- L3 under Content Hub -->
+              <line x1="640" y1="136" x2="640" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="580" y1="174" x2="700" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="580" y1="174" x2="580" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="640" y1="174" x2="640" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="700" y1="174" x2="700" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <rect x="550" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="580" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">ARTICLES</text>
+              <rect x="610" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="640" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">PODCAST</text>
+              <rect x="670" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="700" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">ROUNDUP</text>
+
+              <!-- L3 under Search -->
+              <line x1="820" y1="136" x2="820" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="780" y1="174" x2="860" y2="174" stroke="#121212" stroke-width="0.5"/>
+              <line x1="780" y1="174" x2="780" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <line x1="860" y1="174" x2="860" y2="190" stroke="#121212" stroke-width="0.5"/>
+              <rect x="750" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="780" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">CHAT</text>
+              <rect x="830" y="190" width="60" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="860" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">FILTER</text>
+
+              <!-- Section divider rule -->
+              <line x1="40" y1="270" x2="880" y2="270" stroke="#121212" stroke-width="0.5" opacity="0.4"/>
+              <text x="40" y="290" font-family="DM Mono, monospace" font-size="10" fill="#6F6A5F" letter-spacing="0.14em">EMBEDDED &mdash; PROFILE DATA RENDERS</text>
+
+              <!-- Embedded surfaces (4 leaf boxes) -->
+              <rect x="40" y="310" width="180" height="32" rx="2" fill="none" stroke="#6F6A5F" stroke-width="0.75" stroke-dasharray="3,2"/>
+              <text x="130" y="330" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">CARDS &middot; team pages</text>
+
+              <rect x="240" y="310" width="180" height="32" rx="2" fill="none" stroke="#6F6A5F" stroke-width="0.75" stroke-dasharray="3,2"/>
+              <text x="330" y="330" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">PILLS &middot; practice pages</text>
+
+              <rect x="440" y="310" width="180" height="32" rx="2" fill="none" stroke="#6F6A5F" stroke-width="0.75" stroke-dasharray="3,2"/>
+              <text x="530" y="330" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">BYLINES &middot; content hub</text>
+
+              <rect x="640" y="310" width="180" height="32" rx="2" fill="#EA633F" opacity="0.18" stroke="#EA633F" stroke-width="1"/>
+              <text x="730" y="330" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.08em" font-weight="500">SMART DELIVERABLE &middot; live link</text>
+
+              <!-- Legend -->
+              <line x1="40" y1="400" x2="880" y2="400" stroke="#121212" stroke-width="0.5" opacity="0.4"/>
+              <text x="40" y="425" font-family="DM Mono, monospace" font-size="10" fill="#6F6A5F" letter-spacing="0.14em">LEGEND</text>
+              <rect x="40" y="445" width="22" height="14" rx="2" fill="#121212"/>
+              <text x="70" y="457" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">ROOT</text>
+              <rect x="160" y="445" width="22" height="14" rx="2" fill="#EA633F"/>
+              <text x="190" y="457" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">PRIMARY SECTION</text>
+              <rect x="370" y="445" width="22" height="14" rx="2" fill="#121212" opacity="0.7"/>
+              <text x="400" y="457" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">SECONDARY SECTION</text>
+              <rect x="600" y="445" width="22" height="14" rx="2" fill="none" stroke="#EA633F" stroke-width="1.25"/>
+              <text x="630" y="457" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">PROFILE SUB-PAGES</text>
+              <rect x="40" y="470" width="22" height="14" rx="2" fill="none" stroke="#6F6A5F" stroke-width="0.75" stroke-dasharray="3,2"/>
+              <text x="70" y="482" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">EMBEDDED SURFACE &middot; renders profile data</text>
+            </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== SITEMAP ADMIN ====== -->
+        <h2 id="sitemap-admin">Sitemap &mdash; the Chameleon&apos;s admin</h2>
+        <p>What each Chameleon sees when they log in. The admin is where the &ldquo;feel consultancy, work talent network&rdquo; promise gets operationalized &mdash; archetype picker on first login, modular editor, availability controls, content claims, analytics, deliverable history. <em>(Detailed wireframe still pending &mdash; <a href="wireframes.html#admin">task #40</a>.)</em></p>
+
+        <div class="diagram-wrap">
+          <div class="diagram-bar">Chameleon Admin Sitemap <em>3-level hierarchy &middot; 5 surfaces &middot; 15 sub-views</em></div>
+          <div class="diagram-body">
+            <div class="svg-wrap">
+            <svg viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="admin-sitemap-title">
+              <title id="admin-sitemap-title">Chameleon admin sitemap</title>
+
+              <!-- Root -->
+              <rect x="380" y="20" width="160" height="38" rx="2" fill="#121212"/>
+              <text x="460" y="44" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">MY CHAMELEON</text>
+
+              <!-- Root stem -->
+              <line x1="460" y1="58" x2="460" y2="84" stroke="#121212" stroke-width="1"/>
+              <!-- L2 horizontal bar -->
+              <line x1="100" y1="84" x2="820" y2="84" stroke="#121212" stroke-width="0.75"/>
+              <!-- L2 drops -->
+              <line x1="100" y1="84" x2="100" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="280" y1="84" x2="280" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="460" y1="84" x2="460" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="640" y1="84" x2="640" y2="104" stroke="#121212" stroke-width="0.75"/>
+              <line x1="820" y1="84" x2="820" y2="104" stroke="#121212" stroke-width="0.75"/>
+
+              <!-- L2: 5 admin surfaces. Profile editor in accent (primary, first-login start) -->
+              <rect x="40" y="104" width="120" height="32" rx="2" fill="#EA633F"/>
+              <text x="100" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em" font-weight="500">PROFILE EDITOR</text>
+
+              <rect x="220" y="104" width="120" height="32" rx="2" fill="#121212"/>
+              <text x="280" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">AVAILABILITY</text>
+
+              <rect x="400" y="104" width="120" height="32" rx="2" fill="#121212"/>
+              <text x="460" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">OPPORTUNITIES</text>
+
+              <rect x="580" y="104" width="120" height="32" rx="2" fill="#121212"/>
+              <text x="640" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">ANALYTICS</text>
+
+              <rect x="760" y="104" width="120" height="32" rx="2" fill="#121212"/>
+              <text x="820" y="124" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">DELIVERABLES</text>
+
+              <!-- L3 under Profile editor (4 sub-views) -->
+              <line x1="100" y1="136" x2="100" y2="158" stroke="#121212" stroke-width="0.5"/>
+              <rect x="40" y="158" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="100" y="175" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">ARCHETYPE PICKER</text>
+              <rect x="40" y="190" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="100" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">MODULE LIBRARY</text>
+              <rect x="40" y="222" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="100" y="239" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">AI-TAILORED BIO</text>
+              <rect x="40" y="254" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="100" y="271" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">ROUTING TIER</text>
+
+              <!-- L3 under Availability (3 sub-views) -->
+              <line x1="280" y1="136" x2="280" y2="158" stroke="#121212" stroke-width="0.5"/>
+              <rect x="220" y="158" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="280" y="175" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">AVAILABLE SWITCH</text>
+              <rect x="220" y="190" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="280" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">FUTURE CAPACITY</text>
+              <rect x="220" y="222" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="280" y="239" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">PROMO PREFERENCE</text>
+
+              <!-- L3 under Opportunities (3 sub-views) -->
+              <line x1="460" y1="136" x2="460" y2="158" stroke="#121212" stroke-width="0.5"/>
+              <rect x="400" y="158" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="460" y="175" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">INBOUND BRIEFS</text>
+              <rect x="400" y="190" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="460" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">ACTIVE PITCHES</text>
+              <rect x="400" y="222" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="460" y="239" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">CONTENT CLAIMS</text>
+
+              <!-- L3 under Analytics (3 sub-views) -->
+              <line x1="640" y1="136" x2="640" y2="158" stroke="#121212" stroke-width="0.5"/>
+              <rect x="580" y="158" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="640" y="175" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">PROFILE VIEWS</text>
+              <rect x="580" y="190" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="640" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">DELIVERABLE CONV.</text>
+              <rect x="580" y="222" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="640" y="239" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">SUGGESTED UPDATES</text>
+
+              <!-- L3 under Deliverables (3 sub-views) -->
+              <line x1="820" y1="136" x2="820" y2="158" stroke="#121212" stroke-width="0.5"/>
+              <rect x="760" y="158" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="820" y="175" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">SENT &middot; TRACKED</text>
+              <rect x="760" y="190" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="820" y="207" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">REUSE / DUPLICATE</text>
+              <rect x="760" y="222" width="120" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="820" y="239" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.06em">EXPIRATION CTRLS</text>
+
+              <!-- Annotation divider rule -->
+              <line x1="40" y1="320" x2="880" y2="320" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+              <text x="40" y="345" font-family="DM Mono, monospace" font-size="10" fill="#6F6A5F" letter-spacing="0.14em">FIRST-LOGIN ENTRY POINT</text>
+              <line x1="262" y1="340" x2="262" y2="290" stroke="#EA633F" stroke-width="0.75" stroke-dasharray="3,3"/>
+              <text x="40" y="365" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">Profile Editor (accent) is the start for new Chameleons. Returning Chameleons land on Opportunities or Analytics.</text>
+
+              <text x="40" y="400" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.06em">DETAILED ADMIN WIREFRAME PENDING &middot; TASK #40 &middot; QUEUED FOR AFTER ROUND 2</text>
+            </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== DATA FLOW ====== -->
+        <h2 id="data-flow">Data flow &mdash; where everything comes from, where it lands</h2>
+        <p>Six sources feed the repository. The repository renders eight destinations. Most of what makes the profile feel &ldquo;alive&rdquo; comes from sources the Chameleon doesn&apos;t touch &mdash; COS, LinkedIn, SOWs, analytics &mdash; not from a maintenance event.</p>
+
+        <div class="diagram-wrap">
+          <div class="diagram-bar">Data Flow <em>6 sources &middot; ~32-field repository &middot; 8 destinations</em></div>
+          <div class="diagram-body">
+            <div class="svg-wrap">
+            <svg viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="data-flow-title">
+              <title id="data-flow-title">Data flow diagram</title>
+
+              <!-- Section eyebrows -->
+              <text x="125" y="36" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">01 &mdash; SOURCES</text>
+              <text x="460" y="36" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.18em" font-weight="500">02 &mdash; REPOSITORY</text>
+              <text x="795" y="36" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">03 &mdash; DESTINATIONS</text>
+
+              <!-- Hairline section divider rules under eyebrows -->
+              <line x1="30" y1="46" x2="220" y2="46" stroke="#121212" stroke-width="0.5" opacity="0.4"/>
+              <line x1="350" y1="46" x2="570" y2="46" stroke="#EA633F" stroke-width="0.5" opacity="0.6"/>
+              <line x1="700" y1="46" x2="890" y2="46" stroke="#121212" stroke-width="0.5" opacity="0.4"/>
+
+              <!-- SOURCES (6 dark filled boxes) -->
+              <rect x="30" y="68" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="86" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">CHAMELEON INPUT</text>
+              <text x="125" y="100" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">manual edits + claims</text>
+
+              <rect x="30" y="116" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="134" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">COS PULL</text>
+              <text x="125" y="148" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">target, capacity, revenue</text>
+
+              <rect x="30" y="164" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="182" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">LINKEDIN SCRAPE</text>
+              <text x="125" y="196" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">work history + posts</text>
+
+              <rect x="30" y="212" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="230" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">SOW TAGS</text>
+              <text x="125" y="244" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">project + role + industry</text>
+
+              <rect x="30" y="260" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="278" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">ANALYTICS SIGNALS</text>
+              <text x="125" y="292" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">views + dwell + clicks</text>
+
+              <rect x="30" y="308" width="190" height="40" rx="2" fill="#121212"/>
+              <text x="125" y="326" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.1em" font-weight="500">AI-DERIVED</text>
+              <text x="125" y="340" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#F5F2E8" letter-spacing="0.06em" opacity="0.65">match scores + suggestions</text>
+
+              <!-- REPOSITORY (accent filled, central) -->
+              <rect x="360" y="156" width="200" height="120" rx="2" fill="#EA633F"/>
+              <text x="460" y="190" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.14em" font-weight="500">PROFILE DATA</text>
+              <text x="460" y="208" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.14em" font-weight="500">REPOSITORY</text>
+              <line x1="400" y1="222" x2="520" y2="222" stroke="#121212" stroke-width="0.5" opacity="0.4"/>
+              <text x="460" y="242" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.1em">~32 FIELDS</text>
+              <text x="460" y="258" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.06em" opacity="0.75">one source of truth</text>
+
+              <!-- Source arrows (hairline → repository) with small chevron heads -->
+              <g stroke="#121212" stroke-width="0.75" fill="none">
+                <line x1="220" y1="88"  x2="360" y2="180"/>
+                <line x1="220" y1="136" x2="360" y2="200"/>
+                <line x1="220" y1="184" x2="360" y2="216"/>
+                <line x1="220" y1="232" x2="360" y2="232"/>
+                <line x1="220" y1="280" x2="360" y2="248"/>
+                <line x1="220" y1="328" x2="360" y2="264"/>
+              </g>
+              <!-- chevron heads -->
+              <g fill="#121212">
+                <polygon points="355,178 363,180 357,184"/>
+                <polygon points="355,198 363,200 357,204"/>
+                <polygon points="355,214 363,216 357,220"/>
+                <polygon points="355,230 363,232 357,236"/>
+                <polygon points="355,246 363,248 357,252"/>
+                <polygon points="355,262 363,264 357,268"/>
+              </g>
+
+              <!-- DESTINATIONS (8 outlined boxes) -->
+              <rect x="700" y="58" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="78" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">PUBLIC PROFILE PAGE</text>
+
+              <rect x="700" y="98" width="190" height="32" rx="2" fill="#EA633F" opacity="0.18" stroke="#EA633F" stroke-width="1"/>
+              <text x="795" y="118" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em" font-weight="500">SMART DELIVERABLE</text>
+
+              <rect x="700" y="138" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="158" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">CARDS + PILLS</text>
+
+              <rect x="700" y="178" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="198" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">SEARCH INDEX</text>
+
+              <rect x="700" y="218" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="238" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">BUILD-A-TEAM FLOW</text>
+
+              <rect x="700" y="258" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="278" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">STAFFING DASHBOARD</text>
+
+              <rect x="700" y="298" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="318" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">CHAMELEON ADMIN</text>
+
+              <rect x="700" y="338" width="190" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.75"/>
+              <text x="795" y="358" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.1em">CONTENT REPO</text>
+
+              <!-- Destination arrows -->
+              <g stroke="#121212" stroke-width="0.75" fill="none">
+                <line x1="560" y1="180" x2="700" y2="74"/>
+                <line x1="560" y1="200" x2="700" y2="114"/>
+                <line x1="560" y1="216" x2="700" y2="154"/>
+                <line x1="560" y1="232" x2="700" y2="194"/>
+                <line x1="560" y1="248" x2="700" y2="234"/>
+                <line x1="560" y1="264" x2="700" y2="274"/>
+                <line x1="560" y1="266" x2="700" y2="314"/>
+                <line x1="560" y1="266" x2="700" y2="354"/>
+              </g>
+              <g fill="#121212">
+                <polygon points="695,72 703,74 697,78"/>
+                <polygon points="695,112 703,114 697,118"/>
+                <polygon points="695,152 703,154 697,158"/>
+                <polygon points="695,192 703,194 697,198"/>
+                <polygon points="695,232 703,234 697,238"/>
+                <polygon points="695,272 703,274 697,278"/>
+                <polygon points="695,312 703,314 697,318"/>
+                <polygon points="695,352 703,354 697,358"/>
+              </g>
+
+              <!-- Footer annotation -->
+              <line x1="30" y1="400" x2="890" y2="400" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+              <text x="30" y="424" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">COS &middot; LINKEDIN &middot; SOW TAGS &middot; ANALYTICS COMBINED CONTRIBUTE 5 OF 6 SOURCES &mdash; CHAMELEON INPUT IS THE THINNEST PIPELINE</text>
+            </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== JOURNEYS ====== -->
+        <h2 id="journeys">User journeys</h2>
+        <p>Four perspectives. Each journey shows the entry, the steps, and what the system needs to be doing for each step to feel natural. Designed to be read alongside the sitemaps above &mdash; each step ties to a node on the maps.</p>
+
+        <!-- Journey 01: Client -->
+        <div class="editorial-journey">
+          <div class="ej-bar">Journey 01 <em>Client &middot; search to share</em></div>
+          <div class="ej-persona">
+            <div>
+              <div class="ej-persona-tag">PERSONA</div>
+              <h3>Marketing leader at a B2B SaaS, needs to staff a CMO role for a portfolio company</h3>
+            </div>
+            <div class="ej-entry">
+              <strong>ENTRY POINT</strong>
+              Conversational search OR cold inbound from a BD-sent Smart Deliverable link
+            </div>
+          </div>
+          <div class="ej-flow">
+            <div class="ej-row">
+              <div class="ej-num">01</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Search the front door</h4>
+                <p class="ej-step-detail">Types a brief into the conversational search, or arrives via a Google query like &ldquo;fractional CMO healthcare consultant.&rdquo;</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Search index queries; routing to conversational or traditional view based on query shape</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">02</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Sees 3 matched Chameleons</h4>
+                <p class="ej-step-detail">Conversational view returns 3 high-fit profiles with baseball-card stats and current availability. Traditional view returns a ranked SEO list.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Match scoring fires on availability + industry + recent activity weights</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">03</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Clicks into one profile</h4>
+                <p class="ej-step-detail">Lands on the full Profile page. Sees who they are, how they work, who they&apos;ve worked with, what&apos;s recent, what other Chameleons typically pair with them.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Page view tracked; dwell + scroll depth + click path logged for analytics</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">04</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Books a meeting</h4>
+                <p class="ej-step-detail">Either books direct (if Chameleon allows) or routes through BD per Chameleon&apos;s routing tier. The brief context from step 01 carries into the meeting.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Routing tier honored; conversion event fires; brief context auto-attached</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">05</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Receives Smart Deliverable</h4>
+                <p class="ej-step-detail">After the discovery call, gets a live link with 1&ndash;3 tailored bios for the role. Can return any time; analytics surface back to BD.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Live link generated with expiration; per-Chameleon open + dwell tracked back to BD dashboard</div>
+            </div>
+          </div>
+          <div class="ej-outcome"><strong>OUTCOME</strong>Client converts &mdash; or doesn&apos;t. Either way, every step from search to share is instrumented. The system learns which moves close.</div>
+        </div>
+
+        <!-- Journey 02: Chameleon -->
+        <div class="editorial-journey">
+          <div class="ej-bar">Journey 02 <em>Chameleon &middot; idle to booked</em></div>
+          <div class="ej-persona">
+            <div>
+              <div class="ej-persona-tag">PERSONA</div>
+              <h3>Mid-tenure Chameleon (Sonia-archetype) coming back from a project gap</h3>
+            </div>
+            <div class="ej-entry">
+              <strong>ENTRY POINT</strong>
+              Logs into &ldquo;My Chameleon&rdquo; admin &middot; first surfaces availability + active pitches
+            </div>
+          </div>
+          <div class="ej-flow">
+            <div class="ej-row">
+              <div class="ej-num">01</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Flips availability switch</h4>
+                <p class="ej-step-detail">One click in Availability. Optional: sets a future capacity window (&ldquo;20 hrs starting July 15&rdquo;).</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Bucket trigger fires; promotion intensity scales with capacity declared</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">02</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">System refreshes profile</h4>
+                <p class="ej-step-detail">AI proposes 3 nudges &mdash; updated years count (source-date math), 2 new project logos, fresh LinkedIn posts. She accepts 2, declines 1.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>AI propose &rarr; Chameleon approve gate; no silent overwrites of master data</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">03</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Gets matched to a brief</h4>
+                <p class="ej-step-detail">Slack notification: BD sent in a brief that scored as a high fit. One-tap accept or decline. Auto-tailored bio staged for review.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Match notification &mdash; replaces &ldquo;raise your hand&rdquo;; equal access for less-social Chameleons</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">04</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Claims a content slot</h4>
+                <p class="ej-step-detail">Browses Content Opportunities board, claims a 200-word quip on AI search trends. Submits via short form. Round-up publishes a week later.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Repository entry; byline pills auto-created on published content</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">05</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Sees the analytics loop</h4>
+                <p class="ej-step-detail">Two weeks in: profile views up 4x, deliverable share opened by 3 prospects, content quip cited in two pitches. Visible momentum.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Analytics-driven feedback &mdash; visible activity replaces invisible waiting</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">06</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Booked + flips availability off</h4>
+                <p class="ej-step-detail">Lands a 6-month engagement. Toggles availability off; future window auto-set for end-of-contract.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Cycle closes; future capacity pre-populated for the 30-day-pre-contract-end window</div>
+            </div>
+          </div>
+          <div class="ej-outcome"><strong>OUTCOME</strong>From idle to booked in one cycle. The work the Chameleon does is bounded (clicks, approvals, one short content piece). The rest of the loop is on the system.</div>
+        </div>
+
+        <!-- Journey 03: BD / Internal staffing -->
+        <div class="editorial-journey">
+          <div class="ej-bar">Journey 03 <em>BD &middot; staffing &middot; half-day to one hour</em></div>
+          <div class="ej-persona">
+            <div>
+              <div class="ej-persona-tag">PERSONA</div>
+              <h3>JCM receives a brief from a referral partner &mdash; needs 3 CD options for a healthcare brand role in the UK</h3>
+            </div>
+            <div class="ej-entry">
+              <strong>ENTRY POINT</strong>
+              Drops the brief into the Smart Staffing Dashboard &middot; system surfaces fits in seconds, not hours
+            </div>
+          </div>
+          <div class="ej-flow">
+            <div class="ej-row">
+              <div class="ej-num">01</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Drops brief into dashboard</h4>
+                <p class="ej-step-detail">Pastes the partner&apos;s ask. Optionally tags industry, seniority, scope. Time-to-respond: 1 hour from the client.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Brief logged; tokenized; sent to match scoring</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">02</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">System surfaces 4 best fits</h4>
+                <p class="ej-step-detail">Ranked by match score, current availability, recent activity, industry experience. JCM swaps one out for a Chameleon he knows the client will click with.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Match scoring + human judgment override; auditable swap recorded</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">03</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Chameleons opt in via Slack</h4>
+                <p class="ej-step-detail">Each gets a notification with brief summary. 3 of 4 accept within 20 minutes; the 4th declines. No DM thread, no chase.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Multi-Chameleon coordination consolidated to one tracked queue</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">04</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Bios auto-tailored, JCM reviews</h4>
+                <p class="ej-step-detail">Three bios pre-tailored to the brief context. JCM tweaks two lines, approves. Smart Deliverable assembled as a live link.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Smart Deliverable Creator fires; tailoring uses brief context + per-Chameleon overrides</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">05</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Live link sent + tracked</h4>
+                <p class="ej-step-detail">Partner receives the link in &lt;1 hour total. Analytics show partner spent 6 min on Chameleon A&apos;s page, 2 min on B, didn&apos;t open C. JCM flags A for the meeting.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Conversion attribution per-Chameleon; analytics feed back to all 3 involved</div>
+            </div>
+          </div>
+          <div class="ej-outcome"><strong>OUTCOME</strong>JCM&apos;s half-day-of-Slack workflow collapses to a one-hour structured flow. The judgment stays human; the assembly is automated. Every Chameleon involved sees they were on the deliverable.</div>
+        </div>
+
+        <!-- Journey 04: Marketing content loop -->
+        <div class="editorial-journey">
+          <div class="ej-bar">Journey 04 <em>Marketing &middot; content loop &middot; multi-author piece</em></div>
+          <div class="ej-persona">
+            <div>
+              <div class="ej-persona-tag">PERSONA</div>
+              <h3>Katie runs a multi-author piece on AI search across the Collective</h3>
+            </div>
+            <div class="ej-entry">
+              <strong>ENTRY POINT</strong>
+              Posts open content slot in Content Opportunities board &middot; 5 Chameleons claim within 48 hrs
+            </div>
+          </div>
+          <div class="ej-flow">
+            <div class="ej-row">
+              <div class="ej-num">01</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Posts open slots</h4>
+                <p class="ej-step-detail">Opens a Content Opportunity: &ldquo;What&apos;s your take on AI search? 200 words. 5 slots.&rdquo; Tags topic, date, format.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Opportunity broadcast to Slack + admin queue; tagged for routing</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">02</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Chameleons claim slots</h4>
+                <p class="ej-step-detail">5 Chameleons opt in via admin or Slack. System sends a structured form. Two also volunteer audio clips.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Multi-claim coordination; form submissions land directly in the round-up draft</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">03</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Round-up publishes</h4>
+                <p class="ej-step-detail">Katie assembles the 5 takes into an article + 2 audio sidebars. Each contributor&apos;s byline is a pill linking to their profile.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Byline pills auto-link to source profiles; entry added to searchable content repo</div>
+            </div>
+            <div class="ej-row">
+              <div class="ej-num">04</div>
+              <div class="ej-step">
+                <h4 class="ej-step-name">Loop closes</h4>
+                <p class="ej-step-detail">Content lands in the searchable repository. Pulled into 2 BD pitches that week. Each contributor sees the byline analytics and an attribution note on their next profile login.</p>
+              </div>
+              <div class="ej-annotation"><span class="anno-tag">SYSTEM</span>Pulled into pitches; attribution surfaced to contributor; closes the contribution &rarr; reward loop</div>
+            </div>
+          </div>
+          <div class="ej-outcome"><strong>OUTCOME</strong>Multi-author content outperforms single-author by sharing reach. Lower friction for each Chameleon (200 words, not an essay). Same content does double duty &mdash; thought leadership + pitch material.</div>
+        </div>
+
+        <!-- ====== DATA INVENTORY ====== -->
+        <h2 id="data-inventory">Data inventory &mdash; what Chameleons save vs what&apos;s saved for them</h2>
+        <p>The split makes the build order obvious. Anything the Chameleon writes needs a form, an editor, and clear governance. Anything the system writes needs a source pipeline + AI nudging + accept/decline UX. The two halves are different problems.</p>
+
+        <div class="data-inv">
+
+          <div class="data-inv-col">
+            <div class="data-inv-col-head">
+              <div class="data-inv-col-tag">Column 01</div>
+              <h3 class="data-inv-col-name">Chameleon writes it</h3>
+              <p class="data-inv-col-desc">~14 fields. Needs a form, an editor, AI-coaching, version history. Most Chameleons will edit at first-login and rarely after that.</p>
+            </div>
+            <ul class="data-inv-list">
+              <li><span class="field-name">Display name + tagline</span><span class="field-source"><em>Required</em>First-login &middot; one-line positioning</span></li>
+              <li><span class="field-name">Long bio (master)</span><span class="field-source"><em>Required</em>The single source for every tailored child</span></li>
+              <li><span class="field-name">Archetype selection</span><span class="field-source"><em>Required</em>Strategy+Voice &middot; Creative+Visual &middot; Operator+Growth &middot; Interim+Leader</span></li>
+              <li><span class="field-name">Module configuration</span><span class="field-source"><em>Optional</em>Defaults work for 80%; power users customize</span></li>
+              <li><span class="field-name">Availability switch</span><span class="field-source"><em>Binary</em>Available for new work: yes/no</span></li>
+              <li><span class="field-name">Future capacity window</span><span class="field-source"><em>Optional</em>&ldquo;20 hrs starting July 15&rdquo; &mdash; forward signal</span></li>
+              <li><span class="field-name">Routing tier</span><span class="field-source"><em>Required</em>Direct &middot; Vetted &middot; Variable &middot; Centralized</span></li>
+              <li><span class="field-name">In-house vs consulting flags</span><span class="field-source"><em>Per work-history entry</em>Google was a workplace &mdash; not a client</span></li>
+              <li><span class="field-name">Source-date origination</span><span class="field-source"><em>Per skill</em>&ldquo;Started UX in 2005&rdquo; &mdash; system math forever</span></li>
+              <li><span class="field-name">Personal block (optional)</span><span class="field-source"><em>Optional</em>Personality + interests; toggle on/off</span></li>
+              <li><span class="field-name">Custom intake questions</span><span class="field-source"><em>Optional</em>How they qualify a brief; demonstrates their thinking</span></li>
+              <li><span class="field-name">Content claims</span><span class="field-source"><em>Per opportunity</em>Opt-in to content slots Katie posts</span></li>
+              <li><span class="field-name">Project description overrides</span><span class="field-source"><em>Per pitch</em>Local override of central project summary</span></li>
+              <li><span class="field-name">Manual logos + carousel</span><span class="field-source"><em>Curated</em>Pick which 5&ndash;7 logos lead</span></li>
+            </ul>
+          </div>
+
+          <div class="data-inv-col">
+            <div class="data-inv-col-head system">
+              <div class="data-inv-col-tag">Column 02</div>
+              <h3 class="data-inv-col-name">System saves for them</h3>
+              <p class="data-inv-col-desc">~18 fields. Pipelines from COS, LinkedIn, SOWs, analytics, AI inference. Where the &ldquo;maintains itself&rdquo; commitment lives. Chameleon sees the result, doesn&apos;t do the input.</p>
+            </div>
+            <ul class="data-inv-list">
+              <li><span class="field-name">Project count</span><span class="field-source"><em>From SOWs</em>Total + last-12-month rolling</span></li>
+              <li><span class="field-name">Average project duration</span><span class="field-source"><em>From SOWs</em>Median + range &middot; surfaces specialization</span></li>
+              <li><span class="field-name">Industry makeup</span><span class="field-source"><em>From SOW tags</em>Top 3 industries by volume</span></li>
+              <li><span class="field-name">Years in-house</span><span class="field-source"><em>Auto-calc</em>From in-house-flagged history</span></li>
+              <li><span class="field-name">Years consulting</span><span class="field-source"><em>Auto-calc</em>From consulting-flagged history</span></li>
+              <li><span class="field-name">Client logo list</span><span class="field-source"><em>From SOW tags</em>Brand + industry + year auto-tagged</span></li>
+              <li><span class="field-name">Activity stream</span><span class="field-source"><em>From LinkedIn + claims</em>Recent posts, articles, podcast clips, engagements</span></li>
+              <li><span class="field-name">Testimonials</span><span class="field-source"><em>From approval-gated collection</em>Idea 29 flow &middot; never sent without consent</span></li>
+              <li><span class="field-name">Page view analytics</span><span class="field-source"><em>From tracking</em>Visits + dwell + path + conversion</span></li>
+              <li><span class="field-name">Deliverable analytics</span><span class="field-source"><em>From tracking</em>Per-deliverable open rate + which Chameleon clicked</span></li>
+              <li><span class="field-name">Peer endorsements</span><span class="field-source"><em>Internal-only</em>Used in admin/matching tools; not on public page</span></li>
+              <li><span class="field-name">Currently named on</span><span class="field-source"><em>Multi-pitch transparency</em>Active SOWs + open pitches &middot; privacy TBD</span></li>
+              <li><span class="field-name">Capacity-to-target sensing</span><span class="field-source"><em>From COS</em>How close to revenue goal; flags availability passively</span></li>
+              <li><span class="field-name">AI-suggested updates</span><span class="field-source"><em>AI-derived</em>&ldquo;Add this project&rdquo; nudges, sourced from SOW activity</span></li>
+              <li><span class="field-name">Match readiness score</span><span class="field-source"><em>AI-derived</em>How well the profile matches inbound briefs</span></li>
+              <li><span class="field-name">Most-pitched skills</span><span class="field-source"><em>From SOW + pitch activity</em>What clients are buying you for</span></li>
+              <li><span class="field-name">Network connections</span><span class="field-source"><em>From SOW co-tags</em>Chameleons you&apos;ve worked with most</span></li>
+              <li><span class="field-name">Recommended-for-brief score</span><span class="field-source"><em>AI-derived, per brief</em>Real-time fit score when a brief is open</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- ====== IMPLICATIONS ====== -->
+        <h2 id="implications">Implications + what to validate</h2>
+        <p>This page makes some bets explicit. Round 2 needs to validate them; the build sequence needs to honor them; the team needs to align on them. Three groupings:</p>
+
+        <h3>What the architecture commits us to</h3>
+        <ul class="signal-list">
+          <li><strong>Build order is roughly fixed.</strong> Phase 1 = data repository + public profile page + Smart Deliverable Creator. Everything else (Content Opportunities, Build-a-Team, who&apos;s-available, staffing dashboard) depends on those three existing. The order isn&apos;t arbitrary &mdash; it&apos;s structural.</li>
+          <li><strong>Search is the front door, not a back-end concern.</strong> Conversational + traditional + SEO/GEO all funnel into the profile system. The search experience deserves its own design pass &mdash; it&apos;s as important as the profile pages themselves.</li>
+          <li><strong>The Chameleon admin is the second design surface.</strong> Without a strong admin, the data repository stays empty. Task #40 (admin wireframe) becomes higher priority after Round 2 confirms direction.</li>
+          <li><strong>COS becomes a load-bearing dependency.</strong> Half the system-derived fields depend on COS data quality. If SOW tagging stays inconsistent, the system can&apos;t do its job. This is now a cross-team request, not just a profile project concern.</li>
+        </ul>
+
+        <h3>What Round 2 needs to validate</h3>
+        <ul class="signal-list">
+          <li><strong>The three shapes read as one system, not three products.</strong> If Round 2 voices see them as three different things, the architecture didn&apos;t land &mdash; revisit naming and visual continuity.</li>
+          <li><strong>The Smart Deliverable Creator feels natural to non-BD Chameleons.</strong> Delivery-only and Expert Network voices should react to it specifically.</li>
+          <li><strong>The data-input ask doesn&apos;t feel like maintenance work.</strong> If &ldquo;Chameleon writes 14 fields&rdquo; reads as a burden, the AI-coaching layer needs to do more of the lift.</li>
+          <li><strong>Multi-pitch transparency feels safe, not surveilling.</strong> Test the &ldquo;currently named on 7 SOWs&rdquo; pattern carefully &mdash; voices will reveal whether this lands as agency or as monitoring.</li>
+        </ul>
+
+        <h3>What this is not</h3>
+        <p>This is not visual design &mdash; that lives in <a href="wireframes.html">Wireframes (section 10)</a>. This is not the rubric-scoring of features &mdash; that lives on <a href="ideas.html">Ideas</a>. This is not the decision log &mdash; that lives on <a href="decisions.html">Decisions</a>. This page is the experience architecture &mdash; the connective tissue between commitments and pixels, the diagram that explains <em>how the system works</em> to anyone who hasn&apos;t been in the room.</p>
+
+        <div class="note">
+          <div class="note-label">How to use this page</div>
+          When a stakeholder asks <em>&ldquo;how does this all fit together?&rdquo;</em> &mdash; send them here first. The sitemaps explain where things live. The journeys explain how it feels to move through. The data inventory explains what the system needs to hold. The visual design and the feature rubrics live next to this page; this is the spine that connects them.
+        </div>
+
+      </div>
+      <div class="page-footer-strip">
+        <span class="pn-prev"><a href="exec-summary.html">← Executive Summary</a></span>
+        <span class="pn-section">UX Architecture · 09 / 10</span>
+        <span class="pn-next"><a href="wireframes.html">Wireframes →</a></span>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function() {
+  const pageToc = document.querySelector('ol.page-toc');
+  const hamburger = document.getElementById('tocHamburger');
+  const overlay = document.getElementById('tocOverlay');
+  if (!pageToc || !hamburger || !overlay) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hamburger.classList.remove('visible');
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+    } else {
+      hamburger.classList.add('visible');
+    }
+  }, { rootMargin: '-12px 0px 0px 0px', threshold: 0 });
+  observer.observe(pageToc);
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = overlay.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!overlay.contains(e.target) && !hamburger.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>

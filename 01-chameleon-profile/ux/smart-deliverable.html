@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Deliverable Creator — Project 01</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .ux-detail-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--cc-ink); color: var(--cc-paper);
+    padding: 12px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 500; border-bottom: 1px solid var(--cc-ink);
+  }
+  .ux-detail-bar a { color: var(--cc-paper); text-decoration: none; opacity: 0.75; transition: opacity 0.15s; }
+  .ux-detail-bar a:hover { opacity: 1; }
+  .ux-detail-bar .ux-detail-tag { background: var(--cc-orange); color: var(--cc-ink); padding: 4px 10px; font-weight: 600; }
+  .ux-detail-bar .right { display: flex; gap: 20px; align-items: center; }
+
+  .ux-detail-main { max-width: 1240px; margin: 0 auto; padding: 56px 40px 120px; }
+  .ux-detail-hero { border-bottom: 1px solid var(--cc-ink); padding-bottom: 36px; margin-bottom: 56px; }
+  .ux-detail-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cc-ink-soft); font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .ux-detail-hero h1 {
+    font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 52px;
+    line-height: 1.05; letter-spacing: -0.02em; font-weight: 400;
+    color: var(--cc-ink); margin: 0 0 18px; max-width: 880px;
+  }
+  .ux-detail-hero h1 .accent { color: var(--cc-orange); }
+  .ux-detail-hero p.lede {
+    font-family: 'Inter', Arial, sans-serif; font-size: 17px; line-height: 1.5;
+    color: var(--cc-ink-soft); margin: 0; max-width: 760px;
+  }
+
+  .expr-section { margin: 0 0 96px; }
+  .expr-header {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 28px; align-items: baseline;
+    margin-bottom: 28px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--cc-warm-gray);
+  }
+  .expr-num { font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 400; line-height: 1; color: var(--cc-orange); letter-spacing: -0.04em; }
+  .expr-head-meta { display: flex; flex-direction: column; gap: 6px; }
+  .expr-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cc-orange); font-weight: 500; }
+  .expr-name { font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 32px; font-weight: 500; color: var(--cc-ink); margin: 0; letter-spacing: -0.015em; line-height: 1.1; }
+  .expr-desc { font-family: 'Inter', Arial, sans-serif; font-size: 15px; line-height: 1.55; color: var(--cc-ink-soft); margin: 6px 0 0; max-width: 720px; }
+
+  .expr-spec { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+  .spec-cell { border-top: 1px solid var(--cc-ink); padding-top: 12px; }
+  .spec-label { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-ink-soft); font-weight: 500; margin-bottom: 8px; }
+  .spec-value { font-family: 'Inter', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: var(--cc-ink); }
+
+  .wf-canvas { background: var(--cc-cream-light); border: 1px solid var(--cc-warm-gray); padding: 40px; margin: 0; }
+  .wf-canvas svg { width: 100%; height: auto; display: block; }
+  .wf-canvas + .wf-canvas { margin-top: 18px; }
+
+  .use-case-head {
+    margin: 28px 0 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--cc-warm-gray);
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 16px; align-items: baseline;
+  }
+  .use-case-letter {
+    font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 400;
+    color: var(--cc-orange); letter-spacing: -0.02em;
+  }
+  .use-case-head-text { display: flex; flex-direction: column; gap: 4px; }
+  .use-case-tag {
+    font-family: 'DM Mono', monospace; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cc-orange); font-weight: 600;
+  }
+  .use-case-name {
+    font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 22px;
+    font-weight: 500; color: var(--cc-ink); margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .use-case-desc {
+    font-family: 'Inter', Arial, sans-serif; font-size: 13.5px;
+    line-height: 1.55; color: var(--cc-ink-soft);
+    margin: 4px 0 0; max-width: 720px;
+  }
+
+  .lineage {
+    background: var(--cc-cream-light); border: 1px solid var(--cc-warm-gray);
+    padding: 36px 32px 28px; margin: 0 0 72px;
+  }
+  .lineage-title {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cc-ink-soft); font-weight: 500; margin-bottom: 14px;
+  }
+  .lineage svg { width: 100%; height: auto; display: block; }
+
+  @media (max-width: 760px) {
+    .ux-detail-main { padding: 32px 20px 80px; }
+    .ux-detail-hero h1 { font-size: 36px; }
+    .expr-header { grid-template-columns: 60px 1fr; gap: 14px; }
+    .expr-num { font-size: 32px; }
+    .expr-name { font-size: 24px; }
+    .expr-spec { grid-template-columns: 1fr 1fr; }
+    .wf-canvas { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ux-detail-bar">
+  <a href="../ux.html">← Back to UX Architecture</a>
+  <span class="ux-detail-tag">UX · DETAIL 02</span>
+  <div class="right">
+    <span style="opacity: 0.6;">v1 working draft</span>
+    <a href="../index.html">Project 01 ↗</a>
+  </div>
+</div>
+
+<main class="ux-detail-main">
+
+  <!-- Hero -->
+  <header class="ux-detail-hero">
+    <div class="ux-detail-eyebrow">UX Architecture · Detail 02</div>
+    <h1>The <span class="accent">Smart Deliverable Creator</span>.<br>The warm-pitch flow.</h1>
+    <p class="lede">A live, tracked link that replaces the bio slide. BD drops a brief, the system surfaces the right Chameleons, bios get auto-tailored, JCM (or whoever) reviews and sends. The client gets a single URL that holds 1&ndash;N Chameleons all tailored to their ask. Every open, dwell, and click feeds back to BD. <strong>The flagship Phase 1 build</strong> &mdash; promoted to Decision 008 in the stakeholder pass.</p>
+  </header>
+
+
+  <!-- Lineage — proper flow chart with decision diamonds + branches -->
+  <div class="lineage">
+    <div class="lineage-title">Flow &mdash; brief in, live link out</div>
+    <svg viewBox="0 0 1160 500" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ====== STAGE 01 · BRIEF (document shape) ====== -->
+      <g transform="translate(20, 80)">
+        <path d="M 0 0 L 100 0 L 120 20 L 120 130 L 0 130 Z" fill="#121212"/>
+        <path d="M 100 0 L 100 20 L 120 20" fill="none" stroke="#F5F2E8" stroke-width="0.5" opacity="0.4"/>
+        <text x="60" y="38" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.18em" font-weight="600">BRIEF</text>
+        <line x1="14" y1="48" x2="106" y2="48" stroke="#F5F2E8" stroke-width="0.4" opacity="0.4"/>
+        <text x="60" y="66" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#F5F2E8" font-style="italic">"Need 3 CDs</text>
+        <text x="60" y="80" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#F5F2E8" font-style="italic">for healthcare</text>
+        <text x="60" y="94" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#F5F2E8" font-style="italic">CMO role"</text>
+        <line x1="14" y1="108" x2="106" y2="108" stroke="#F5F2E8" stroke-width="0.4" opacity="0.3"/>
+        <text x="60" y="122" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#F5F2E8" letter-spacing="0.14em" opacity="0.6">FROM PARTNER</text>
+      </g>
+      <text x="80" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">INPUT</text>
+
+      <!-- Arrow 1: BRIEF → MATCH -->
+      <line x1="144" y1="145" x2="186" y2="145" stroke="#121212" stroke-width="1"/>
+      <polygon points="182,141 190,145 182,149" fill="#121212"/>
+
+
+      <!-- ====== STAGE 02 · MATCH + SURFACE (process box with mini chart) ====== -->
+      <g transform="translate(190, 80)">
+        <rect x="0" y="0" width="190" height="130" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="1"/>
+        <rect x="0" y="0" width="190" height="22" rx="3" fill="#EA633F"/>
+        <text x="95" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">MATCH + SURFACE</text>
+
+        <!-- Mini ranked bar chart -->
+        <g transform="translate(14, 34)">
+          <text x="0" y="8" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">Nemo</text>
+          <text x="48" y="8" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F">94%</text>
+          <rect x="80" y="2" width="78" height="8" fill="#EA633F"/>
+
+          <text x="0" y="28" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">Caleb</text>
+          <text x="48" y="28" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F">88%</text>
+          <rect x="80" y="22" width="72" height="8" fill="#EA633F" opacity="0.8"/>
+
+          <text x="0" y="48" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">Ivonne</text>
+          <text x="48" y="48" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F">82%</text>
+          <rect x="80" y="42" width="64" height="8" fill="#EA633F" opacity="0.65"/>
+
+          <text x="0" y="68" font-family="DM Mono, monospace" font-size="8" fill="#121212" letter-spacing="0.06em">Chris</text>
+          <text x="48" y="68" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F">71%</text>
+          <rect x="80" y="62" width="48" height="8" fill="#EA633F" opacity="0.35"/>
+        </g>
+
+        <line x1="14" y1="116" x2="176" y2="116" stroke="#121212" stroke-width="0.3" opacity="0.3"/>
+      </g>
+      <text x="285" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">SYSTEM · AUTOMATED</text>
+
+      <!-- Arrow 2: MATCH → OPT-IN -->
+      <line x1="384" y1="145" x2="430" y2="145" stroke="#121212" stroke-width="1"/>
+      <polygon points="426,141 434,145 426,149" fill="#121212"/>
+
+
+      <!-- ====== STAGE 03 · OPT-IN (decision diamond) ====== -->
+      <g transform="translate(430, 80)">
+        <polygon points="80,0 160,65 80,130 0,65" fill="#FFFFFF" stroke="#121212" stroke-width="1.5"/>
+        <text x="80" y="56" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="600">SLACK</text>
+        <text x="80" y="72" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="600">OPT IN?</text>
+        <text x="80" y="92" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#6F6A5F" font-style="italic">1-tap</text>
+      </g>
+      <text x="510" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">CHAMELEONS · CHOOSE</text>
+
+      <!-- Branch YES (right): 3 accept -->
+      <g>
+        <line x1="590" y1="145" x2="638" y2="145" stroke="#121212" stroke-width="1"/>
+        <polygon points="634,141 642,145 634,149" fill="#121212"/>
+        <text x="614" y="138" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.12em" font-weight="600">YES · 3</text>
+      </g>
+
+      <!-- Branch NO (down): 1 declines -->
+      <g>
+        <line x1="510" y1="210" x2="510" y2="285" stroke="#121212" stroke-width="1" stroke-dasharray="4,3"/>
+        <polygon points="506,281 514,285 514,277" fill="#121212"/>
+        <text x="528" y="248" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.12em">NO · 1</text>
+        <rect x="450" y="290" width="120" height="36" rx="3" fill="none" stroke="#6F6A5F" stroke-width="0.75" stroke-dasharray="3,2"/>
+        <text x="510" y="306" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.12em" font-weight="600">DROPPED</text>
+        <text x="510" y="320" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#6F6A5F" font-style="italic">"not my space"</text>
+      </g>
+
+
+      <!-- ====== STAGE 04 · AUTO-TAILOR (process with mini bio thumbnails) ====== -->
+      <g transform="translate(642, 80)">
+        <rect x="0" y="0" width="190" height="130" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="1"/>
+        <rect x="0" y="0" width="190" height="22" rx="3" fill="#EA633F"/>
+        <text x="95" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.16em" font-weight="600">AUTO-TAILOR</text>
+
+        <!-- 3 mini bio thumbnails -->
+        <g transform="translate(14, 32)">
+          <rect x="0" y="0" width="162" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+          <rect x="4" y="4" width="18" height="18" rx="1" fill="#121212"/>
+          <rect x="28" y="8" width="40" height="3" rx="1" fill="#121212"/>
+          <text x="28" y="20" font-family="DM Mono, monospace" font-size="6" fill="#EA633F" letter-spacing="0.1em" font-weight="600">CREATIVE DIRECTOR</text>
+          <rect x="120" y="8" width="36" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+          <text x="138" y="17" text-anchor="middle" font-family="DM Mono, monospace" font-size="6" fill="#121212">94%</text>
+
+          <rect x="0" y="32" width="162" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+          <rect x="4" y="36" width="18" height="18" rx="1" fill="#121212"/>
+          <rect x="28" y="40" width="40" height="3" rx="1" fill="#121212"/>
+          <text x="28" y="52" font-family="DM Mono, monospace" font-size="6" fill="#EA633F" letter-spacing="0.1em" font-weight="600">STRATEGY + VOICE</text>
+          <rect x="120" y="40" width="36" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+          <text x="138" y="49" text-anchor="middle" font-family="DM Mono, monospace" font-size="6" fill="#121212">88%</text>
+
+          <rect x="0" y="64" width="162" height="26" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+          <rect x="4" y="68" width="18" height="18" rx="1" fill="#121212"/>
+          <rect x="28" y="72" width="40" height="3" rx="1" fill="#121212"/>
+          <text x="28" y="84" font-family="DM Mono, monospace" font-size="6" fill="#EA633F" letter-spacing="0.1em" font-weight="600">CREATIVE DIRECTOR</text>
+          <rect x="120" y="72" width="36" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+          <text x="138" y="81" text-anchor="middle" font-family="DM Mono, monospace" font-size="6" fill="#121212">82%</text>
+        </g>
+      </g>
+      <text x="737" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">SYSTEM · TAILORS PER BRIEF</text>
+
+      <!-- Arrow 3: TAILOR → APPROVE -->
+      <line x1="836" y1="145" x2="882" y2="145" stroke="#121212" stroke-width="1"/>
+      <polygon points="878,141 886,145 878,149" fill="#121212"/>
+
+
+      <!-- ====== STAGE 05 · JCM REVIEW (decision diamond) ====== -->
+      <g transform="translate(882, 80)">
+        <polygon points="70,0 140,65 70,130 0,65" fill="#FFFFFF" stroke="#121212" stroke-width="1.5"/>
+        <text x="70" y="56" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="600">JCM</text>
+        <text x="70" y="72" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.12em" font-weight="600">APPROVES?</text>
+        <text x="70" y="92" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#6F6A5F" font-style="italic">human gate</text>
+      </g>
+      <text x="952" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">BD · APPROVES</text>
+
+      <!-- Branch APPROVE (right) -->
+      <g>
+        <line x1="1022" y1="145" x2="1068" y2="145" stroke="#121212" stroke-width="1"/>
+        <polygon points="1064,141 1072,145 1064,149" fill="#121212"/>
+        <text x="1045" y="138" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.12em" font-weight="600">APPROVE</text>
+      </g>
+
+      <!-- Branch REVISE (loop back to TAILOR) -->
+      <g>
+        <path d="M 952 80 L 952 50 L 737 50 L 737 80" stroke="#121212" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+        <polygon points="733,76 737,84 741,76" fill="#121212"/>
+        <text x="845" y="42" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.12em" font-style="italic">REVISE · LOOP BACK</text>
+      </g>
+
+
+      <!-- ====== STAGE 06 · LIVE LINK (output) ====== -->
+      <g transform="translate(1072, 60)">
+        <rect x="0" y="20" width="74" height="160" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="1"/>
+        <text x="37" y="38" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.16em" font-weight="600">LIVE</text>
+        <text x="37" y="52" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.16em" font-weight="600">LINK</text>
+        <line x1="10" y1="60" x2="64" y2="60" stroke="#121212" stroke-width="0.3" opacity="0.3"/>
+        <!-- Mini stacked deliverable -->
+        <rect x="10" y="68" width="54" height="30" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="13" y="72" width="14" height="10" rx="1" fill="#121212"/>
+        <rect x="30" y="74" width="30" height="2" rx="1" fill="#121212"/>
+        <rect x="30" y="80" width="20" height="2" rx="1" fill="#6F6A5F"/>
+
+        <rect x="10" y="102" width="54" height="30" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="13" y="106" width="14" height="10" rx="1" fill="#121212"/>
+        <rect x="30" y="108" width="30" height="2" rx="1" fill="#121212"/>
+        <rect x="30" y="114" width="20" height="2" rx="1" fill="#6F6A5F"/>
+
+        <rect x="10" y="136" width="54" height="30" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="13" y="140" width="14" height="10" rx="1" fill="#121212"/>
+        <rect x="30" y="142" width="30" height="2" rx="1" fill="#121212"/>
+        <rect x="30" y="148" width="20" height="2" rx="1" fill="#6F6A5F"/>
+      </g>
+      <text x="1109" y="240" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">CLIENT</text>
+
+      <!-- Tracking arrow back: analytics flow back from client to BD dashboard -->
+      <g>
+        <text x="580" y="380" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.18em" font-weight="600">ANALYTICS RETURN PATH</text>
+        <path d="M 1109 250 Q 1109 360 580 390 Q 80 420 80 250" stroke="#EA633F" stroke-width="1.25" stroke-dasharray="5,4" fill="none" opacity="0.7"/>
+        <polygon points="76,254 80,246 84,254" fill="#EA633F" opacity="0.7"/>
+        <text x="900" y="358" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F" font-style="italic">opens · dwell · conversions feed back to BD</text>
+        <text x="260" y="358" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F" font-style="italic">match algorithm learns what converts</text>
+      </g>
+
+      <!-- Footer caption -->
+      <line x1="20" y1="460" x2="1140" y2="460" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+      <text x="20" y="478" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.08em">SIX STAGES · TWO DECISION GATES · ONE FEEDBACK LOOP · BRIEF IN AT 9:14 · LIVE LINK OUT BY 9:51</text>
+    </svg>
+  </div>
+
+
+  <!-- ─── SECTION 01 · CLIENT-FACING (3 use cases) ─── -->
+  <section class="expr-section" id="client-facing">
+    <header class="expr-header">
+      <div class="expr-num">01</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">CLIENT-FACING · THREE USE CASES</div>
+        <h2 class="expr-name">The client sees a live, tracked link.</h2>
+        <p class="expr-desc">Three patterns covering 95% of warm-pitch situations. <strong>A</strong> is the canonical shortlist (most common). <strong>B</strong> is the single-Chameleon deep-dive (when you&apos;re pitching one specific person). <strong>C</strong> is the build-a-team (multi-discipline assembly). All three share the same deliverable shell &mdash; tailored header, Bio Module stack, footer analytics tag. They differ in what gets stacked.</p>
+      </div>
+    </header>
+
+
+    <!-- ── USE CASE A · Multi-Chameleon Shortlist ── -->
+    <div class="use-case-head">
+      <div class="use-case-letter">A</div>
+      <div class="use-case-head-text">
+        <div class="use-case-tag">USE CASE A · CANONICAL SHORTLIST</div>
+        <h3 class="use-case-name">3 CDs for a healthcare CMO role.</h3>
+        <p class="use-case-desc">The classic warm-pitch: client asks for N options, BD sends N tailored bios in a single live link. Client compares, picks one, books. Every Chameleon in the deliverable can see they were on it.</p>
+      </div>
+    </div>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1100 620" xmlns="http://www.w3.org/2000/svg">
+        <!-- Browser frame -->
+        <rect x="0" y="0" width="1000" height="600" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">cc.deliverables/for-acme-co/cmo-shortlist</text>
+
+        <!-- Deliverable header -->
+        <g transform="translate(40, 50)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">TAILORED FOR ACME CO · CMO SHORTLIST</text>
+          <text x="0" y="42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" fill="#121212" font-weight="500" letter-spacing="-0.005em">Three Chameleons for the CMO role.</text>
+          <text x="0" y="64" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6F6A5F">Sent by JCM &middot; June 14 &middot; live link &middot; expires in 14 days</text>
+
+          <!-- Quick nav -->
+          <g transform="translate(620, 14)">
+            <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.16em">JUMP TO:</text>
+            <rect x="60" y="-10" width="86" height="22" rx="11" fill="#EA633F"/>
+            <text x="103" y="5" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.08em" font-weight="600">01 · NEMO</text>
+            <rect x="152" y="-10" width="80" height="22" rx="11" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="192" y="5" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.08em">02 · CALEB</text>
+            <rect x="238" y="-10" width="86" height="22" rx="11" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="281" y="5" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.08em">03 · IVONNE</text>
+          </g>
+        </g>
+
+        <line x1="40" y1="138" x2="960" y2="138" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- Bio Module 1 -->
+        <g transform="translate(40, 158)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">01 · CREATIVE + VISUAL</text>
+          <text x="920" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em">AVAILABLE Q3</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="920" height="100" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="14" width="72" height="72" rx="1" fill="#121212"/>
+            <rect x="100" y="22" width="80" height="6" rx="1" fill="#121212"/>
+            <rect x="100" y="36" width="120" height="3" rx="1" fill="#6F6A5F"/>
+            <text x="100" y="60" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-weight="500" fill="#121212">15</text>
+            <text x="100" y="70" font-family="DM Mono, monospace" font-size="6.5" fill="#6F6A5F" letter-spacing="0.1em">YRS</text>
+            <text x="130" y="60" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-weight="500" fill="#121212">47</text>
+            <text x="130" y="70" font-family="DM Mono, monospace" font-size="6.5" fill="#6F6A5F" letter-spacing="0.1em">CLNT</text>
+            <text x="168" y="60" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-weight="500" fill="#121212">NYC</text>
+            <text x="168" y="70" font-family="DM Mono, monospace" font-size="6.5" fill="#6F6A5F" letter-spacing="0.1em">LOC</text>
+            <!-- Bio bars -->
+            <rect x="244" y="20" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="26" width="190" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="32" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="38" width="180" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="46" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="52" width="180" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="58" width="160" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="64" width="120" height="2.5" rx="1" fill="#6F6A5F"/>
+            <!-- Experience card mini -->
+            <rect x="480" y="14" width="220" height="56" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <rect x="490" y="22" width="32" height="32" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+            <text x="530" y="32" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.14em" font-weight="600">PWC</text>
+            <rect x="530" y="38" width="120" height="3" rx="1" fill="#121212"/>
+            <rect x="530" y="46" width="80" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="490" y="58" width="200" height="2" rx="1" fill="#6F6A5F"/>
+            <!-- Pagination -->
+            <g transform="translate(560, 80)">
+              <rect x="0" y="0" width="20" height="14" rx="7" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <text x="10" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">1</text>
+              <rect x="24" y="0" width="20" height="14" rx="7" fill="#EA633F"/>
+              <text x="34" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212" font-weight="600">2</text>
+              <rect x="48" y="0" width="20" height="14" rx="7" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <text x="58" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">3</text>
+              <rect x="72" y="0" width="20" height="14" rx="7" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <text x="82" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">4</text>
+              <rect x="96" y="0" width="20" height="14" rx="7" fill="none" stroke="#121212" stroke-width="0.4"/>
+              <text x="106" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">5</text>
+            </g>
+            <!-- Capability pills -->
+            <g transform="translate(720, 14)">
+              <rect x="0" y="0" width="80" height="14" rx="7" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+              <text x="40" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="7.5" fill="#121212">CD / DIR</text>
+              <rect x="86" y="0" width="80" height="14" rx="7" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+              <text x="126" y="9" text-anchor="middle" font-family="DM Mono, monospace" font-size="7.5" fill="#121212">DESIGN SYS</text>
+              <rect x="0" y="20" width="80" height="14" rx="7" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+              <text x="40" y="29" text-anchor="middle" font-family="DM Mono, monospace" font-size="7.5" fill="#121212">UX / UI</text>
+              <rect x="86" y="20" width="80" height="14" rx="7" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+              <text x="126" y="29" text-anchor="middle" font-family="DM Mono, monospace" font-size="7.5" fill="#121212">BRAND</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Bio Module 2 (faded) -->
+        <g transform="translate(40, 290)" opacity="0.6">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">02 · STRATEGY + VOICE</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="920" height="100" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="14" width="72" height="72" rx="1" fill="#121212"/>
+            <rect x="100" y="22" width="80" height="6" rx="1" fill="#121212"/>
+            <rect x="100" y="36" width="120" height="3" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="20" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="26" width="190" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="244" y="32" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="480" y="14" width="220" height="56" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+          </g>
+        </g>
+
+        <!-- Bio Module 3 (more faded) -->
+        <g transform="translate(40, 422)" opacity="0.4">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">03 · CREATIVE + VISUAL</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="920" height="100" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="14" width="72" height="72" rx="1" fill="#121212"/>
+            <rect x="100" y="22" width="80" height="6" rx="1" fill="#121212"/>
+          </g>
+        </g>
+
+        <!-- Footer analytics tag -->
+        <line x1="40" y1="554" x2="960" y2="554" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <text x="40" y="574" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">LIVE · TRACKED</text>
+        <circle cx="160" cy="572" r="3" fill="#EA633F"/>
+        <text x="170" y="575" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.08em">EVERY OPEN, DWELL, CLICK FLOWS BACK TO JCM&apos;S DASHBOARD</text>
+
+        <!-- ──── Numbered callouts ──── -->
+        <g>
+          <!-- 1 → Deliverable header -->
+          <line x1="-32" y1="62" x2="-12" y2="62" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="62" r="11" fill="#EA633F"/>
+          <text x="-46" y="66" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <!-- 2 → Quick nav -->
+          <line x1="-32" y1="100" x2="-12" y2="100" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="100" r="11" fill="#EA633F"/>
+          <text x="-46" y="104" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <!-- 3 → Active Bio Module (#1 focus) -->
+          <line x1="-32" y1="220" x2="-12" y2="220" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="220" r="11" fill="#EA633F"/>
+          <text x="-46" y="224" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+
+          <!-- 4 → Additional Bio Modules (faded) -->
+          <line x1="-32" y1="380" x2="-12" y2="380" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="380" r="11" fill="#EA633F"/>
+          <text x="-46" y="384" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+
+          <!-- 5 → Analytics tag -->
+          <line x1="-32" y1="574" x2="-12" y2="574" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="574" r="11" fill="#EA633F"/>
+          <text x="-46" y="578" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">5</text>
+        </g>
+      </svg>
+
+      <!-- Legend -->
+      <svg viewBox="0 0 1100 100" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="1000" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">DELIVERABLE ANATOMY · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">TAILORED HEADER</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Client name + role + sender + expiration</text>
+
+          <g transform="translate(250, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">QUICK NAV</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Pills to jump between Chameleons</text>
+          </g>
+
+          <g transform="translate(500, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">BIO MODULE (ACTIVE)</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Currently focused profile</text>
+          </g>
+
+          <g transform="translate(750, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">ADDITIONAL BIOS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Stacked below, all in the deliverable</text>
+          </g>
+        </g>
+        <g transform="translate(0, 84)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">5</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">ANALYTICS TAG</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Live · tracked · expiration · feeds BD dashboard</text>
+        </g>
+      </svg>
+    </div>
+
+
+    <!-- ── USE CASE B · Single Chameleon Deep Dive ── -->
+    <div class="use-case-head">
+      <div class="use-case-letter">B</div>
+      <div class="use-case-head-text">
+        <div class="use-case-tag">USE CASE B · SINGLE-CHAMELEON DEEP DIVE</div>
+        <h3 class="use-case-name">One Chameleon, the full pitch.</h3>
+        <p class="use-case-desc">When you&apos;re pitching one specific person for one specific role. The deliverable becomes a richer profile &mdash; Bio Module on top, extended context below (relevant case studies, project deep-dives, additional testimonials, scheduled meeting CTA).</p>
+      </div>
+    </div>
+
+    <div class="wf-canvas">
+      <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="660" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">cc.deliverables/for-acme-co/nemo-cmo-pitch</text>
+
+        <!-- Header -->
+        <g transform="translate(40, 50)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">TAILORED FOR ACME CO · NEMO MORALES FOR CMO</text>
+          <text x="0" y="42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" fill="#121212" font-weight="500" letter-spacing="-0.005em">Nemo Morales, your fractional CMO.</text>
+          <text x="0" y="64" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6F6A5F">Sent by JCM &middot; June 14 &middot; live link &middot; expires in 14 days</text>
+        </g>
+
+        <line x1="40" y1="138" x2="960" y2="138" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- Bio Module (single, full) -->
+        <g transform="translate(40, 158)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">PROFILE</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="920" height="120" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="14" width="92" height="92" rx="1" fill="#121212"/>
+            <rect x="120" y="22" width="120" height="8" rx="1" fill="#121212"/>
+            <rect x="120" y="38" width="140" height="4" rx="1" fill="#6F6A5F"/>
+            <text x="120" y="68" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">15</text>
+            <text x="120" y="80" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.12em">YRS</text>
+            <text x="160" y="68" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">47</text>
+            <text x="160" y="80" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.12em">CLNT</text>
+            <text x="200" y="68" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">NYC</text>
+            <text x="200" y="80" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.12em">LOC</text>
+
+            <rect x="280" y="22" width="240" height="3" rx="1" fill="#6F6A5F"/>
+            <rect x="280" y="30" width="230" height="3" rx="1" fill="#6F6A5F"/>
+            <rect x="280" y="38" width="240" height="3" rx="1" fill="#6F6A5F"/>
+            <rect x="280" y="46" width="180" height="3" rx="1" fill="#6F6A5F"/>
+
+            <rect x="560" y="14" width="340" height="92" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <rect x="572" y="26" width="44" height="44" rx="1" fill="none" stroke="#121212" stroke-width="0.4"/>
+            <text x="624" y="36" font-family="DM Mono, monospace" font-size="8" fill="#EA633F" letter-spacing="0.14em" font-weight="600">PWC</text>
+            <rect x="624" y="44" width="160" height="3" rx="1" fill="#121212"/>
+            <rect x="624" y="52" width="120" height="2.5" rx="1" fill="#6F6A5F"/>
+          </g>
+        </g>
+
+        <!-- Extended sections below -->
+        <g transform="translate(40, 310)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">RELEVANT WORK · HEALTHCARE</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="290" height="80" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+            <rect x="12" y="12" width="50" height="36" rx="1" fill="#121212"/>
+            <text x="72" y="22" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CASE 01 · PWC HEALTHCARE</text>
+            <rect x="72" y="30" width="180" height="3" rx="1" fill="#121212"/>
+            <rect x="12" y="56" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="12" y="62" width="230" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="12" y="68" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+
+            <rect x="310" y="0" width="290" height="80" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+            <rect x="322" y="12" width="50" height="36" rx="1" fill="#121212"/>
+            <text x="382" y="22" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CASE 02 · COLLECTIVE OS</text>
+            <rect x="382" y="30" width="180" height="3" rx="1" fill="#121212"/>
+            <rect x="322" y="56" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="322" y="62" width="240" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="322" y="68" width="180" height="2.5" rx="1" fill="#6F6A5F"/>
+
+            <rect x="620" y="0" width="290" height="80" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+            <rect x="632" y="12" width="50" height="36" rx="1" fill="#121212"/>
+            <text x="692" y="22" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CASE 03 · PUBLICIS SAPIENT</text>
+            <rect x="692" y="30" width="180" height="3" rx="1" fill="#121212"/>
+            <rect x="632" y="56" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="632" y="62" width="240" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="632" y="68" width="180" height="2.5" rx="1" fill="#6F6A5F"/>
+          </g>
+        </g>
+
+        <g transform="translate(40, 440)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">TESTIMONIALS · FROM CMOs</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="450" height="60" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+            <text x="14" y="20" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-style="italic" fill="#121212">&ldquo;Nemo gave our healthcare brand the strategic</text>
+            <text x="14" y="34" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-style="italic" fill="#121212">clarity it needed at a critical scale moment.&rdquo;</text>
+            <text x="14" y="50" font-family="DM Mono, monospace" font-size="7" fill="#EA633F" letter-spacing="0.14em" font-weight="600">— CHRIS J. · CMO · PWC HEALTH</text>
+
+            <rect x="470" y="0" width="450" height="60" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+            <text x="484" y="20" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-style="italic" fill="#121212">&ldquo;Bridges creative direction and strategy in</text>
+            <text x="484" y="34" font-family="IBM Plex Sans, Arial, sans-serif" font-size="11" font-style="italic" fill="#121212">a way few in the field can match.&rdquo;</text>
+            <text x="484" y="50" font-family="DM Mono, monospace" font-size="7" fill="#EA633F" letter-spacing="0.14em" font-weight="600">— CJ M. · CMO · WORK MONEY</text>
+          </g>
+        </g>
+
+        <!-- CTA -->
+        <g transform="translate(40, 560)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">NEXT STEP</text>
+          <rect x="0" y="12" width="220" height="40" rx="2" fill="#EA633F"/>
+          <text x="110" y="36" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#121212" letter-spacing="0.16em" font-weight="600">BOOK A DISCOVERY CALL</text>
+          <text x="240" y="36" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6F6A5F">JCM is on the call. Calendar opens to next Tuesday.</text>
+        </g>
+
+        <line x1="40" y1="624" x2="960" y2="624" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <text x="40" y="644" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">LIVE · TRACKED</text>
+        <circle cx="160" cy="642" r="3" fill="#EA633F"/>
+        <text x="170" y="645" font-family="DM Mono, monospace" font-size="8.5" fill="#121212" letter-spacing="0.08em">EVERY SECTION DWELL FEEDS BACK · WHICH CASE STUDY DID THEY READ</text>
+      </svg>
+    </div>
+
+
+    <!-- ── USE CASE C · Build a Team ── -->
+    <div class="use-case-head">
+      <div class="use-case-letter">C</div>
+      <div class="use-case-head-text">
+        <div class="use-case-tag">USE CASE C · BUILD-A-TEAM</div>
+        <h3 class="use-case-name">Multi-discipline shortlist by role.</h3>
+        <p class="use-case-desc">When the client needs a whole team. Bio Modules grouped by role &mdash; CDs, Designers, PMs. Client picks one from each section. Sections collapse/expand. The deliverable becomes an interactive build flow.</p>
+      </div>
+    </div>
+
+    <div class="wf-canvas">
+      <svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="620" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">cc.deliverables/for-acme-co/brand-team</text>
+
+        <g transform="translate(40, 50)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">TAILORED FOR ACME CO · BRAND TEAM ASSEMBLY</text>
+          <text x="0" y="42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" fill="#121212" font-weight="500" letter-spacing="-0.005em">Build your brand team.</text>
+          <text x="0" y="64" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6F6A5F">Pick one from each role. Live link &middot; expires in 21 days.</text>
+
+          <!-- Team builder indicator -->
+          <g transform="translate(620, 0)">
+            <rect x="0" y="0" width="280" height="56" rx="2" fill="#EA633F" opacity="0.12" stroke="#EA633F" stroke-width="0.75"/>
+            <text x="14" y="18" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.18em" font-weight="600">YOUR TEAM (1 OF 3 ROLES PICKED)</text>
+            <circle cx="20" cy="38" r="8" fill="#121212"/>
+            <text x="34" y="42" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">NEMO</text>
+            <rect x="80" y="32" width="40" height="12" rx="6" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="100" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">PICK CD</text>
+            <rect x="126" y="32" width="40" height="12" rx="6" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="146" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#121212">PICK PM</text>
+          </g>
+        </g>
+
+        <line x1="40" y1="138" x2="960" y2="138" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- Role group: CREATIVE DIRECTORS -->
+        <g transform="translate(40, 158)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">ROLE 01 · CREATIVE DIRECTORS</text>
+          <text x="920" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">3 OPTIONS</text>
+
+          <g transform="translate(0, 14)">
+            <!-- Card 1 -->
+            <rect x="0" y="0" width="290" height="120" rx="3" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <rect x="12" y="12" width="40" height="40" rx="1" fill="#121212"/>
+            <rect x="60" y="20" width="80" height="6" rx="1" fill="#121212"/>
+            <text x="60" y="40" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CREATIVE DIRECTOR</text>
+            <rect x="12" y="68" width="270" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="12" y="74" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="12" y="80" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="12" y="94" width="64" height="16" rx="2" fill="#EA633F"/>
+            <text x="44" y="105" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">PICK</text>
+
+            <!-- Card 2 (PICKED) -->
+            <rect x="312" y="0" width="290" height="120" rx="3" fill="#EA633F" opacity="0.12" stroke="#EA633F" stroke-width="1"/>
+            <rect x="324" y="12" width="40" height="40" rx="1" fill="#121212"/>
+            <rect x="372" y="20" width="80" height="6" rx="1" fill="#121212"/>
+            <text x="372" y="40" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CREATIVE DIRECTOR</text>
+            <rect x="324" y="68" width="270" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="324" y="74" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="324" y="80" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="324" y="94" width="80" height="16" rx="2" fill="#121212"/>
+            <text x="364" y="105" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.12em" font-weight="600">PICKED ✓</text>
+
+            <!-- Card 3 -->
+            <rect x="624" y="0" width="290" height="120" rx="3" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <rect x="636" y="12" width="40" height="40" rx="1" fill="#121212"/>
+            <rect x="684" y="20" width="80" height="6" rx="1" fill="#121212"/>
+            <text x="684" y="40" font-family="DM Mono, monospace" font-size="7.5" fill="#EA633F" letter-spacing="0.12em" font-weight="600">CREATIVE DIRECTOR</text>
+            <rect x="636" y="68" width="270" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="636" y="74" width="260" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="636" y="80" width="200" height="2.5" rx="1" fill="#6F6A5F"/>
+            <rect x="636" y="94" width="64" height="16" rx="2" fill="#EA633F"/>
+            <text x="668" y="105" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">PICK</text>
+          </g>
+        </g>
+
+        <!-- Role group: DESIGNERS (collapsed) -->
+        <line x1="40" y1="312" x2="960" y2="312" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <g transform="translate(40, 332)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">ROLE 02 · DESIGNERS</text>
+          <text x="200" y="0" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">3 OPTIONS</text>
+          <text x="920" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.18em" font-weight="600">▾ EXPAND</text>
+          <rect x="0" y="14" width="920" height="40" rx="2" fill="none" stroke="#121212" stroke-width="0.4" stroke-dasharray="4,3"/>
+          <text x="460" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em">3 DESIGNER CARDS COLLAPSED · TAP TO EXPAND</text>
+        </g>
+
+        <!-- Role group: PMS (collapsed) -->
+        <line x1="40" y1="404" x2="960" y2="404" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <g transform="translate(40, 424)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">ROLE 03 · PROJECT MANAGERS</text>
+          <text x="260" y="0" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">2 OPTIONS</text>
+          <text x="920" y="0" text-anchor="end" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.18em" font-weight="600">▾ EXPAND</text>
+          <rect x="0" y="14" width="920" height="40" rx="2" fill="none" stroke="#121212" stroke-width="0.4" stroke-dasharray="4,3"/>
+          <text x="460" y="40" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em">2 PM CARDS COLLAPSED · TAP TO EXPAND</text>
+        </g>
+
+        <!-- Confirm Team CTA -->
+        <g transform="translate(40, 520)">
+          <rect x="0" y="0" width="240" height="44" rx="2" fill="#121212"/>
+          <text x="120" y="28" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.18em" font-weight="600">CONFIRM TEAM →</text>
+          <text x="260" y="28" font-family="Inter, Arial, sans-serif" font-size="13" fill="#6F6A5F">Sends your selections back to JCM, who&apos;ll schedule introductions.</text>
+        </g>
+
+        <line x1="40" y1="586" x2="960" y2="586" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <text x="40" y="606" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">LIVE · TRACKED · WHO DID THEY PICK FOR EACH ROLE</text>
+      </svg>
+    </div>
+
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Shared shell</div>
+        <div class="spec-value">Browser frame &middot; tailored header (client + role + sender + expiration) &middot; live link &middot; analytics tag in footer</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">What varies</div>
+        <div class="spec-value">A: stacked Bio Modules &middot; B: Bio Module + extended context &middot; C: grouped by role + selection state</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Per-pitch edits</div>
+        <div class="spec-value">Header copy &middot; bio tailoring &middot; experience card emphasis &middot; expiration window &middot; additional case studies in B</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Replaces</div>
+        <div class="spec-value">The Google Slides bio + email PDF workflow. <a href="../decisions.html">Decision 006</a> (PDF deprecated) and <a href="../decisions.html">Decision 008</a> (Smart Deliverable is Phase 1) both land here.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SECTION 02 · BD ADMIN ─── -->
+  <section class="expr-section" id="bd-admin">
+    <header class="expr-header">
+      <div class="expr-num">02</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">BD ADMIN · CREATION FLOW</div>
+        <h2 class="expr-name">BD assembles in one structured hour.</h2>
+        <p class="expr-desc">Brief in, deliverable out. The system surfaces fits, handles Slack opt-in coordination, auto-tailors the bios, queues them for BD to review and approve. JCM&apos;s half-day of Slack DMs collapses to a single dashboard view. Wireframe shows the dashboard at the "ready to send" stage &mdash; brief loaded, fits surfaced, 3 of 4 Chameleons accepted, bios tailored and awaiting approval.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1060 700" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="680" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">admin.chameleoncollective.com/deliverables/new</text>
+
+        <!-- Top bar: BD admin -->
+        <rect x="0" y="28" width="1000" height="32" fill="#121212"/>
+        <text x="20" y="48" font-family="DM Mono, monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.16em" font-weight="600">CC ADMIN · DELIVERABLES</text>
+        <text x="980" y="48" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.14em" opacity="0.7">JCM</text>
+
+        <!-- Brief input -->
+        <g transform="translate(40, 80)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">01 · BRIEF</text>
+          <rect x="0" y="22" width="920" height="80" rx="3" fill="#F5F2E8" stroke="#121212" stroke-width="0.5"/>
+          <text x="14" y="42" font-family="DM Mono, monospace" font-size="8.5" fill="#EA633F" letter-spacing="0.14em" font-weight="600">FROM REFERRAL PARTNER · 9:14 AM</text>
+          <text x="14" y="62" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" fill="#121212">&ldquo;Need 3 CD options for a healthcare CMO role at Acme Co. Pitch needs to be in by EOD.&rdquo;</text>
+          <rect x="14" y="76" width="80" height="18" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+          <text x="54" y="88" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em">HEALTHCARE</text>
+          <rect x="100" y="76" width="60" height="18" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+          <text x="130" y="88" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em">CMO</text>
+          <rect x="166" y="76" width="80" height="18" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+          <text x="206" y="88" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em">EOD TODAY</text>
+        </g>
+
+        <!-- Surfaced Chameleons -->
+        <g transform="translate(40, 200)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">02 · BEST FITS · SURFACED</text>
+          <text x="920" y="14" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">4 RANKED BY MATCH SCORE</text>
+
+          <g transform="translate(0, 26)">
+            <!-- Chameleon 1: Nemo (accepted) -->
+            <rect x="0" y="0" width="920" height="56" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="12" width="32" height="32" rx="1" fill="#121212"/>
+            <text x="58" y="28" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Nemo Morales</text>
+            <text x="58" y="42" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Creative + Visual · 15 yrs · 47 clients · Healthcare experience: PWC Health, Theory</text>
+            <rect x="640" y="14" width="80" height="28" rx="2" fill="#EA633F"/>
+            <text x="680" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">MATCH 94%</text>
+            <rect x="728" y="14" width="80" height="28" rx="14" fill="#121212"/>
+            <text x="768" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.14em" font-weight="600">ACCEPTED ✓</text>
+            <text x="824" y="32" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.1em">Replied 11 min</text>
+          </g>
+
+          <g transform="translate(0, 90)">
+            <rect x="0" y="0" width="920" height="56" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="12" width="32" height="32" rx="1" fill="#121212"/>
+            <text x="58" y="28" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Caleb Ludwick</text>
+            <text x="58" y="42" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Strategy + Voice · 12 yrs · 22 clients · Healthcare: Mastercard Health, Patagonia</text>
+            <rect x="640" y="14" width="80" height="28" rx="2" fill="#EA633F" opacity="0.7"/>
+            <text x="680" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">MATCH 88%</text>
+            <rect x="728" y="14" width="80" height="28" rx="14" fill="#121212"/>
+            <text x="768" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.14em" font-weight="600">ACCEPTED ✓</text>
+            <text x="824" y="32" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.1em">Replied 18 min</text>
+          </g>
+
+          <g transform="translate(0, 154)">
+            <rect x="0" y="0" width="920" height="56" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="12" width="32" height="32" rx="1" fill="#121212"/>
+            <text x="58" y="28" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Ivonne Azurdia</text>
+            <text x="58" y="42" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Creative + Visual · 9 yrs · 28 clients · Healthcare: Revlon Health, L&apos;Oréal Health</text>
+            <rect x="640" y="14" width="80" height="28" rx="2" fill="#EA633F" opacity="0.6"/>
+            <text x="680" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">MATCH 82%</text>
+            <rect x="728" y="14" width="80" height="28" rx="14" fill="#121212"/>
+            <text x="768" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#F5F2E8" letter-spacing="0.14em" font-weight="600">ACCEPTED ✓</text>
+            <text x="824" y="32" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.1em">Replied 24 min</text>
+          </g>
+
+          <g transform="translate(0, 218)" opacity="0.55">
+            <rect x="0" y="0" width="920" height="56" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.5"/>
+            <rect x="14" y="12" width="32" height="32" rx="1" fill="#121212"/>
+            <text x="58" y="28" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Chris Baccus</text>
+            <text x="58" y="42" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">DTC Performance · 2-5 yrs · Healthcare exposure: none direct</text>
+            <rect x="640" y="14" width="80" height="28" rx="2" fill="#EA633F" opacity="0.4"/>
+            <text x="680" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">MATCH 71%</text>
+            <rect x="728" y="14" width="80" height="28" rx="14" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="768" y="32" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">DECLINED</text>
+            <text x="824" y="32" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.1em">"Not my space"</text>
+          </g>
+        </g>
+
+        <!-- Review + Send -->
+        <g transform="translate(40, 510)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">03 · REVIEW BIOS + SEND</text>
+          <rect x="0" y="22" width="920" height="100" rx="3" fill="#F5F2E8" stroke="#121212" stroke-width="0.5"/>
+          <text x="14" y="42" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">3 bios auto-tailored to the healthcare CMO brief. Each one&apos;s already loaded a Bio Module with the right headline,</text>
+          <text x="14" y="58" font-family="Inter, Arial, sans-serif" font-size="12" fill="#121212">stats, and 5 most relevant past engagements queued for review. Edit any field inline; approve to send.</text>
+
+          <g transform="translate(14, 76)">
+            <rect x="0" y="0" width="120" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="60" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">REVIEW NEMO</text>
+            <rect x="128" y="0" width="120" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="188" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">REVIEW CALEB</text>
+            <rect x="256" y="0" width="120" height="32" rx="2" fill="none" stroke="#121212" stroke-width="0.5"/>
+            <text x="316" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">REVIEW IVONNE</text>
+            <rect x="780" y="0" width="120" height="32" rx="2" fill="#EA633F"/>
+            <text x="840" y="20" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="600">SEND LINK →</text>
+          </g>
+        </g>
+
+        <line x1="40" y1="648" x2="960" y2="648" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+        <text x="40" y="668" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.18em" font-weight="500">BRIEF IN 9:14 · FITS SURFACED 9:15 · ACCEPTS BY 9:38 · BIOS QUEUED · READY AT 9:51</text>
+
+        <!-- ──── Numbered callouts ──── -->
+        <g>
+          <line x1="-32" y1="124" x2="-12" y2="124" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="124" r="11" fill="#EA633F"/>
+          <text x="-46" y="128" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <line x1="-32" y1="252" x2="-12" y2="252" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="252" r="11" fill="#EA633F"/>
+          <text x="-46" y="256" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <line x1="-32" y1="356" x2="-12" y2="356" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="356" r="11" fill="#EA633F"/>
+          <text x="-46" y="360" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+
+          <line x1="-32" y1="568" x2="-12" y2="568" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="568" r="11" fill="#EA633F"/>
+          <text x="-46" y="572" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+        </g>
+      </svg>
+
+      <!-- Legend -->
+      <svg viewBox="0 0 1060 100" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="960" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">ADMIN ANATOMY · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">BRIEF</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Pasted text + system-extracted tags</text>
+
+          <g transform="translate(280, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">SURFACED FITS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Match score + opt-in status per Chameleon</text>
+          </g>
+
+          <g transform="translate(560, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">LOWER-FIT (TRANSPARENT)</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Shown but de-emphasized · declines logged</text>
+          </g>
+        </g>
+        <g transform="translate(0, 84)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">4</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">REVIEW + SEND</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Per-Chameleon review · accent CTA fires the live link</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Lives at</div>
+        <div class="spec-value"><code>admin.chameleoncollective.com/deliverables/new</code> &middot; BD/CSM access only</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Replaces</div>
+        <div class="spec-value">The BD-posts-to-Slack scramble. Five DM threads → one structured queue. <a href="../stakeholders.html#decisions-pending">D-07 retires the raise-hand model</a>.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Time-to-send</div>
+        <div class="spec-value">~45 min from brief to live link (vs. half-day with old workflow). Most of the gap is Chameleon Slack response window.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Privacy</div>
+        <div class="spec-value">All match scores + decline reasons visible to BD. Chameleons see their own match status &amp; current pitches per <a href="../ideas.html#idea-29">Idea 29</a>.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── SECTION 03 · ANALYTICS ─── -->
+  <section class="expr-section" id="analytics">
+    <header class="expr-header">
+      <div class="expr-num">03</div>
+      <div class="expr-head-meta">
+        <div class="expr-tag">POST-SEND · TRACKED</div>
+        <h2 class="expr-name">Every move is measured.</h2>
+        <p class="expr-desc">After the link goes out, BD watches the engagement come back. Which Chameleon&apos;s bio did the client open first, which one did they dwell on, which sections of which bio got read. The system learns what closes &mdash; and the Chameleon sees their own analytics on their <a href="../ux.html#shapes">Profile · Admin</a> too. The single biggest gap the old PDF workflow had.</p>
+      </div>
+    </header>
+
+    <div class="wf-canvas">
+      <svg viewBox="-60 0 1060 580" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="560" rx="3" fill="#FFFFFF" stroke="#121212" stroke-width="0.75"/>
+        <line x1="0" y1="28" x2="1000" y2="28" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="24" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <circle cx="36" cy="14" r="3" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <rect x="56" y="8" width="380" height="12" rx="2" fill="none" stroke="#121212" stroke-width="0.4"/>
+        <text x="66" y="17" font-family="DM Mono, monospace" font-size="7" fill="#6F6A5F" letter-spacing="0.04em">admin.chameleoncollective.com/deliverables/acme-cmo/analytics</text>
+
+        <!-- Header -->
+        <g transform="translate(40, 50)">
+          <text x="0" y="14" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="600">DELIVERABLE ANALYTICS · ACME / CMO</text>
+          <text x="0" y="42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" fill="#121212" font-weight="500" letter-spacing="-0.005em">Day 3 of 14. Client engaged.</text>
+          <text x="0" y="64" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6F6A5F">Sent June 14 · 4 opens · 28 min total dwell · 1 calendar booking confirmed</text>
+        </g>
+
+        <line x1="40" y1="138" x2="960" y2="138" stroke="#121212" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- Top stats row -->
+        <g transform="translate(40, 158)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">AT A GLANCE</text>
+          <g transform="translate(0, 16)">
+            <rect x="0" y="0" width="216" height="80" rx="3" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+            <text x="14" y="20" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">OPENS</text>
+            <text x="14" y="56" font-family="IBM Plex Sans, Arial, sans-serif" font-size="36" font-weight="500" fill="#121212">4</text>
+            <text x="14" y="72" font-family="Inter, Arial, sans-serif" font-size="10" fill="#6F6A5F">3 unique sessions · 1 return visit</text>
+
+            <rect x="232" y="0" width="216" height="80" rx="3" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+            <text x="246" y="20" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">DWELL</text>
+            <text x="246" y="56" font-family="IBM Plex Sans, Arial, sans-serif" font-size="36" font-weight="500" fill="#121212">28<tspan font-size="20" fill="#6F6A5F">m</tspan></text>
+            <text x="246" y="72" font-family="Inter, Arial, sans-serif" font-size="10" fill="#6F6A5F">vs avg 11m · highly engaged</text>
+
+            <rect x="464" y="0" width="216" height="80" rx="3" fill="#F5F2E8" stroke="#121212" stroke-width="0.4"/>
+            <text x="478" y="20" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">CONVERTED ON</text>
+            <text x="478" y="56" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="500" fill="#121212">Nemo Morales</text>
+            <text x="478" y="72" font-family="Inter, Arial, sans-serif" font-size="10" fill="#EA633F" font-weight="500">Booked discovery call · Tue</text>
+
+            <rect x="696" y="0" width="224" height="80" rx="3" fill="#121212"/>
+            <text x="710" y="20" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em">EXPIRES IN</text>
+            <text x="710" y="56" font-family="IBM Plex Sans, Arial, sans-serif" font-size="36" font-weight="500" fill="#F5F2E8">11<tspan font-size="20" opacity="0.6">d</tspan></text>
+            <text x="710" y="72" font-family="Inter, Arial, sans-serif" font-size="10" fill="#F5F2E8" opacity="0.7">June 28 · BD can extend if needed</text>
+          </g>
+        </g>
+
+        <!-- Per-Chameleon engagement -->
+        <g transform="translate(40, 280)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">PER-CHAMELEON ENGAGEMENT</text>
+
+          <g transform="translate(0, 22)">
+            <!-- Nemo (most engagement) -->
+            <text x="0" y="14" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Nemo Morales</text>
+            <text x="160" y="14" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.14em" font-weight="600">14m 22s · 3 opens · CONVERTED ✓</text>
+            <rect x="0" y="22" width="800" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+            <rect x="0" y="22" width="640" height="14" rx="2" fill="#EA633F"/>
+            <text x="816" y="32" font-family="DM Mono, monospace" font-size="9" fill="#121212" font-weight="600">80%</text>
+
+            <text x="0" y="62" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Caleb Ludwick</text>
+            <text x="160" y="62" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">9m 48s · 2 opens · still considering</text>
+            <rect x="0" y="70" width="800" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+            <rect x="0" y="70" width="440" height="14" rx="2" fill="#EA633F" opacity="0.65"/>
+            <text x="816" y="80" font-family="DM Mono, monospace" font-size="9" fill="#121212">55%</text>
+
+            <text x="0" y="110" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="500" fill="#121212">Ivonne Azurdia</text>
+            <text x="160" y="110" font-family="DM Mono, monospace" font-size="9" fill="#6F6A5F" letter-spacing="0.14em">3m 41s · 1 open · briefly</text>
+            <rect x="0" y="118" width="800" height="14" rx="2" fill="#F5F2E8" stroke="#121212" stroke-width="0.3"/>
+            <rect x="0" y="118" width="160" height="14" rx="2" fill="#EA633F" opacity="0.4"/>
+            <text x="816" y="128" font-family="DM Mono, monospace" font-size="9" fill="#121212">20%</text>
+          </g>
+        </g>
+
+        <!-- Bio section heat -->
+        <g transform="translate(40, 450)">
+          <text x="0" y="0" font-family="DM Mono, monospace" font-size="9" fill="#EA633F" letter-spacing="0.22em" font-weight="600">WHAT THEY READ · NEMO&apos;S BIO</text>
+          <g transform="translate(0, 14)">
+            <rect x="0" y="0" width="160" height="38" rx="2" fill="#EA633F"/>
+            <text x="80" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">HEADER</text>
+            <text x="80" y="30" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#121212">100% read · 18s</text>
+
+            <rect x="172" y="0" width="220" height="38" rx="2" fill="#EA633F"/>
+            <text x="282" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">BIO PROSE</text>
+            <text x="282" y="30" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#121212">100% read · 2m 14s</text>
+
+            <rect x="404" y="0" width="260" height="38" rx="2" fill="#EA633F" opacity="0.85"/>
+            <text x="534" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">EXPERIENCE CARDS</text>
+            <text x="534" y="30" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#121212">All 5 viewed · PWC opened twice · 6m 02s</text>
+
+            <rect x="676" y="0" width="140" height="38" rx="2" fill="#EA633F" opacity="0.4"/>
+            <text x="746" y="16" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.12em" font-weight="600">CAPABILITIES</text>
+            <text x="746" y="30" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#121212">Skimmed · 24s</text>
+          </g>
+        </g>
+
+        <line x1="40" y1="538" x2="960" y2="538" stroke="#121212" stroke-width="0.4" opacity="0.3"/>
+
+        <!-- Numbered callouts -->
+        <g>
+          <line x1="-32" y1="190" x2="-12" y2="190" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="190" r="11" fill="#EA633F"/>
+          <text x="-46" y="194" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+
+          <line x1="-32" y1="350" x2="-12" y2="350" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="350" r="11" fill="#EA633F"/>
+          <text x="-46" y="354" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+
+          <line x1="-32" y1="480" x2="-12" y2="480" stroke="#EA633F" stroke-width="0.5"/>
+          <circle cx="-46" cy="480" r="11" fill="#EA633F"/>
+          <text x="-46" y="484" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+        </g>
+      </svg>
+
+      <!-- Legend -->
+      <svg viewBox="0 0 1060 80" xmlns="http://www.w3.org/2000/svg" style="margin-top: 14px;">
+        <line x1="0" y1="0" x2="960" y2="0" stroke="#121212" stroke-width="0.5" opacity="0.3"/>
+        <text x="0" y="20" font-family="DM Mono, monospace" font-size="10" fill="#EA633F" letter-spacing="0.22em" font-weight="500">ANALYTICS ANATOMY · KEY</text>
+
+        <g transform="translate(0, 40)">
+          <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+          <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">1</text>
+          <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">SUMMARY STATS</text>
+          <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Opens · dwell · converted · expiration window</text>
+
+          <g transform="translate(330, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">2</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">PER-CHAMELEON BARS</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Who got how much engagement</text>
+          </g>
+
+          <g transform="translate(660, 0)">
+            <circle cx="11" cy="11" r="11" fill="#EA633F"/>
+            <text x="11" y="15" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#121212" letter-spacing="0.04em" font-weight="600">3</text>
+            <text x="32" y="7" font-family="DM Mono, monospace" font-size="9" fill="#121212" letter-spacing="0.14em" font-weight="500">SECTION HEATMAP</text>
+            <text x="32" y="22" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6F6A5F">Which Bio Module sections got read</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="expr-spec">
+      <div class="spec-cell">
+        <div class="spec-label">Visible to</div>
+        <div class="spec-value">BD / CSM (full view) &middot; each Chameleon (their own row + their own bio heatmap) &middot; not the client</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Closes the loop</div>
+        <div class="spec-value">The system learns what closes &mdash; which bio framing, which experience cards, which capability emphasis converts. Feeds back into auto-tailoring for future briefs.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Replaces</div>
+        <div class="spec-value">The PDF black hole. Old workflow: send and pray. New workflow: send, watch, learn.</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Privacy</div>
+        <div class="spec-value">Client identity anonymized to other Chameleons (Caleb sees "Acme CMO pitch" — not "the deal Nemo won"). Match-score reasoning visible only to BD.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Closing / what this enables -->
+  <div class="lineage" style="margin-top: 32px;">
+    <div class="lineage-title">What this enables · what&apos;s next</div>
+    <div style="font-family: Inter, sans-serif; font-size: 14px; line-height: 1.6; color: var(--cc-ink);">
+      <p style="margin: 0 0 14px;">The Smart Deliverable Creator is the warm-pitch surface that the rest of the system orients around. With it shipped: BD doesn&apos;t scramble in Slack; Chameleons see the deals they&apos;re on without asking; clients get a tracked link instead of a stale PDF; the system learns what actually closes. <strong>Decision 008</strong> (Phase 1 build), <strong>Decision 006</strong> (PDF deprecated), and <strong>Decision 007</strong> (raise-hand model retired) all converge here.</p>
+      <p style="margin: 0;"><strong>Next detail:</strong> <a href="search-discovery.html" style="color: var(--cc-orange);">Search &amp; Discovery</a> &mdash; the cold-inbound flow that brings clients to a Profile in the first place. Conversational + traditional + SEO/GEO + Chameleon curation. <em>Now live.</em></p>
+    </div>
+  </div>
+
+  <p style="margin-top: 56px; text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cc-ink-soft);">
+    <a href="../ux.html" style="color: var(--cc-orange); text-decoration: none;">← Return to UX Architecture overview</a>
+  </p>
+
+</main>
+
+</body>
+</html>
